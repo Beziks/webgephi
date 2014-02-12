@@ -64,6 +64,22 @@
 
         <p><strong>Permissions:</strong> 'CLIENT_APP' and can request: 'PROFILE_READ', 'GRAPHS_READ', 'GRAPHS_WRITE'</p>
     </div>
+
+    <h3 class="lead page-header text-center">Consumer applications, OAuth</h3>
+
+    <p>If you want to access data of other users using OAuth protocol, you have to <a href="#consumerApplication">register your application first</a>.</p>
+
+    <p>After that, you have to implement OAuth client in your application. Workflow is:</p>
+    <ol>
+        <li>Get request token from webgephi server (with requested scopes defined)</li>
+        <li>Redirect user to webgephi server, where he authorizes request token (or not). After that, he is redirected back to your application with
+        all necessary informations in url params.</li>
+        <li>Exchange request token for access token</li>
+        <li>Access REST resources using request token</li>
+    </ol>
+
+    <p>If your application is written in java, you can use <a href="http://github.com/Beziks/webgephi/tree/master/webgephi-client">webgephi-client library</a>. Or at least, you can inspire how to implement your own client.
+    You can see how to use this library in <a href="http://github.com/Beziks/webgephi/tree/master/webgephi-testclientapp">webgephi-testclientapp</a> project.</p>
 </div>
 <!-- ======================================================================================== -->
 
