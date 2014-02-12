@@ -1,0 +1,18 @@
+<users xmlns:atom="http://www.w3.org/2005/Atom">
+    <atom:link rel="add" href="https://webgephi.cz/rest/users" type="text/xml"/>
+    <atom:link rel="self" href="https://webgephi.cz/rest/users" type="text/xml"/>
+    <user username="admin">
+        <atom:link rel="self" href="https://webgephi.cz/rest/users/admin" type="text/xml"/>
+        <atom:link rel="update" href="https://webgephi.cz/rest/users/admin" type="text/xml"/>
+        <email>admin@admin.cz</email>
+        <firstName>John</firstName>
+        <lastName>Admin</lastName>
+    </user>
+    <user username="user">
+        <atom:link rel="self" href="https://webgephi.cz/rest/users/user" type="text/xml"/>
+        <atom:link rel="update" href="https://webgephi.cz/rest/users/user" type="text/xml"/>
+        <email>user@user.cz</email>
+        <firstName>Pepa</firstName>
+        <lastName>User</lastName>
+    </user>
+</users>

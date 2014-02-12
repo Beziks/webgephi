@@ -1,0 +1,17 @@
+<jboss-deployment-structure xmlns="urn:jboss:deployment-structure:1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <deployment>
+        <exclusions>
+        </exclusions>
+        <!-- This allows you to define additional dependencies, it is the same
+            as using the Dependencies: manifest attribute -->
+        <dependencies>
+            <module name="org.apache.xalan" services="export" meta-inf="export"/>
+            <module name="org.apache.xerces" services="export" meta-inf="export"/>
+            <module name="org.jboss.as.naming"/>
+            <module name="org.jboss.as.server"/>
+            <module name="org.jboss.msc"/>
+            <module name="org.jboss.resteasy.resteasy-jaxrs"/>
+            <module name="org.apache.httpcomponents"/>
+        </dependencies>
+    </deployment>
+</jboss-deployment-structure>

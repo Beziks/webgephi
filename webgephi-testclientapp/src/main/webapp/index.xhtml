@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                template="/WEB-INF/templates/default.xhtml">
+    <ui:define name="content">
+        <div class="jumbotron">
+            <div class="container">
+                <h1 class="lead">Webgephi test client</h1>
+            </div>
+        </div>
+        <div class="container">
+            <h:form>
+                <br/>
+                <h:panelGroup rendered="#{clientBean.message != null}" class="alert alert-warning">
+                    #{clientBean.message}
+                </h:panelGroup>
+                <br/>
+                <div class="alert alert-info">
+                    Access token info:
+                    <h:outputFormat escape="false" value="#{connectionBean.accessTokenInfo}"/>
+                </div>
+
+                <div class="row">
+                    <div class="form-inline">
+                        <div class="form-group col-md-2">
+                            <div class="input-group">
+                                <span class="input-group-addon">Method</span>
+                                <h:selectOneMenu value="#{clientBean.method}" styleClass="form-control">
+                                    <f:selectItems value="#{clientBean.methods}"/>
+                                </h:selectOneMenu>
+                            </div>
+                            <p class="help-text">HTTP method</p>
+                        </div>
+                        <div class="form-group col-md-10">
+                            <div class="input-group">
+                                <span class="input-group-addon">Resource</span>
+                                <h:inputText value="#{clientBean.resource}" styleClass="form-control"/>
+                            </div>
+                            <p class="help-text">Path to resource (relative to {server_base}/rest)</p>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <div class="input-group">
+                                <span class="input-group-addon">Body</span>
+                                <h:inputTextarea value="#{clientBean.body}" styleClass="form-control"/>
+                            </div>
+                            <p class="help-text">Request body (used only for POST and PUT methods)</p>
+                        </div>
+                    </div>
+                </div>
+                <br/>
+
+                <div class="row">
+
+                    <code class="col-md-12">#{clientBean.status}</code>
+                </div>
+                <br/>
+
+                <div class="row">
+                    <pre class="highlight"><code class="xml" style="background-color: transparent">#{clientBean.responseBody}</code></pre>
+                </div>
+
+                <br/>
+                <h:commandButton value="Send request" actionListener="#{clientBean.sendRequest}" styleClass="btn btn-primary" disabled="#{connectionBean.getWebgephiClient() == null}">
+                    <f:ajax render="@form" execute="@form" onevent="hljs.initHighlightingOnLoad();"/>
+                </h:commandButton>
+            </h:form>
+        </div>
+    </ui:define>
+</ui:composition>

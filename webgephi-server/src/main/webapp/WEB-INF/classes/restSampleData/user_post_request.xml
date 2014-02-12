@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<user username="test">
+<email>test@test.cz</email>
+<firstName>John</firstName>
+<lastName>Doe</lastName>
+<password>password</password>
+</user>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+                template="/WEB-INF/templates/default.xhtml">
+    <ui:define name="content">
+        <div class="container">
+            <h1 class="lead text-center">Set up connection</h1>
+
+            <div class="well">
+                Here, you have to set up connection to server first.
+                <ul>
+                    <li>Set server url</li>
+                    <li>Log in via OAuth</li>
+                </ul>
+            </div>
+
+            <div class="alert alert-warning">
+               Message: #{connectionBean.message}
+            </div>
+
+            <div class="alert alert-info">
+                Access token:
+                <h:outputFormat escape="false" value="#{connectionBean.accessTokenInfo}" />
+            </div>
+
+            <h3 class="lead">URLs</h3>
+            <h:form>
+                <div class="control-group space-top">
+                    <div class="row ">
+                        <div class="col-md-7">
+                            <div class="input-group">
+                                <span class="input-group-addon">Client base url</span>
+                                <h:inputText value="#{connectionBean.clientBase}" disabled="true" class="form-control"/>
+                            </div>
+                            <p class="help-text">Url of this application. Used to send callback (redirect) after users authorization</p>
+                        </div>
+                        <!--<div class="alert alert-danger col-md-offset-7" data-field="secretError">Error message</div> -->
+                    </div>
+                </div>
+
+                <div class="control-group space-top">
+                    <div class="row ">
+                        <div class="col-md-7">
+                            <div class="input-group">
+                                <span class="input-group-addon">Server base url</span>
+                                <h:inputText value="#{connectionBean.serverBase}" class="form-control"/>
+                            </div>
+                            <p class="help-text">Url of webgephi server. Used to authorization and as a source of REST resources</p>
+                        </div>
+                        <!--<div class="alert alert-danger col-md-offset-7" data-field="secretError">Error message</div> -->
+                    </div>
+                </div>
+
+                <div class="control-group space-top">
+                    <div class="row ">
+                        <div class="col-md-7">
+                            <div class="input-group">
+                                <span class="input-group-addon">Client key</span>
+                                <h:inputText value="#{connectionBean.clientKey}" class="form-control"/>
+                            </div>
+                            <p class="help-text">Client key as set in webgephi-server application (id of consumer app)</p>
+                        </div>
+                        <!--<div class="alert alert-danger col-md-offset-7" data-field="secretError">Error message</div> -->
+                    </div>
+                </div>
+
+                <div class="control-group space-top">
+                    <div class="row ">
+                        <div class="col-md-7">
+                            <div class="input-group">
+                                <span class="input-group-addon">Client secret</span>
+                                <h:inputText value="#{connectionBean.clientSecret}" class="form-control"/>
+                            </div>
+                            <p class="help-text">Client secret as set in webgephi-server application (consumer app password)</p>
+                        </div>
+                        <!--<div class="alert alert-danger col-md-offset-7" data-field="secretError">Error message</div> -->
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="input-group">
+                        <h3 class="lead">Select required scopes (pemissions)</h3>
+
+                        <div class="checkbox row">
+                            <h:selectManyCheckbox value="#{connectionBean.scopes}" layout="pageDirection" styleClass="checkbox">
+                                <f:selectItem itemValue="PROFILE_READ"/>
+                                <f:selectItem itemValue="GRAPHS_READ"/>
+                                <f:selectItem itemValue="GRAPHS_WRITE"/>
+                            </h:selectManyCheckbox>
+                        </div>
+                    </div>
+                </div>
+
+                <h:commandButton action="#{connectionBean.getAccessToken}" value="Log in (get OAuth access token)" styleClass="btn btn-primary"/>
+            </h:form>
+        </div>
+
+    </ui:define>
+</ui:composition>

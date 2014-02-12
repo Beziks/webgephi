@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../../../../../../../../../../webapp/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="../../../../../../../../../../webapp/bootstrap/css/bootstrap-theme.css" rel="stylesheet">
+    <link href="../../../../../../../../../../webapp/css/application.css" rel="stylesheet">
+</head>
+
+<body>
+<!-- ======================================================================================== -->
+<div class="container">
+    <div data-field="root" class="userProfile">
+        <div class="well">If you are developer of some application and you would like too access graph storage
+        of other users, you can define application access here. Data will be accessible using OAuth v1 protocol.
+        </div>
+        <form class="form-horizontal userProfile" data-field="submitForm">
+            <legend class="hidden">Client application setting</legend>
+            <div class="control-group space-top">
+                <div class="row ">
+                    <div class="col-md-7">
+                        <div class="input-group">
+                            <span class="input-group-addon">Key *</span>
+                            <input type="text" data-field="key" class="form-control">
+                        </div>
+                        <p class="help-text">Unique identifier of your application. Should be short and simple.</p>
+                    </div>
+                    <div class="alert alert-danger col-md-offset-7" data-field="keyError">Error message</div>
+                </div>
+            </div>
+
+            <div class="control-group space-top">
+                <div class="row ">
+                    <div class="col-md-7">
+                        <div class="input-group">
+                            <span class="input-group-addon">Secret *</span>
+                            <input type="text" data-field="secret" class="form-control" />
+                            <span class="input-group-btn">
+                                 <button class="btn btn-default" type="button" data-field="generateSecret">Generate</button>
+                            </span>
+                        </div>
+                        <p class="help-text">It is your "application password". Use <code>Generate</code> button.</p>
+                    </div>
+                    <div class="alert alert-danger col-md-offset-7" data-field="secretError">Error message</div>
+                </div>
+            </div>
+
+            <div class="control-group space-top">
+                <div class="row ">
+                    <div class="col-md-7">
+                        <div class="input-group">
+                            <span class="input-group-addon">Application name *</span>
+                            <input type="text" data-field="applicationName" class="form-control">
+                        </div>
+                        <p class="help-text">Name of your application which will be shown to end user.</p>
+                    </div>
+                    <div class="alert alert-danger col-md-offset-7" data-field="applicationNameError">Error message</div>
+                </div>
+            </div>
+
+            <div class="control-group space-top">
+                <div class="row ">
+                    <div class="col-md-7">
+                        <div class="input-group">
+                            <span class="input-group-addon">Application url *</span>
+                            <input type="text" data-field="connectUri" class="form-control">
+                        </div>
+                        <p class="help-text">Url, where your application is accessible. Token callbacks will be sent there (if not specified otherwise in OAuth message)</p>
+                    </div>
+                    <div class="alert alert-danger col-md-offset-7" data-field="connectUriError">Error message</div>
+                </div>
+            </div>
+
+            <br/>
+
+            <div class="control-group">
+                <div class="controls">
+                    <button class="btn btn-default btn-primary" data-field="submitButton">Save</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- ======================================================================================== -->
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="../../../../../../../../../../webapp/bootstrap/js/bootstrap.js"></script>
+</body>
+</html>

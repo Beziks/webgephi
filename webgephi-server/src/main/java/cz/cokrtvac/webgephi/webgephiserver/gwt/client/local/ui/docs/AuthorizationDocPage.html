@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../../../../../../../../../../webapp/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="../../../../../../../../../../webapp/bootstrap/css/bootstrap-theme.css" rel="stylesheet">
+    <link href="../../../../../../../../../../webapp/css/application.css" rel="stylesheet">
+    <link href="../../../../../../../../../../webapp/highlight/default.css" rel="stylesheet">
+</head>
+
+<body>
+<!-- ======================================================================================== -->
+<div data-field="root" class="container docs">
+    <h2 class="lead page-header text-center">Authentication and Authorization documentation</h2>
+
+    <h3 class="lead page-header text-center">Authentication</h3>
+
+    <p>In server application, we have 2 placed to authenticate: GUI app (on /index.jsp) and REST resources (on /rest).</p>
+
+    <h4 class="lead">GUI app</h4>
+
+    <p>GUI application is used only for manage users and their consumer applications (and to authorize access to comsumer apps). Authentication
+        id done using form. User have the same rights as the user logged to REST resources using BASIC auth method.</p>
+
+    <h4 class="lead">REST resources</h4>
+
+    <p>If you want to access restricted REST resources, you have 2 possibilities to authenticate: BASIC and OAuth v1.</p>
+
+    <p>Method is selected depending on request header. OAuth is preferred.
+        If no method is set, response with BASIC proposal is returned (so user can simply access resources using web browser).</p>
+
+    <h3 class="lead page-header text-center">Authorization</h3>
+    <h4 class="lead">Available permissions
+        <small>('scopes' in OAuth)</small>
+    </h4>
+
+    <div class="list-group" data-field="scopes">
+        <div class="list-group-item" data-field="rootScope">
+            <h4 class="list-group-item-heading" data-field="scopeTitle">PROFILE_READ</h4>
+
+            <p class="list-group-item-text" data-field="scopeDescription">tadata</p>
+        </div>
+    </div>
+
+    <h4 class="lead">Roles</h4>
+
+    <div class="alert alert-info">
+        <h5 class="lead">User</h5>
+
+        <p>Regular user, if he logs in using BASIC or FORM. Can do anything with his data.</p>
+
+        <p><strong>Permissions:</strong> 'USER', 'PROFILE_READ', 'PROFILE_WRITE', 'GRAPHS_READ', 'GRAPHS_WRITE'</p>
+    </div>
+    <div class="alert alert-info">
+        <h5 class="lead">Admin</h5>
+
+        <p>Can do anything, permissions are the same as 'User' + 'ADMIN' role</p>
+    </div>
+    <div class="alert alert-info">
+        <h5 class="lead">Consumer application</h5>
+
+        <p>Consumer can give permission to access his account to some third party 'consumer' application (using OAuth protocol).
+            This application, when access his resources later, has role 'Consumer application'. All permissions have to be requested during
+            request token authorization and user sees which permissions consumer app requests.</p>
+
+        <p><strong>Permissions:</strong> 'CLIENT_APP' and can request: 'PROFILE_READ', 'GRAPHS_READ', 'GRAPHS_WRITE'</p>
+    </div>
+</div>
+<!-- ======================================================================================== -->
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="../../../../../../../../../../webapp/bootstrap/js/bootstrap.js"></script>
+<script src="../../../../../../../../../../webapp/highlight/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</body>
+</html>

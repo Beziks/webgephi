@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphs xmlns:atom="http://www.w3.org/2005/Atom">
+    <atom:link
+        href="https://www.webgephi.cz/rest/users/test/graphs?page=1&amp;pageSize=5"
+        rel="first" type="text/xml"/>
+    <atom:link
+        href="https://www.webgephi.cz/rest/users/test/graphs?page=1&amp;pageSize=5"
+        rel="prev" type="text/xml"/>
+    <atom:link
+        href="https://www.webgephi.cz/rest/users/test/graphs?page=2&amp;pageSize=5"
+        rel="self" type="text/xml"/>
+    <atom:link
+        href="https://www.webgephi.cz/rest/users/test/graphs?page=2&amp;pageSize=5"
+        rel="last" type="text/xml"/>
+    <graph id="68">
+        <atom:link
+            href="https://www.webgephi.cz/rest/users/test/graphs/68/svg"
+            rel="self" type="image/svg+xml"/>
+        <atom:link
+            href="https://www.webgephi.cz/rest/users/test/graphs/68/gexf"
+            rel="self" type="application/xml"/>
+        <atom:link
+            href="https://www.webgephi.cz/rest/users/test/graphs/68"
+            rel="self" type="text/xml"/>
+        <atom:link
+            href="https://www.webgephi.cz/rest/users/test/graphs/68"
+            rel="apply-function" type="text/xml"/>
+        <atom:link href="https://www.webgephi.cz/rest/users/test/graphs"
+                   rel="add" type="text/xml"/>
+        <name>testGraphName</name>
+    </graph>
+    <graph id="69">
+        <atom:link
+            href="https://www.webgephi.cz/rest/users/test/graphs/69/svg"
+            rel="self" type="image/svg+xml"/>
+        <atom:link
+            href="https://www.webgephi.cz/rest/users/test/graphs/69/gexf"
+            rel="self" type="application/xml"/>
+        <atom:link
+            href="https://www.webgephi.cz/rest/users/test/graphs/69"
+            rel="self" type="text/xml"/>
+        <atom:link
+            href="https://www.webgephi.cz/rest/users/test/graphs/69"
+            rel="apply-function" type="text/xml"/>
+        <atom:link href="https://www.webgephi.cz/rest/users/test/graphs"
+                   rel="add" type="text/xml"/>
+        <name>testGraphName</name>
+    </graph>
+    <graph id="70">
+        <atom:link
+            href="https://www.webgephi.cz/rest/users/test/graphs/70/svg"
+            rel="self" type="image/svg+xml"/>
+        <atom:link
+            href="https://www.webgephi.cz/rest/users/test/graphs/70/gexf"
+            rel="self" type="application/xml"/>
+        <atom:link
+            href="https://www.webgephi.cz/rest/users/test/graphs/70"
+            rel="self" type="text/xml"/>
+        <atom:link
+            href="https://www.webgephi.cz/rest/users/test/graphs/70"
+            rel="apply-function" type="text/xml"/>
+        <atom:link href="https://www.webgephi.cz/rest/users/test/graphs"
+                   rel="add" type="text/xml"/>
+        <name>testGraphName</name>
+    </graph>
+</graphs>

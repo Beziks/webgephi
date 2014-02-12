@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+
+    <context-param>
+        <param-name>oauth.provider.provider-class</param-name>
+        <param-value>cz.cokrtvac.webgephi.webgephiserver.core.auth.oauth.WebgephiOauthProvider</param-value>
+    </context-param>
+
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+
+    <servlet>
+        <servlet-name>OAuth</servlet-name>
+        <servlet-class>cz.cokrtvac.webgephi.webgephiserver.core.auth.oauth.OAuthServlet</servlet-class>
+        <init-param>
+            <param-name>authorization.redirect</param-name>
+            <param-value>index.jsp</param-value>
+        </init-param>
+        <init-param>
+            <param-name>authorization.redirect.anchor</param-name>
+            <param-value>#authorizeApp</param-value>
+        </init-param>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>OAuth</servlet-name>
+        <url-pattern>/oauth/*</url-pattern>
+    </servlet-mapping>
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>RestResources</web-resource-name>
+            <url-pattern>/rest/users/*</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>Errai app</web-resource-name>
+            <url-pattern>/index.jsp</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>*</role-name>
+        </auth-constraint>
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Errai app</web-resource-name>
+            <url-pattern>/index.jsp</url-pattern>
+        </web-resource-collection>
+       <!-- <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>  -->
+    </security-constraint>
+
+    <security-role>
+        <role-name>*</role-name>
+    </security-role>
+
+    <login-config>
+        <auth-method>BASIC+OAUTH</auth-method>
+        <realm-name>Webgephi SERVER login</realm-name>
+    </login-config>
+</web-app>

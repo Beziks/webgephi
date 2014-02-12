@@ -1,0 +1,94 @@
+#content {
+    margin-top: 50px;
+}
+
+h3.lead {
+    margin-bottom: 0;
+}
+
+table.checkbox {
+    margin: 0;
+}
+
+
+
+
+
+
+
+/* ==========================================  */
+.gwt-DialogBox {
+    z-index: 10000;
+}
+.jumbotron {
+    background: url("#{resource['images/header.png']}") 50% 50% no-repeat no-repeat;
+    background-color: #d4dcfc;
+}
+
+.jumbotron h1 {
+    font-size: 2.2em;
+    color: white;
+    text-shadow: black 0 0 7px;
+    text-outline: 1px 1 red;
+    margin: 0;
+}
+
+.jumbotron {
+    padding: 20px;
+    margin: 0;
+}
+
+.cursor {
+    cursor: pointer;
+}
+
+.messageAlert {
+    position: absolute;
+    z-index: 100;
+    left: 50%;
+    top: 15%;
+}
+
+.space-top {
+    margin-top: 10px;
+}
+
+.custom-tabs {
+    border-left: 1px solid #428BCA;
+    border-right: 1px solid #428BCA;
+}
+
+.userProfile .alert {
+    margin-right: 15px;
+    padding: 6px;
+    margin-bottom: 0;
+}
+
+.help-text{
+    font-size: 0.8em;
+    color: #666;
+    margin-bottom: 0;
+}
+
+.table > tbody > tr > td.middle {
+    vertical-align: middle;
+}
+
+.consumerTable .list-group-item {
+    margin: 0;
+    padding: 4px;
+
+}
+
+.consumerTable .list-group-item .list-group-item-heading {
+     font-size: 1.1em;
+ }
+
+.consumerTable .list-group-item .list-group-item-text {
+    font-size: 1em;
+    color: #555;
+}
+.consumerTable .list-group {
+    padding: 0;
+    margin: 0;
+}

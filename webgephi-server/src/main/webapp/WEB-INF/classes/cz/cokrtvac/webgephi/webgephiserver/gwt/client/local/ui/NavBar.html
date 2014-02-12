@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../../../../../../../../../webapp/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="../../../../../../../../../webapp/bootstrap/css/bootstrap-theme.css" rel="stylesheet">
+    <link href="../../../../../../../../../webapp/css/application.css" rel="stylesheet">
+</head>
+
+<body>
+<!-- ======================================================================================== -->
+<div data-field="root" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Webgephi server</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a data-field="createAccount" href="#createAccount" class="cursor">Create account</a></li>
+                <li><a data-field="restDocs" href="#restDocs" class="cursor">REST documentation</a></li>
+                <li><a data-field="authDocs" href="#authDocs" class="cursor">AUTH documentation</a></li>
+                <!--<li><a data-field="adminTest" href="#adminTest" class="cursor">Admin private page</a></li>-->
+            </ul>
+
+
+            <div data-field="form">
+                <div class="navbar-form navbar-right">
+                    <form role="form" data-field="submitForm">
+                        <div class="form-group">
+                            <input type="text" data-field="username" placeholder="Username" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" data-field="password" placeholder="Password" class="form-control">
+                        </div>
+                        <button data-field="submitButton" class="btn btn-primary btn-default">Sign in</button>
+                    </form>
+                </div>
+            </div>
+
+            <div data-field="userInfo">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a data-field="consumerApplication" href="#consumerApplication" class="cursor">Consumer app</a></li>
+                    <li><a data-field="editAccount" href="#editAccount" class="cursor">My Account</a></li>
+                    <li class="navbar-form navbar-right"><form><button class="btn btn-default btn-primary" data-field="logout">Sign Out</button></form></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ======================================================================================== -->
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="../../../../../../../../../webapp/bootstrap/js/bootstrap.js"></script>
+</body>
+</html>

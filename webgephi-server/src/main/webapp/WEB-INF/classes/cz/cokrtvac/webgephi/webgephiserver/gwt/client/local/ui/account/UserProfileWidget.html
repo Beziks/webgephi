@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../../../../../../../../../../webapp/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="../../../../../../../../../../webapp/bootstrap/css/bootstrap-theme.css" rel="stylesheet">
+    <link href="../../../../../../../../../../webapp/css/application.css" rel="stylesheet">
+</head>
+
+<body>
+<!-- ======================================================================================== -->
+<div class="container">
+    <div class="well">well</div>
+    <div data-field="root" class="userProfile">
+        <form class="form-horizontal userProfile" data-field="submitForm">
+            <legend class="hidden">Create account</legend>
+            <div class="control-group space-top">
+                <div class="row ">
+                    <div class="col-md-5">
+                        <div class="input-group">
+                            <span class="input-group-addon">Username *</span>
+                            <input type="text" data-field="username" class="form-control">
+                        </div>
+                    </div>
+                    <div class="alert alert-danger col-md-offset-5" data-field="usernameError">Error message</div>
+                </div>
+            </div>
+
+            <div class="control-group space-top">
+                <div class="row ">
+                    <div class="col-md-5">
+                        <div class="input-group">
+                            <span class="input-group-addon">Password *</span>
+                            <input type="password" data-field="password" class="form-control">
+                        </div>
+                    </div>
+                    <div class="alert alert-danger col-md-offset-5" data-field="passwordError">Error message</div>
+                </div>
+            </div>
+
+            <div class="control-group space-top">
+                <div class="row ">
+                    <div class="col-md-5">
+                        <div class="input-group">
+                            <span class="input-group-addon">First name *</span>
+                            <input type="text" data-field="firstName" class="form-control">
+                        </div>
+                    </div>
+                    <div class="alert alert-danger col-md-offset-5" data-field="firstNameError">Error message</div>
+                </div>
+            </div>
+
+            <div class="control-group space-top">
+                <div class="row ">
+                    <div class="col-md-5">
+                        <div class="input-group">
+                            <span class="input-group-addon">Last name *</span>
+                            <input type="text" data-field="lastName" class="form-control">
+                        </div>
+                    </div>
+                    <div class="alert alert-danger col-md-offset-5" data-field="lastNameError">Error message</div>
+                </div>
+            </div>
+
+            <div class="control-group space-top">
+                <div class="row ">
+                    <div class="col-md-5">
+                        <div class="input-group">
+                            <span class="input-group-addon">Email *</span>
+                            <input type="text" data-field="email" class="form-control">
+                        </div>
+                    </div>
+                    <div class="alert alert-danger col-md-offset-5" data-field="emailError">Error message</div>
+                </div>
+            </div>
+
+            <br/>
+
+            <div class="control-group">
+                <div class="controls">
+                    <button class="btn btn-default btn-primary" data-field="submitButton">Create account</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- ======================================================================================== -->
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="../../../../../../../../../../webapp/bootstrap/js/bootstrap.js"></script>
+</body>
+</html>

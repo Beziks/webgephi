@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../../../../../../../../../../webapp/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="../../../../../../../../../../webapp/bootstrap/css/bootstrap-theme.css" rel="stylesheet">
+    <link href="../../../../../../../../../../webapp/css/application.css" rel="stylesheet">
+    <link href="../../../../../../../../../../webapp/highlight/default.css" rel="stylesheet">
+</head>
+
+<body>
+<!-- ======================================================================================== -->
+<div data-field="root" class="container docs">
+    <h2 class="lead text-center">REST services description</h2>
+
+    <!--<button type="button" data-field="highlightButton" value="Highlight">Highlight</button> -->
+
+    <div class="panel-group" id="restDescriptions">
+        <div data-field="rootWidget" class="panel panel-danger">
+            <div class="panel-heading">
+                <h3 data-field="name" class="lead">Error response</h3>
+            </div>
+            <div class="panel-body">
+                <div data-field="description">If something is wrong, error response is returned instead of regular xml or html (with corresponding http status).</div>
+            </div>
+
+            <div class="panel-footer">
+                <a data-field="requestToogle" data-toggle="collapse" data-parent="#accordion" href="#xmlErr">
+                    XML error message
+                </a>
+
+                <div data-field="request" id="xmlErr" class="panel-collapse collapse">
+                    <pre class="highlight"><code data-field="sampleRequestBody" class="xml" style="background-color: transparent">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;error&gt;
+    &lt;code number=&quot;409&quot;&gt;Conflict&lt;/code&gt;
+    &lt;message&gt;User is invalid&lt;/message&gt;
+    &lt;detail&gt;Username test is already taken.&lt;/detail&gt;
+&lt;/error&gt;</code></pre>
+                </div>
+            </div>
+
+            <div class="panel-footer">
+                <a data-field="responseToogle" data-toggle="collapse" data-parent="#accordion" href="#htmlErr">
+                    HTML error message
+                </a>
+
+                <div data-field="response" id="htmlErr" class="panel-collapse collapse">
+                    <pre class="highlight"><code data-field="sampleResponseBody" class="xml" style="background-color: transparent">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Error 404 (Not Found)&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;404 (Not Found)&lt;/h1&gt;
+    &lt;ul&gt;
+        &lt;li&gt;Message: This graph has no statistics&lt;/li&gt;
+        &lt;li&gt;Detail: Statistics are set only if some statistic function was applied previously&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                </div>
+            </div>
+        </div>
+        <br />
+        <!-- /widget -->
+        <div data-field="panel">
+            <!-- widget -->
+            <div data-field="rootWidget" class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 data-field="name" class="lead">Layout functions</h3>
+                </div>
+                <div class="panel-body">
+                    <div data-field="description">List of all available layout functions</div>
+                    <ul class="list-group">
+                        <li class="list-group-item"><span data-field="method">GET</span> <span data-field="resource">/layouts</span></li>
+                        <li class="list-group-item">Authentication (permission): <span data-field="authentication">no</span></li>
+
+                    </ul>
+                </div>
+
+                <div class="panel-footer">
+                    <a data-field="requestToogle" data-toggle="collapse" data-parent="#accordion" href="#requestA">
+                        Sample Request
+                    </a>
+
+                    <div data-field="request" id="requestA" class="panel-collapse collapse">
+                        <div data-field="sampleRequest">GET /layouts</div>
+                        Body:
+                        <pre class="highlight"><code data-field="sampleRequestBody" class="xml" style="background-color: transparent">&lt;sample&gt;aaa&lt;/sample&gt;</code></pre>
+                    </div>
+                </div>
+
+                <div class="panel-footer">
+                    <a data-field="responseToogle" data-toggle="collapse" data-parent="#accordion" href="#responseA">
+                        Sample Response
+                    </a>
+
+                    <div data-field="response" id="responseA" class="panel-collapse collapse">
+                        <pre class="highlight"><code data-field="sampleResponseBody" class="xml" style="background-color: transparent">&lt;sample&gt;aaa&lt;/sample&gt;</code></pre>
+                    </div>
+                </div>
+            </div>
+            <!-- /widget -->
+        </div>
+    </div>
+</div>
+<!-- ======================================================================================== -->
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="../../../../../../../../../../webapp/bootstrap/js/bootstrap.js"></script>
+<script src="../../../../../../../../../../webapp/highlight/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</body>
+</html>

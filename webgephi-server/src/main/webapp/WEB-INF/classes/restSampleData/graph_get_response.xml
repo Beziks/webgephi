@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graph id="68" xmlns:atom="http://www.w3.org/2005/Atom">
+    <atom:link
+        href="https://www.webgephi.cz/rest/users/test/graphs/68/svg"
+        rel="self" type="image/svg+xml"/>
+    <atom:link
+        href="https://www.webgephi.cz/rest/users/test/graphs/68/gexf"
+        rel="self" type="application/xml"/>
+    <atom:link href="https://www.webgephi.cz/rest/users/test/graphs/68"
+               rel="self" type="text/xml"/>
+    <atom:link href="https://www.webgephi.cz/rest/users/test/graphs/68"
+               rel="apply-function" type="text/xml"/>
+    <atom:link href="https://www.webgephi.cz/rest/users/test/graphs"
+               rel="add" type="text/xml"/>
+    <name>testGraphName</name>
+</graph>

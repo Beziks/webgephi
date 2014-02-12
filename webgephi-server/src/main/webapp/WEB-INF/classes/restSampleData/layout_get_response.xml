@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout id="clockwise-rotate" xmlns:atom="http://www.w3.org/2005/Atom">
+    <name>Clockwise Rotate</name>
+    <properties>
+        <property id="clockwise.angle.name">
+            <description>Clockwise rotation angle in degrees</description>
+            <name>Angle</name>
+            <type>java.lang.Double</type>
+            <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:double">90.0</value>
+        </property>
+    </properties>
+    <atom:link
+        href="https://www.webgephi.cz/rest/layouts/clockwise-rotate" rel="self"/>
+</layout>

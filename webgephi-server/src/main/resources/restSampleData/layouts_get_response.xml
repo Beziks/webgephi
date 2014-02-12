@@ -1,0 +1,482 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layouts xmlns:atom="http://www.w3.org/2005/Atom">
+    <atom:link href="https://www.webgephi.cz/rest/layouts" rel="self"/>
+    <layout id="clockwise-rotate">
+        <name>Clockwise Rotate</name>
+        <properties>
+            <property id="clockwise.angle.name">
+                <description>Clockwise rotation angle in degrees</description>
+                <name>Angle</name>
+                <type>java.lang.Double</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:double">90.0</value>
+            </property>
+        </properties>
+        <atom:link
+            href="https://www.webgephi.cz/rest/layouts/clockwise-rotate" rel="self"/>
+    </layout>
+    <layout id="contraction">
+        <name>Contraction</name>
+        <properties>
+            <property id="ScaleLayout.scaleFactor.name">
+                <description>Scale factor</description>
+                <name>Scale factor</name>
+                <type>java.lang.Double</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:double">0.8</value>
+            </property>
+        </properties>
+        <atom:link
+            href="https://www.webgephi.cz/rest/layouts/contraction" rel="self"/>
+    </layout>
+    <layout id="counter-clockwise-rotate">
+        <name>Counter-Clockwise Rotate</name>
+        <properties>
+            <property id="clockwise.angle.name">
+                <description>Clockwise rotation angle in degrees</description>
+                <name>Angle</name>
+                <type>java.lang.Double</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:double">90.0</value>
+            </property>
+        </properties>
+        <atom:link
+            href="https://www.webgephi.cz/rest/layouts/counter-clockwise-rotate" rel="self"/>
+    </layout>
+    <layout id="expansion">
+        <name>Expansion</name>
+        <properties>
+            <property id="ScaleLayout.scaleFactor.name">
+                <description>Scale factor</description>
+                <name>Scale factor</name>
+                <type>java.lang.Double</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:double">1.2</value>
+            </property>
+        </properties>
+        <atom:link href="https://www.webgephi.cz/rest/layouts/expansion" rel="self"/>
+    </layout>
+    <layout id="force-atlas">
+        <name>Force Atlas</name>
+        <properties>
+            <property id="forceAtlas.inertia.name">
+                <description>Conservation of node speed at each new pass</description>
+                <name>Inertia</name>
+                <type>java.lang.Double</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:double">0.1</value>
+            </property>
+            <property id="forceAtlas.repulsionStrength.name">
+                <description>How strongly does each node reject others</description>
+                <name>Repulsion strength</name>
+                <type>java.lang.Double</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:double">200.0</value>
+            </property>
+            <property id="forceAtlas.attractionStrength.name">
+                <description>How strongly does each pair of connected nodes attract each other</description>
+                <name>Attraction strength</name>
+                <type>java.lang.Double</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:double">10.0</value>
+            </property>
+            <property id="forceAtlas.maxDisplacement.name">
+                <description>This is limiting each node's displacement (to prevent some super-rejecting when nodes are too close)</description>
+                <name>Maximum displacement</name>
+                <type>java.lang.Double</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:double">10.0</value>
+            </property>
+            <property id="forceAtlas.freezeBalance.name">
+                <description>Activates the freezing of unstable nodes. Despite some loss of efficiency, this prevents most of nodes flickering</description>
+                <name>Auto stabilize function</name>
+                <type>java.lang.Boolean</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:boolean">true</value>
+            </property>
+            <property id="forceAtlas.freezeStrength.name">
+                <description>Power of the auto stabilize function</description>
+                <name>Autostab Strength</name>
+                <type>java.lang.Double</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:double">80.0</value>
+            </property>
+            <property id="forceAtlas.freezeInertia.name">
+                <description>[0,1] This parameters represents the auto-adaptiveness of the anti-flickering function (actually, the freezing inertia)</description>
+                <name>Autostab sensibility</name>
+                <type>java.lang.Double</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:double">0.2</value>
+            </property>
+            <property id="forceAtlas.gravity.name">
+                <description>This force attracts all nodes to the center to avoid dispersion of disconnected components</description>
+                <name>Gravity</name>
+                <type>java.lang.Double</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:double">30.0</value>
+            </property>
+            <property id="forceAtlas.outboundAttractionDistribution.name">
+                <description>The attractive force is distributed along outbound links. This tends to push hubs at the periphery and put authorities more central</description>
+                <name>Attraction Distrib.</name>
+                <type>java.lang.Boolean</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:boolean">false</value>
+            </property>
+            <property id="forceAtlas.adjustSizes.name">
+                <description>Avoid nodes overlapping (depending from the size of each node)</description>
+                <name>Adjust by Sizes</name>
+                <type>java.lang.Boolean</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:boolean">false</value>
+            </property>
+            <property id="forceAtlas.speed.name">
+                <description>Value &gt; 0 default 1 ; permits you to increase convergence speed at the price of a precision loss</description>
+                <name>Speed</name>
+                <type>java.lang.Double</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:double">1.0</value>
+            </property>
+        </properties>
+        <atom:link
+            href="https://www.webgephi.cz/rest/layouts/force-atlas" rel="self"/>
+    </layout>
+    <layout id="forceatlas-2">
+        <name>ForceAtlas 2</name>
+        <properties>
+            <property id="ForceAtlas2.scalingRatio.name">
+                <description>How much repulsion you want. More makes a more sparse graph.</description>
+                <name>Scaling</name>
+                <type>java.lang.Double</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:double">10.0</value>
+            </property>
+            <property id="ForceAtlas2.strongGravityMode.name">
+                <description>A stronger gravity law</description>
+                <name>Stronger Gravity</name>
+                <type>java.lang.Boolean</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:boolean">false</value>
+            </property>
+            <property id="ForceAtlas2.gravity.name">
+                <description>Attracts nodes to the center. Prevents islands from drifting away.</description>
+                <name>Gravity</name>
+                <type>java.lang.Double</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:double">1.0</value>
+            </property>
+            <property id="ForceAtlas2.distributedAttraction.name">
+                <description>Distributes attraction along outbound edges. Hubs attract less and thus are pushed to the borders.</description>
+                <name>Dissuade Hubs</name>
+                <type>java.lang.Boolean</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:boolean">false</value>
+            </property>
+            <property id="ForceAtlas2.linLogMode.name">
+                <description>Switch ForceAtlas' model from lin-lin to lin-log (tribute to Andreas Noack). Makes clusters more tight.</description>
+                <name>LinLog mode</name>
+                <type>java.lang.Boolean</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:boolean">false</value>
+            </property>
+            <property id="ForceAtlas2.adjustSizes.name">
+                <description>Use only when spatialized. Should not be used with "Approximate Repulsion"</description>
+                <name>Prevent Overlap</name>
+                <type>java.lang.Boolean</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:boolean">false</value>
+            </property>
+            <property id="ForceAtlas2.edgeWeightInfluence.name">
+                <description>How much influence you give to the edges weight. 0 is "no influence" and 1 is "normal".</description>
+                <name>Edge Weight Influence</name>
+                <type>java.lang.Double</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:double">1.0</value>
+            </property>
+            <property id="ForceAtlas2.jitterTolerance.name">
+                <description>How much swinging you allow. Above 1 discouraged. Lower gives less speed and more precision.</description>
+                <name>Tolerance (speed)</name>
+                <type>java.lang.Double</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:double">0.1</value>
+            </property>
+            <property id="ForceAtlas2.barnesHutOptimization.name">
+                <description>Barnes Hut optimization: n² complexity to n.ln(n) ; allows larger graphs.</description>
+                <name>Approximate Repulsion</name>
+                <type>java.lang.Boolean</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:boolean">false</value>
+            </property>
+            <property id="ForceAtlas2.barnesHutTheta.name">
+                <description>Theta of the Barnes Hut optimization.</description>
+                <name>Approximation</name>
+                <type>java.lang.Double</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:double">1.2</value>
+            </property>
+            <property id="ForceAtlas2.threads.name">
+                <description>More threads means more speed if your cores can handle it.</description>
+                <name>Threads number</name>
+                <type>java.lang.Integer</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:int">2</value>
+            </property>
+        </properties>
+        <atom:link
+            href="https://www.webgephi.cz/rest/layouts/forceatlas-2" rel="self"/>
+    </layout>
+    <layout id="fruchterman-reingold">
+        <name>Fruchterman Reingold</name>
+        <properties>
+            <property id="fruchtermanReingold.area.name">
+                <description>The graph size area, for example 1000 for 100 nodes.</description>
+                <name>Area</name>
+                <type>java.lang.Float</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:float">10000.0</value>
+            </property>
+            <property id="fruchtermanReingold.gravity.name">
+                <description>This force attracts all nodes to the center to avoid dispersion of disconnected components.</description>
+                <name>Gravity</name>
+                <type>java.lang.Double</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:double">10.0</value>
+            </property>
+            <property id="fruchtermanReingold.speed.name">
+                <description>Value &gt; 0 default 1 ; increase convergence speed at the price of a precision loss.</description>
+                <name>Speed</name>
+                <type>java.lang.Double</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:double">1.0</value>
+            </property>
+        </properties>
+        <atom:link
+            href="https://www.webgephi.cz/rest/layouts/fruchterman-reingold" rel="self"/>
+    </layout>
+    <layout id="label-adjust">
+        <name>Label Adjust</name>
+        <properties>
+            <property id="LabelAdjust.speed.name">
+                <description>Speed factor</description>
+                <name>Speed</name>
+                <type>java.lang.Double</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:double">1.0</value>
+            </property>
+            <property id="LabelAdjust.adjustBySize.name">
+                <description>Include node size in repulsion</description>
+                <name>Include Node size</name>
+                <type>java.lang.Boolean</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:boolean">true</value>
+            </property>
+        </properties>
+        <atom:link
+            href="https://www.webgephi.cz/rest/layouts/label-adjust" rel="self"/>
+    </layout>
+    <layout id="random-layout">
+        <name>Random Layout</name>
+        <properties>
+            <property id="Random.spaceSize.name">
+                <description>The size of the space to randomly distribute the nodes.</description>
+                <name>Space size</name>
+                <type>java.lang.Double</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:double">50.0</value>
+            </property>
+        </properties>
+        <atom:link
+            href="https://www.webgephi.cz/rest/layouts/random-layout" rel="self"/>
+    </layout>
+    <layout id="test">
+        <name>TEST</name>
+        <properties>
+            <property id="Refine">
+                <description>Refine</description>
+                <name>Refine</name>
+                <type>java.lang.Boolean</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:boolean">false</value>
+            </property>
+            <property id="Column">
+                <description>Refine</description>
+                <name>Column</name>
+                <type>org.gephi.data.attributes.api.AttributeColumn</type>
+            </property>
+        </properties>
+        <atom:link href="https://www.webgephi.cz/rest/layouts/test" rel="self"/>
+    </layout>
+    <layout id="yifan-hu">
+        <name>Yifan Hu</name>
+        <properties>
+            <property id="YifanHu.optimalDistance.name">
+                <description>The natural length of the springs. Bigger values mean nodes will be farther apart.</description>
+                <name>Optimal Distance</name>
+                <type>java.lang.Float</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:float">100.0</value>
+            </property>
+            <property id="YifanHu.relativeStrength.name">
+                <description>The relative strength between electrical force (repulsion) and spring force (attraction).</description>
+                <name>Relative Strength</name>
+                <type>java.lang.Float</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:float">0.2</value>
+            </property>
+            <property id="YifanHu.initialStepSize.name">
+                <description>The initial step size used in the integration phase. Set this value to a meaningful size compared to the optimal distance (10% is a good starting point).</description>
+                <name>Initial Step size</name>
+                <type>java.lang.Float</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:float">20.0</value>
+            </property>
+            <property id="YifanHu.stepRatio.name">
+                <description>The ratio used to update the step size across iterations.</description>
+                <name>Step ratio</name>
+                <type>java.lang.Float</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:float">0.95</value>
+            </property>
+            <property id="YifanHu.adaptativeCooling.name">
+                <description>Controls the use of adaptive cooling. It is used help the layout algoritm to avoid energy local minima.</description>
+                <name>Adaptive Cooling</name>
+                <type>java.lang.Boolean</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:boolean">true</value>
+            </property>
+            <property id="YifanHu.convergenceThreshold.name">
+                <description>Relative energy convergence threshold. Smaller values mean more accuracy.</description>
+                <name>Convergence Threshold</name>
+                <type>java.lang.Float</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:float">1.0E-4</value>
+            </property>
+            <property id="YifanHu.quadTreeMaxLevel.name">
+                <description>The maximun level to be used in the quadtree representation. Greater values mean more accuracy.</description>
+                <name>Quadtree Max Level</name>
+                <type>java.lang.Integer</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:int">10</value>
+            </property>
+            <property id="YifanHu.theta.name">
+                <description>The theta parameter for Barnes-Hut opening criteria. Smaller values mean more accuracy.</description>
+                <name>Theta</name>
+                <type>java.lang.Float</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:float">1.2</value>
+            </property>
+        </properties>
+        <atom:link href="https://www.webgephi.cz/rest/layouts/yifan-hu" rel="self"/>
+    </layout>
+    <layout id="yifan-hu-proportional">
+        <name>Yifan Hu Proportional</name>
+        <properties>
+            <property id="YifanHu.optimalDistance.name">
+                <description>The natural length of the springs. Bigger values mean nodes will be farther apart.</description>
+                <name>Optimal Distance</name>
+                <type>java.lang.Float</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:float">100.0</value>
+            </property>
+            <property id="YifanHu.relativeStrength.name">
+                <description>The relative strength between electrical force (repulsion) and spring force (attraction).</description>
+                <name>Relative Strength</name>
+                <type>java.lang.Float</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:float">0.2</value>
+            </property>
+            <property id="YifanHu.initialStepSize.name">
+                <description>The initial step size used in the integration phase. Set this value to a meaningful size compared to the optimal distance (10% is a good starting point).</description>
+                <name>Initial Step size</name>
+                <type>java.lang.Float</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:float">20.0</value>
+            </property>
+            <property id="YifanHu.stepRatio.name">
+                <description>The ratio used to update the step size across iterations.</description>
+                <name>Step ratio</name>
+                <type>java.lang.Float</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:float">0.95</value>
+            </property>
+            <property id="YifanHu.adaptativeCooling.name">
+                <description>Controls the use of adaptive cooling. It is used help the layout algoritm to avoid energy local minima.</description>
+                <name>Adaptive Cooling</name>
+                <type>java.lang.Boolean</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:boolean">true</value>
+            </property>
+            <property id="YifanHu.convergenceThreshold.name">
+                <description>Relative energy convergence threshold. Smaller values mean more accuracy.</description>
+                <name>Convergence Threshold</name>
+                <type>java.lang.Float</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:float">1.0E-4</value>
+            </property>
+            <property id="YifanHu.quadTreeMaxLevel.name">
+                <description>The maximun level to be used in the quadtree representation. Greater values mean more accuracy.</description>
+                <name>Quadtree Max Level</name>
+                <type>java.lang.Integer</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:int">10</value>
+            </property>
+            <property id="YifanHu.theta.name">
+                <description>The theta parameter for Barnes-Hut opening criteria. Smaller values mean more accuracy.</description>
+                <name>Theta</name>
+                <type>java.lang.Float</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:float">1.2</value>
+            </property>
+        </properties>
+        <atom:link
+            href="https://www.webgephi.cz/rest/layouts/yifan-hu-proportional" rel="self"/>
+    </layout>
+    <layout id="yifanhu's-multilevel">
+        <name>YifanHu's Multilevel</name>
+        <properties>
+            <property id="YifanHuMultiLevel.minimumLevelSize.name">
+                <description>The minimum amount of nodes every level must have (bigger values mean less levels)</description>
+                <name>Minimum level size</name>
+                <type>java.lang.Integer</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:int">3</value>
+            </property>
+            <property id="YifanHuMultiLevel.minimumCoarseningRate.name">
+                <description>The minimum relative size between two levels (smaller values mean less levels)</description>
+                <name>Minimum coarsening rate</name>
+                <type>java.lang.Double</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:double">0.75</value>
+            </property>
+            <property id="YifanHuMultiLevel.stepRatio.name">
+                <description>The ratio used to update the step size across iterations.</description>
+                <name>Step ratio</name>
+                <type>java.lang.Float</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:float">0.97</value>
+            </property>
+            <property id="YifanHuMultiLevel.optimalDistance.name">
+                <description>The natural length of the springs. Bigger values mean nodes will be farther apart.</description>
+                <name>Optimal Distance</name>
+                <type>java.lang.Float</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:float">100.0</value>
+            </property>
+            <property id="YifanHuMultiLevel.quadtreeMaxLevel.name">
+                <description>The maximun level to be used in the quadtree representation. Greater values mean more accuracy.</description>
+                <name>Quadtree Max Level</name>
+                <type>java.lang.Integer</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:int">10</value>
+            </property>
+            <property id="YifanHuMultiLevel.theta.name">
+                <description>The theta parameter for Barnes-Hut opening criteria. Smaller values mean more accuracy.</description>
+                <name>Theta</name>
+                <type>java.lang.Float</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:float">1.2</value>
+            </property>
+        </properties>
+        <atom:link
+            href="https://www.webgephi.cz/rest/layouts/yifanhu's-multilevel" rel="self"/>
+    </layout>
+</layouts>

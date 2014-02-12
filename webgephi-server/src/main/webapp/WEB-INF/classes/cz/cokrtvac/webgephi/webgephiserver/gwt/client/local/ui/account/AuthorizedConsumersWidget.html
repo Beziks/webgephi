@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../../../../../../../../../../webapp/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="../../../../../../../../../../webapp/bootstrap/css/bootstrap-theme.css" rel="stylesheet">
+    <link href="../../../../../../../../../../webapp/css/application.css" rel="stylesheet">
+</head>
+
+<body>
+<!-- ======================================================================================== -->
+<div class="container">
+    <div class="well">These applications have access to your account.</div>
+    <div data-field="root" class="userProfile">
+
+        <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <div class="panel-heading text-center">These applications have access to your account.</div>
+
+            <!-- Table -->
+            <table class="table consumerTable">
+                <thead>
+                <tr>
+                    <th>Application name</th>
+                    <th>Application URL</th>
+                    <th>Scopes (permissions)</th>
+                    <th>Revoke access</th>
+                </tr>
+                </thead>
+                <tbody data-field="consumers">
+                <tr data-field="rootConsumerRow">
+                    <td class="middle" data-field="consumerKey">appname</td>
+                    <td class="middle" data-field="consumerUrl">bbb</td>
+                    <td>
+                        <div class="list-group" data-field="scopes">
+                            <div class="list-group-item" data-field="rootScope">
+                                <h4 class="list-group-item-heading" data-field="scopeTitle">PROFILE_READ</h4>
+
+                                <p class="list-group-item-text" data-field="scopeDescription">tadata</p>
+                            </div>
+
+                            <div class="list-group-item" data-field="rootScope">
+                                <h4 class="list-group-item-heading" data-field="scopeTitle">GRAPHS_WRITE</h4>
+
+                                <p class="list-group-item-text" data-field="scopeDescription">tadata</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="middle">
+                        <button class="btn btn-default btn-primary" data-field="revokeButton">Revoke access</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+<!-- ======================================================================================== -->
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="../../../../../../../../../../webapp/bootstrap/js/bootstrap.js"></script>
+</body>
+</html>

@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<statistics xmlns:atom="http://www.w3.org/2005/Atom">
+    <atom:link href="https://www.webgephi.cz/rest/statistics" rel="self"/>
+    <statistic id="clustering-coefficient">
+        <name>Clustering Coefficient</name>
+        <properties>
+            <property id="Directed">
+                <name>Directed</name>
+                <type>boolean</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:boolean">false</value>
+            </property>
+        </properties>
+        <atom:link
+            href="https://www.webgephi.cz/rest/statistics/clustering-coefficient" rel="self"/>
+    </statistic>
+    <statistic id="connected-components">
+        <name>Connected Components</name>
+        <properties>
+            <property id="Directed">
+                <name>Directed</name>
+                <type>boolean</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:boolean">false</value>
+            </property>
+        </properties>
+        <atom:link
+            href="https://www.webgephi.cz/rest/statistics/connected-components" rel="self"/>
+    </statistic>
+    <statistic id="density">
+        <name>Density</name>
+        <properties>
+            <property id="Directed">
+                <name>Directed</name>
+                <type>boolean</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:boolean">false</value>
+            </property>
+        </properties>
+        <atom:link
+            href="https://www.webgephi.cz/rest/statistics/density" rel="self"/>
+    </statistic>
+    <statistic id="eigenvector-centrality">
+        <name>Eigenvector Centrality</name>
+        <properties>
+            <property id="Directed">
+                <name>Directed</name>
+                <type>boolean</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:boolean">false</value>
+            </property>
+            <property id="NumRuns">
+                <name>NumRuns</name>
+                <type>int</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:int">100</value>
+            </property>
+        </properties>
+        <atom:link
+            href="https://www.webgephi.cz/rest/statistics/eigenvector-centrality" rel="self"/>
+    </statistic>
+    <statistic id="graph-distance">
+        <name>Graph Distance</name>
+        <properties>
+            <property id="Directed">
+                <name>Directed</name>
+                <type>boolean</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:boolean">false</value>
+            </property>
+            <property id="Normalized">
+                <name>Normalized</name>
+                <type>boolean</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:boolean">false</value>
+            </property>
+        </properties>
+        <atom:link
+            href="https://www.webgephi.cz/rest/statistics/graph-distance" rel="self"/>
+    </statistic>
+    <statistic id="hits">
+        <name>HITS</name>
+        <properties>
+            <property id="Undirected">
+                <name>Undirected</name>
+                <type>boolean</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:boolean">false</value>
+            </property>
+            <property id="Epsilon">
+                <name>Epsilon</name>
+                <type>double</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:double">1.0E-4</value>
+            </property>
+        </properties>
+        <atom:link href="https://www.webgephi.cz/rest/statistics/hits" rel="self"/>
+    </statistic>
+    <statistic id="inout-degree">
+        <name>InOut Degree</name>
+        <properties/>
+        <atom:link
+            href="https://www.webgephi.cz/rest/statistics/inout-degree" rel="self"/>
+    </statistic>
+    <statistic id="modularity">
+        <name>Modularity</name>
+        <properties>
+            <property id="Random">
+                <name>Random</name>
+                <type>boolean</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:boolean">false</value>
+            </property>
+            <property id="UseWeight">
+                <name>UseWeight</name>
+                <type>boolean</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:boolean">true</value>
+            </property>
+            <property id="Resolution">
+                <name>Resolution</name>
+                <type>double</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:double">1.0</value>
+            </property>
+        </properties>
+        <atom:link
+            href="https://www.webgephi.cz/rest/statistics/modularity" rel="self"/>
+    </statistic>
+    <statistic id="page-rank">
+        <name>Page Rank</name>
+        <properties>
+            <property id="Directed">
+                <name>Directed</name>
+                <type>boolean</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:boolean">false</value>
+            </property>
+            <property id="Probability">
+                <name>Probability</name>
+                <type>double</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:double">0.85</value>
+            </property>
+            <property id="Epsilon">
+                <name>Epsilon</name>
+                <type>double</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:double">0.001</value>
+            </property>
+            <property id="UseEdgeWeight">
+                <name>UseEdgeWeight</name>
+                <type>boolean</type>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:boolean">false</value>
+            </property>
+        </properties>
+        <atom:link
+            href="https://www.webgephi.cz/rest/statistics/page-rank" rel="self"/>
+    </statistic>
+    <statistic id="weighted-degree">
+        <name>Weighted Degree</name>
+        <properties/>
+        <atom:link
+            href="https://www.webgephi.cz/rest/statistics/weighted-degree" rel="self"/>
+    </statistic>
+</statistics>

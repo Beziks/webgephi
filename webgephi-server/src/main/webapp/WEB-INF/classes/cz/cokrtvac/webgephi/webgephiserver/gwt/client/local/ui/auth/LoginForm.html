@@ -1,0 +1,42 @@
+<html>
+<head>
+    <link href="../../../../../../../../../../webapp/bootstrap/css/bootstrap.css" rel="stylesheet">
+</head>
+<body>
+
+<div data-field="root" class="container">
+    <h2 class="lead text-center">Sign in, please</h2>
+    <div class="alert alert-info text-center">Requested page is for authenticated users only. Use form on a top of the page.</div>
+</div>
+
+<div class="container">
+    <h2 class="lead text-center">Sign In</h2>
+    <div class="col-md-4 center-block">
+        <div data-field="form">
+            <form class="form-horizontal" data-field="submitForm">
+                <div class="control-group">
+                    <div class="input-group ">
+                        <span class="input-group-addon">Username</span>
+                        <input type="text" data-field="username" class="form-control">
+                    </div>
+                    <br/>
+
+                    <div class="input-group">
+                        <span class="input-group-addon">Password</span>
+                        <input type="password" data-field="password" class="form-control">
+                    </div>
+                </div>
+                <br/>
+
+                <div class="control-group">
+                    <div class="controls">
+                        <button type="submit" class="btn btn-default btn-primary" data-field="submitButton">Sign in</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <button class="btn btn-default btn-primary" data-field="logout">Sign Out</button>
+    </div>
+</div>
+</body>
+</html>
