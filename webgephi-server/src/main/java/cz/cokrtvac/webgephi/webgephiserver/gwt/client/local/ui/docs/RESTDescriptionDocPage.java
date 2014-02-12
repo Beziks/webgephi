@@ -1,8 +1,5 @@
 package cz.cokrtvac.webgephi.webgephiserver.gwt.client.local.ui.docs;
 
-import com.google.gwt.core.client.Scheduler;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 import cz.cokrtvac.webgephi.webgephiserver.gwt.client.shared.Alert;
@@ -15,7 +12,6 @@ import org.jboss.errai.ioc.client.api.AfterInitialization;
 import org.jboss.errai.ui.nav.client.local.Page;
 import org.jboss.errai.ui.nav.client.local.PageShown;
 import org.jboss.errai.ui.shared.api.annotations.DataField;
-import org.jboss.errai.ui.shared.api.annotations.EventHandler;
 import org.jboss.errai.ui.shared.api.annotations.Templated;
 import org.slf4j.Logger;
 
@@ -45,10 +41,8 @@ public class RESTDescriptionDocPage extends Composite {
     @Inject
     private Instance<RESTDescriptionWidget> restDescriptionWidgets;
 
-
     @AfterInitialization
     protected void init() {
-        // messageEvent.fire("afterInitialization");
         docsServiceCaller.call(
                 new RemoteCallback<List<RestDescription>>() {
                     @Override

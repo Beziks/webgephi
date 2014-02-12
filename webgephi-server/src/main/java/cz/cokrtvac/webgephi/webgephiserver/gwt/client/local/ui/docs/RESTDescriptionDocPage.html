@@ -11,7 +11,6 @@
 <!-- ======================================================================================== -->
 <div data-field="root" class="container docs">
     <h2 class="lead text-center">REST services description</h2>
-
     <!--<button type="button" data-field="highlightButton" value="Highlight">Highlight</button> -->
 
     <div class="alert alert-info">
@@ -19,20 +18,20 @@
     </div>
 
     <div class="panel-group" id="restDescriptions">
-        <div data-field="rootWidget" class="panel panel-danger">
+        <div class="panel panel-danger">
             <div class="panel-heading">
-                <h3 data-field="name" class="lead">Error response</h3>
+                <h3 class="lead">Error response</h3>
             </div>
             <div class="panel-body">
-                <div data-field="description">If something is wrong, error response is returned instead of regular xml or html (with corresponding http status).</div>
+                <div>If something is wrong, error response is returned instead of regular xml or html (with corresponding http status).</div>
             </div>
 
             <div class="panel-footer">
-                <a data-field="requestToogle" data-toggle="collapse" data-parent="#accordion" href="#xmlErr">
+                <a data-toggle="collapse" data-parent="#accordion" href="#xmlErr">
                     XML error message
                 </a>
 
-                <div data-field="request" id="xmlErr" class="panel-collapse collapse">
+                <div id="xmlErr" class="panel-collapse collapse">
                     <pre class="highlight"><code data-field="sampleRequestBody" class="xml" style="background-color: transparent">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;error&gt;
     &lt;code number=&quot;409&quot;&gt;Conflict&lt;/code&gt;
@@ -43,11 +42,11 @@
             </div>
 
             <div class="panel-footer">
-                <a data-field="responseToogle" data-toggle="collapse" data-parent="#accordion" href="#htmlErr">
+                <a data-toggle="collapse" data-parent="#accordion" href="#htmlErr">
                     HTML error message
                 </a>
 
-                <div data-field="response" id="htmlErr" class="panel-collapse collapse">
+                <div id="htmlErr" class="panel-collapse collapse">
                     <pre class="highlight"><code data-field="sampleResponseBody" class="xml" style="background-color: transparent">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;html&gt;
 &lt;head&gt;
@@ -65,6 +64,7 @@
             </div>
         </div>
         <br />
+
         <!-- /widget -->
         <div data-field="panel">
             <!-- widget -->
