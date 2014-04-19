@@ -1,0 +1,74 @@
+/* Import the reindeer theme. */
+/* This only allows us to use the mixins defined in it and does not add any styles by itself. */
+@import "../reindeer/reindeer.scss";
+
+/* This contains all of your theme. */
+/* If somebody wants to extend the theme she will include this mixin. */
+@mixin mytheme {
+  /* Include all the styles from the reindeer theme */
+  @include reindeer;
+
+  /* Insert your theme rules here */
+  $headerDarkRGB: rgb(32, 30, 62);
+  $headerDarkRGBTransarent: rgba(32, 30, 62, 0.4);
+  $headerDark: #201e3e;
+  $headerLight: #e0dff5;
+
+  .page_header {
+    background: $headerLight url("./../images/header.png") 50% 50% no-repeat no-repeat;
+    .center_box {
+      padding: 0;
+      text-align: center;
+      border-bottom: 2px solid $headerDark;
+      .h1 {
+        border-left: 2px solid $headerDark;
+        border-right: 2px solid $headerDark;
+        background: $headerDarkRGBTransarent;
+        font-size: 2.2em;
+        color: #ffffff;
+        text-shadow: $headerDarkRGB 0 0 7px;
+        text-outline: 1px 1 red;
+        padding: 20px 10px;
+        line-height: 40px;
+        display: inline;
+      }
+    }
+  }
+
+  .page_footer {
+    background: $headerLight url("./../images/header.png") 50% 50% no-repeat no-repeat;
+
+    .label {
+      padding: 5px 10px;
+      text-align: right;
+    }
+  }
+
+  .right_panel {
+    background-color: red;
+  }
+
+  .left_panel {
+    background-color: blue;
+  }
+
+  .center_panel {
+
+  }
+
+  .logoutButton{
+    float: right;
+    margin-top: -35px;
+    margin-right: 10px;
+  }
+
+  .loginLabel, .loginLink {
+    text-align: center;
+    font-size: 15px;
+  }
+
+  .loginLink {
+    font-size: 20px;
+    font-weight: bold;
+  }
+}

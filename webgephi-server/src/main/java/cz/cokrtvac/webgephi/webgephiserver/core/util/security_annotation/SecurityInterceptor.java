@@ -1,9 +1,9 @@
 package cz.cokrtvac.webgephi.webgephiserver.core.util.security_annotation;
 
+import cz.cokrtvac.webgephi.webgephiserver.core.auth.WebgephiHttpServletRequestWrapper;
 import cz.cokrtvac.webgephi.webgephiserver.core.util.security_annotation.expression_resolver.ExpressionResolver;
 import cz.cokrtvac.webgephi.webgephiserver.gwt.client.shared.role.NoSuchRoleException;
 import cz.cokrtvac.webgephi.webgephiserver.gwt.client.shared.role.Role;
-import org.apache.catalina.realm.GenericPrincipal;
 import org.jboss.errai.security.shared.AuthenticationService;
 import org.picketlink.idm.IdentityManager;
 import org.slf4j.Logger;
@@ -19,6 +19,8 @@ import java.security.Principal;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+//import org.apache.catalina.realm.GenericPrincipal;
 
 /**
  * User: Vaclav Cokrt, beziks@gmail.com
@@ -158,25 +160,25 @@ public class SecurityInterceptor {
             return null;
         }
 
-        if (!(principal instanceof GenericPrincipal)) {
+        if (!(principal instanceof WebgephiHttpServletRequestWrapper.PrincipalWithRoles)) {
             log.debug("Principal is wrong type.");
             return null;
         }
 
-        GenericPrincipal genericPrincipal = (GenericPrincipal) principal;
+        WebgephiHttpServletRequestWrapper.PrincipalWithRoles principalWithRoles = (WebgephiHttpServletRequestWrapper.PrincipalWithRoles) principal;
         UserInfo userInfo = new UserInfo();
         userInfo.username = principal.getName();
         if (userInfo.username == null) {
             log.debug("Username not set.");
             return null;
         }
-        if (genericPrincipal.getRoles() == null) {
+        if (principalWithRoles.getRoles() == null) {
             log.debug("Roles not set.");
             return null;
         }
 
         try {
-            userInfo.roles = Role.parse(genericPrincipal.getRoles());
+            userInfo.roles = Role.parse(principalWithRoles.getRoles());
         } catch (NoSuchRoleException e) {
             log.warn("Roles could not be parsed", e);
             throw new SecurityException("Invalid roles defined in request");
@@ -202,7 +204,6 @@ public class SecurityInterceptor {
             } else {
                 roles.add(role);
             }
-
         }
 
         UserInfo userInfo = new UserInfo();

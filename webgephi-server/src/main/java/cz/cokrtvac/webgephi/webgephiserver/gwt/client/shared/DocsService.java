@@ -1,8 +1,6 @@
 package cz.cokrtvac.webgephi.webgephiserver.gwt.client.shared;
 
 import cz.cokrtvac.webgephi.webgephiserver.gwt.client.shared.docs.rest.RestDescription;
-import cz.cokrtvac.webgephi.webgephiserver.gwt.client.shared.model.OAuthRequestTokenEntity;
-import cz.cokrtvac.webgephi.webgephiserver.gwt.client.shared.model.UserEntity;
 import org.jboss.errai.bus.server.annotations.Remote;
 
 import java.util.List;

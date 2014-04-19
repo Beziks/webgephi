@@ -36,7 +36,7 @@ import java.util.UUID;
 @Stateless
 public class OAuthManager {
     private static final Role DEFAULT_CONSUMER_ROLE = Role.CLIENT_APP;
-    private static final Set<Role> FORBIDDEN_ROLES = new HashSet<Role>(Arrays.asList(new Role[]{Role.ADMIN, Role.USER}));
+    private static final Set<Role> FORBIDDEN_ROLES = new HashSet<Role>(Arrays.asList(new Role[]{Role.ADMIN, Role.USER, Role.PROFILE_WRITE}));
 
     @Resource
     private SessionContext sessionContext;

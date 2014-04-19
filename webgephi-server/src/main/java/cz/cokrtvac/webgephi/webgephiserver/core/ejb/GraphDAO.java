@@ -37,7 +37,7 @@ public class GraphDAO {
      * @param page     - indexing from 0
      * @return
      */
-    public List<GraphEntity> getPage(UserEntity owner, int pageSize, long page) {
+    public List<GraphEntity> getPage(UserEntity owner, int pageSize, long page, boolean desc) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
 
         CriteriaQuery<GraphEntity> criteria = cb.createQuery(GraphEntity.class);
@@ -46,20 +46,37 @@ public class GraphDAO {
         Predicate predicate = cb.equal(root.get(GraphEntity_.owner), owner);
         criteria.where(predicate);
 
+        if(desc) {
+            criteria.orderBy(cb.desc(root.get(GraphEntity_.id)));
+        }
+
         long first = pageSize * page;
 
         return em.createQuery(criteria).setFirstResult((int) first).setMaxResults(pageSize).getResultList();
     }
 
-    public long count() {
+    private long count() {
         CriteriaBuilder qb = em.getCriteriaBuilder();
         CriteriaQuery<Long> cq = qb.createQuery(Long.class);
         cq.select(qb.count(cq.from(GraphEntity.class)));
         return em.createQuery(cq).getSingleResult();
     }
 
-    public long lastPage(int pageSize) {
-        return (count() - 1) / pageSize;
+    public long count(UserEntity owner) {
+        CriteriaBuilder qb = em.getCriteriaBuilder();
+
+        CriteriaQuery<Long> cq = qb.createQuery(Long.class);
+        Root<GraphEntity> root = cq.from(GraphEntity.class);
+
+        Predicate predicate = qb.equal(root.get(GraphEntity_.owner), owner);
+        cq.where(predicate);
+
+        cq.select(qb.count(root));
+        return em.createQuery(cq).getSingleResult();
+    }
+
+    public long lastPage(UserEntity owner, int pageSize) {
+        return (count(owner) - 1) / pageSize;
     }
 
     public GraphEntity get(Long id) {

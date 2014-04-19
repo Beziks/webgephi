@@ -30,39 +30,13 @@
         <url-pattern>/oauth/*</url-pattern>
     </servlet-mapping>
 
-    <security-constraint>
-        <web-resource-collection>
-            <web-resource-name>RestResources</web-resource-name>
-            <url-pattern>/rest/users/*</url-pattern>
-        </web-resource-collection>
-        <web-resource-collection>
-            <web-resource-name>Errai app</web-resource-name>
-            <url-pattern>/index.jsp</url-pattern>
-        </web-resource-collection>
-        <auth-constraint>
-            <role-name>*</role-name>
-        </auth-constraint>
-        <user-data-constraint>
-            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
-        </user-data-constraint>
+   <security-constraint>
+       <web-resource-collection>
+           <web-resource-name>All app</web-resource-name>
+           <url-pattern>*</url-pattern>
+       </web-resource-collection>
+       <user-data-constraint>
+           <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+       </user-data-constraint>
     </security-constraint>
-
-    <security-constraint>
-        <web-resource-collection>
-            <web-resource-name>Errai app</web-resource-name>
-            <url-pattern>/index.jsp</url-pattern>
-        </web-resource-collection>
-        <user-data-constraint>
-            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
-        </user-data-constraint>
-    </security-constraint>
-
-    <security-role>
-        <role-name>*</role-name>
-    </security-role>
-
-    <login-config>
-        <auth-method>BASIC+OAUTH</auth-method>
-        <realm-name>Webgephi SERVER login</realm-name>
-    </login-config>
 </web-app>

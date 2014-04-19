@@ -22,9 +22,12 @@ public class Code {
     }
 
     public Code(Response.Status status) {
-        number = status.getStatusCode();
-        code = status.getReasonPhrase();
+        this(status.getStatusCode(), status.getReasonPhrase());
+    }
 
+    public Code(int number, String code){
+        this.number = number;
+        this.code = code;
     }
 
     public String getCode() {
@@ -33,5 +36,10 @@ public class Code {
 
     public int getNumber() {
         return number;
+    }
+
+    @Override
+    public String toString() {
+        return code + " (" + number + ")";
     }
 }

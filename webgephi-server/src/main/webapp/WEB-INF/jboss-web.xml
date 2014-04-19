@@ -1,13 +1,5 @@
 <?xml version="1.0"?>
 <jboss-web>
-    <!--<security-domain>webgephi</security-domain>-->
     <context-root>/</context-root>
-    <virtual-host>default-host</virtual-host>
-    <valve>
-        <class-name>cz.cokrtvac.webgephi.webgephiserver.core.auth.OAuthBasicAuthenticator</class-name>
-        <param>
-            <param-name>oauthProviderName</param-name>
-            <param-value>cz.cokrtvac.webgephi.webgephiserver.core.auth.oauth.WebgephiOauthProvider</param-value>
-        </param>
-    </valve>
+    <virtual-host>webgephi.cz</virtual-host>
 </jboss-web>

@@ -7,8 +7,14 @@ import javax.xml.bind.annotation.*;
 
 @XmlRootElement(name = "function")
 @XmlAccessorType(XmlAccessType.NONE)
-public class GraphFunction {
+public class GraphFunctionXml {
     private AbstractFunction function;
+
+    public GraphFunctionXml(){}
+
+    public GraphFunctionXml(AbstractFunction abstractFunction){
+        setFunction(abstractFunction);
+    }
 
     @XmlElements({
             @XmlElement(name = "layout", type = LayoutXml.class),

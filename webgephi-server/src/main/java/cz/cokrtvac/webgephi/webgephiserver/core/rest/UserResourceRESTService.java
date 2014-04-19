@@ -70,6 +70,24 @@ public class UserResourceRESTService {
     }
 
     /**
+     * Shows user, who is logged in now
+     *
+     * @param req
+     * @return
+     */
+    @Secure(value = Role.PROFILE_READ)
+    @AddLinksEnhanced
+    @LinkResource(value = UserXml.class)
+    @GET
+    @Path("logged")
+    public UserXml getUser(@Context HttpServletRequest req) {
+        String loggedUser = req.getUserPrincipal().getName();
+        User u = getUser(loggedUser);
+        u.setPassword(null);
+        return WebgephiXmlFactory.create(u);
+    }
+
+    /**
      * Creates a new user
      */
     @AddLinksEnhanced

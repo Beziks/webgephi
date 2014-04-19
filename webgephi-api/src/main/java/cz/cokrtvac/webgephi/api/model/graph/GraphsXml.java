@@ -28,10 +28,14 @@ public class GraphsXml {
 
     private List<AtomLink> links = new ArrayList<AtomLink>();
 
-    public void setAtomLinks(long selfPage, long lastPage, Integer pageSize) {
+    public void setAtomLinks(long selfPage, long lastPage, Integer pageSize, boolean desc) {
         String pagesizeString = "";
         if (pageSize != null) {
             pagesizeString = "&pageSize=" + pageSize;
+        }
+
+        if(desc){
+            pagesizeString += "&desc=true";
         }
 
         first = new AtomLink("?page=1" + pagesizeString, "first");
@@ -62,6 +66,9 @@ public class GraphsXml {
 
     @XmlElementRef
     public AtomLink getFirst() {
+        if(first == null){
+            first = getLink("first");
+        }
         return first;
     }
 
@@ -71,6 +78,9 @@ public class GraphsXml {
 
     @XmlElementRef
     public AtomLink getPrev() {
+        if(prev == null){
+            prev = getLink("prev");
+        }
         return prev;
     }
 
@@ -80,6 +90,9 @@ public class GraphsXml {
 
     @XmlElementRef
     public AtomLink getSelf() {
+        if(self == null){
+            self = getLink("self");
+        }
         return self;
     }
 
@@ -89,6 +102,9 @@ public class GraphsXml {
 
     @XmlElementRef
     public AtomLink getNext() {
+        if(next == null){
+            next = getLink("next");
+        }
         return next;
     }
 
@@ -98,6 +114,9 @@ public class GraphsXml {
 
     @XmlElementRef
     public AtomLink getLast() {
+        if(last == null){
+            last = getLink("last");
+        }
         return last;
     }
 
@@ -132,5 +151,20 @@ public class GraphsXml {
 
     public void setOwner(String owner) {
         this.owner = owner;
+    }
+
+    @Override
+    public String toString() {
+        return "GraphsXml{" +
+                "graphs=" + graphs +
+                ", owner='" + owner + '\'' +
+                '}';
+    }
+
+    private AtomLink getLink(String rel){
+        if(restServiceDiscovery == null){
+            return null;
+        }
+        return restServiceDiscovery.getLinkForRel(rel);
     }
 }

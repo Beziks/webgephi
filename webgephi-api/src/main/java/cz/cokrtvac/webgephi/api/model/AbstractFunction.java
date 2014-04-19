@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlID;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AbstractFunction implements HasId {
+public class AbstractFunction {
     private Logger log = Log.get(getClass());
 
     private String id;
@@ -64,5 +64,13 @@ public class AbstractFunction implements HasId {
 
         log.warn("Unknown property: " + id);
         return null;
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

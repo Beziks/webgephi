@@ -25,14 +25,22 @@ public class ErrorXml {
     public ErrorXml() {
     }
 
-    public ErrorXml(Response.Status status, String message) {
-        this(status, message, null);
+    public ErrorXml(Code code, String message, String detail) {
+        this.code = code;
+        this.message = message;
+        this.detail = detail;
+    }
+
+    public ErrorXml(Code code, String message){
+        this(code, message, null);
     }
 
     public ErrorXml(Response.Status status, String message, String detail) {
-        this.code = new Code(status);
-        this.message = message;
-        this.detail = detail;
+        this(new Code(status), message, detail);
+    }
+
+    public ErrorXml(Response.Status status, String message) {
+        this(status, message, null);
     }
 
     public Code getCode() {
@@ -57,5 +65,14 @@ public class ErrorXml {
 
     public void setDetail(String detail) {
         this.detail = detail;
+    }
+
+    @Override
+    public String toString() {
+        String out = code.toString() + ": " + message;
+        if (detail != null) {
+            out += " (" + detail + ")";
+        }
+        return out;
     }
 }

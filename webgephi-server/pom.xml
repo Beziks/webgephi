@@ -16,13 +16,12 @@
     <name>webgephi-server</name>
 
     <properties>
-        <errai.version>3.0-SNAPSHOT</errai.version>
+        <errai.version>3.0.0.20131205-M3</errai.version>
         <gwt.version>2.5.1</gwt.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <errai.dev.context>${project.artifactId}</errai.dev.context>
-        <javaee.version>3.0.1.Final</javaee.version>
         <!-- Add the absolute path for $JBOSS_HOME below to manage another instance -->
-        <errai.jboss.home>D:/Development/SERVERs/jboss-as-7.1.1.Final</errai.jboss.home>
+        <errai.jboss.home>D:/Development/SERVERs/wildfly-8.0.0.Final</errai.jboss.home>
     </properties>
 
     <dependencyManagement>
@@ -42,21 +41,14 @@
                 <scope>import</scope>
             </dependency>
             <dependency>
-                <groupId>org.jboss.spec</groupId>
-                <artifactId>jboss-javaee-6.0</artifactId>
-                <version>${javaee.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
                 <groupId>org.jboss.weld</groupId>
                 <artifactId>weld-core</artifactId>
-                <version>1.1.5.Final</version>
+                <version>2.1.2.Final</version>
             </dependency>
             <dependency>
                 <groupId>org.jboss.weld.servlet</groupId>
                 <artifactId>weld-servlet-core</artifactId>
-                <version>1.1.5.Final</version>
+                <version>2.1.2.Final</version>
             </dependency>
             <dependency>
                 <groupId>org.jboss.errai</groupId>
@@ -147,6 +139,11 @@
             <artifactId>jaxrs-api</artifactId>
             <scope>provided</scope>
         </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+        </dependency>
         <!-- =============================================================================================================================== -->
         <!-- \\\ JBOSS and GEPHI \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ -->
         <!-- =============================================================================================================================== -->
@@ -228,23 +225,6 @@
             <artifactId>jboss-ejb-api_3.1_spec</artifactId>
             <scope>provided</scope>
         </dependency>
-
-        <!-- JSR-303 (Bean Validation) Implementation -->
-        <!-- Provides portable constraints such as @Email -->
-        <!-- Hibernate Validator is shipped in JBoss AS 7 -->
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-validator</artifactId>
-            <scope>provided</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-api</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <!-- Now we declare any tools needed -->
 
         <!-- Annotation processor to generate the JPA 2.0 metamodel classes for
             typesafe criteria queries -->
@@ -335,6 +315,7 @@
         <dependency>
             <groupId>org.jboss.errai</groupId>
             <artifactId>errai-security</artifactId>
+            <version>${errai.version}</version>
             <exclusions>
                 <exclusion>
                     <artifactId>picketlink-api</artifactId>
@@ -352,28 +333,6 @@
             <artifactId>errai-javaee-all</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.jboss.spec</groupId>
-            <artifactId>jboss-javaee-6.0</artifactId>
-            <version>${javaee.version}</version>
-            <type>pom</type>
-            <scope>provided</scope>
-            <exclusions>
-                <exclusion>
-                    <artifactId>jboss-interceptors-api_1.1_spec</artifactId>
-                    <groupId>org.jboss.spec.javax.interceptor</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>jboss-transaction-api_1.1_spec</artifactId>
-                    <groupId>org.jboss.spec.javax.transaction</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.errai</groupId>
-            <artifactId>errai-security</artifactId>
-            <version>${errai.version}</version>
-        </dependency>
-        <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
         </dependency>
@@ -381,11 +340,6 @@
             <groupId>com.google.gwt</groupId>
             <artifactId>gwt-user</artifactId>
             <version>${gwt.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.google.gwt</groupId>
-            <artifactId>gwt-dev</artifactId>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.jboss.errai</groupId>
@@ -406,16 +360,13 @@
             <version>2.1.0</version>
         </dependency>
         <dependency>
-            <groupId>org.jboss.web</groupId>
-            <artifactId>jbossweb</artifactId>
-            <version>7.0.13.Final</version>
+            <groupId>org.jboss.weld.servlet</groupId>
+            <artifactId>weld-servlet</artifactId>
+            <version>2.1.2.Final</version>
             <scope>provided</scope>
         </dependency>
         <!-- ERRAI END ============================================= -->
-
-
     </dependencies>
-
     <repositories>
         <repository>
             <id>JBOSS_NEXUS</id>
@@ -492,7 +443,8 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <extraJvmArgs>-Xmx2048m -XX:CompileThreshold=7000 -XX:MaxPermSize=1024M -Derrai.jboss.home=${errai.jboss.home} -Derrai.dev.context=${errai.dev.context} -Derrai.jboss.javaagent.path=${settings.localRepository}/org/jboss/errai/errai-client-local-class-hider/${errai.version}/errai-client-local-class-hider-${errai.version}.jar -DXmx4048m -DXX:MaxPermSize=1024M</extraJvmArgs>
+
+                    <extraJvmArgs>-Xmx2048m -XX:CompileThreshold=7000 -XX:MaxPermSize=1024M -Derrai.jboss.home=${errai.jboss.home} -Derrai.dev.context=${errai.dev.context} -Derrai.jboss.javaagent.path=${settings.localRepository}/org/jboss/errai/errai-client-local-class-hider/${errai.version}/errai-client-local-class-hider-${errai.version}.jar</extraJvmArgs>
                     <logLevel>INFO</logLevel>
                     <noServer>false</noServer>
                     <server>org.jboss.errai.cdi.server.gwt.JBossLauncher</server>
@@ -525,9 +477,7 @@
                     <source>${maven.compiler.source}</source>
                     <target>${maven.compiler.target}</target>
                     <annotationProcessors>
-                        <annotationProcessor>
-                            org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor
-                        </annotationProcessor>
+                        <annotationProcessor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</annotationProcessor>
                     </annotationProcessors>
                 </configuration>
             </plugin>
@@ -624,11 +574,13 @@
                 <dependency>
                     <groupId>org.hibernate</groupId>
                     <artifactId>hibernate-validator</artifactId>
+                    <version>4.2.0.Final</version>
                     <scope>provided</scope>
                 </dependency>
                 <dependency>
                     <groupId>org.hibernate</groupId>
                     <artifactId>hibernate-validator</artifactId>
+                    <version>4.2.0.Final</version>
                     <classifier>sources</classifier>
                     <scope>provided</scope>
                 </dependency>
@@ -693,7 +645,7 @@
                 <!-- <dependency><groupId>org.jboss.resteasy</groupId><artifactId>jaxrs-model</artifactId><scope>provided</scope></dependency>  -->
                 <dependency>
                     <groupId>org.jboss.spec.javax.interceptor</groupId>
-                    <artifactId>jboss-interceptors-api_1.1_spec</artifactId>
+                    <artifactId>jboss-interceptors-api_1.2_spec</artifactId>
                     <scope>provided</scope>
                 </dependency>
                 <dependency>
@@ -732,19 +684,6 @@
                     <artifactId>jetty-naming</artifactId>
                     <scope>provided</scope>
                 </dependency>
-
-                <!-- TODO delete this -->
-                <dependency>
-                    <groupId>org.jboss.weld</groupId>
-                    <artifactId>weld-core</artifactId>
-                </dependency>
-
-                <dependency>
-                    <groupId>org.glassfish.web</groupId>
-                    <artifactId>el-impl</artifactId>
-                    <version>2.2</version>
-                </dependency>
-
             </dependencies>
         </profile>
     </profiles>

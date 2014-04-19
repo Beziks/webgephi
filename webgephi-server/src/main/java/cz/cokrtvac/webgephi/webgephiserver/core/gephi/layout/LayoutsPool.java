@@ -1,9 +1,9 @@
 package cz.cokrtvac.webgephi.webgephiserver.core.gephi.layout;
 
-import cz.cokrtvac.webgephi.webgephiserver.core.gephi.GephiScanner;
-import cz.cokrtvac.webgephi.webgephiserver.core.WebgephiXmlFactory;
 import cz.cokrtvac.webgephi.api.model.layout.LayoutXml;
 import cz.cokrtvac.webgephi.api.model.layout.LayoutsXml;
+import cz.cokrtvac.webgephi.webgephiserver.core.WebgephiXmlFactory;
+import cz.cokrtvac.webgephi.webgephiserver.core.gephi.GephiScanner;
 import org.gephi.layout.spi.Layout;
 import org.slf4j.Logger;
 
@@ -57,7 +57,7 @@ public class LayoutsPool {
 
     private void initMaps() {
         List<Layout> availableLayouts = gephiScanner.getAvailableLayouts();
-        log.debug("Available layouts size: " + String.valueOf(availableLayouts.size()));
+        log.debug("Available layouts size: " + availableLayouts.size());
 
         for (Layout l : availableLayouts) {
             LayoutXml layoutXml = WebgephiXmlFactory.create(l);

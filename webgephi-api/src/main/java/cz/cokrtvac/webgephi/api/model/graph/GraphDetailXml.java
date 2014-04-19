@@ -1,9 +1,9 @@
 package cz.cokrtvac.webgephi.api.model.graph;
 
-import cz.cokrtvac.webgephi.api.model.HasId;
 import org.jboss.resteasy.links.RESTServiceDiscovery;
 
 import javax.xml.bind.annotation.*;
+import java.util.Date;
 
 /**
  * User: Vaclav Cokrt, beziks@gmail.com
@@ -12,30 +12,25 @@ import javax.xml.bind.annotation.*;
  */
 @XmlRootElement(name = "graph")
 @XmlAccessorType(XmlAccessType.NONE)
-public class GraphDetailXml implements HasId {
+public class GraphDetailXml {
     public static final String STATISTICS_REPORT = "statistics-report";
     public static final String APPLY_FUNCTION = "apply-function";
 
     private String name;
     private GraphDetailXml parent;
-    private String id;
-    private boolean hasStatistics = false;
+    private Long id;
+    private Date created;
 
     public boolean hasStatistics() {
-        return hasStatistics;
+        return restServiceDiscovery.getLinkForRel(GraphDetailXml.STATISTICS_REPORT) != null;
     }
 
-    public void setHasStatistics(boolean hasStatistics) {
-        this.hasStatistics = hasStatistics;
-    }
-
-    @XmlID
     @XmlAttribute
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -49,6 +44,15 @@ public class GraphDetailXml implements HasId {
     }
 
     @XmlElement
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
+    }
+
+    @XmlElement
     public GraphDetailXml getParent() {
         return parent;
     }
@@ -58,7 +62,7 @@ public class GraphDetailXml implements HasId {
     }
 
     @XmlElementRef
-    public RESTServiceDiscovery restServiceDiscovery;
+    public RESTServiceDiscovery restServiceDiscovery = new RESTServiceDiscovery();
 
     private String owner;
 
@@ -68,5 +72,15 @@ public class GraphDetailXml implements HasId {
 
     public void setOwner(String owner) {
         this.owner = owner;
+    }
+
+    @Override
+    public String toString() {
+        return "GraphDetailXml{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", parent=" + parent +
+                ", hasStatistics=" + hasStatistics() +
+                '}';
     }
 }

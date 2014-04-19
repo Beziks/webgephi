@@ -1,7 +1,6 @@
 package cz.cokrtvac.webgephi.api.model.layout;
 
 import cz.cokrtvac.webgephi.api.model.AbstractFunction;
-import cz.cokrtvac.webgephi.api.model.HasId;
 import org.jboss.resteasy.links.RESTServiceDiscovery;
 
 import javax.xml.bind.annotation.XmlElementRef;
@@ -13,7 +12,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * Time: 18:20
  */
 @XmlRootElement(name = "layout")
-public class LayoutXml extends AbstractFunction implements HasId {
+public class LayoutXml extends AbstractFunction {
     @XmlElementRef
     private RESTServiceDiscovery restServiceDiscovery;
 }

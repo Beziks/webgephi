@@ -4,12 +4,12 @@ import cz.cokrtvac.webgephi.client.util.ClientRequestFactory;
 import cz.cokrtvac.webgephi.client.util.UrlUtil;
 import net.oauth.*;
 import org.jboss.resteasy.auth.oauth.OAuthUtils;
-import org.jboss.resteasy.client.ClientRequest;
-import org.jboss.resteasy.client.ClientResponse;
 import org.jboss.resteasy.util.HttpResponseCodes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.ws.rs.client.Client;
+import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -108,11 +108,6 @@ public class WebgephiAuthenticator {
             throw new IllegalArgumentException("Scopes have to be defined");
         }
 
-        StringBuilder sb = new StringBuilder();
-        for (String s : scopes) {
-
-        }
-
         try {
             requestToken = getRequestToken(consumerKey, consumerSecret, callbackUrl, scopes);
             log.debug("Request token obtained");
@@ -155,15 +150,20 @@ public class WebgephiAuthenticator {
         String url = getRequestURL(scopes);
         log.info("Request token URL: " + url);
 
-        ClientRequest request = ClientRequestFactory.create(url);
-        ClientResponse<String> response = request.get(String.class);
-        if (HttpResponseCodes.SC_OK != response.getStatus()) {
-            log.warn(response.getStatus() + " : " + response.getEntity());
-            response.releaseConnection();
-            throw new RuntimeException("Request token can not be obtained");
+        Client client = ClientRequestFactory.create();
+        Response response = client.target(url).request().get();
+
+        Map<String, String> tokens = null;
+        try {
+            if (HttpResponseCodes.SC_OK != response.getStatus()) {
+                log.warn(response.getStatus() + " : " + response.getEntity());
+                throw new RuntimeException("Request token can not be obtained");
+            }
+            // check that we got all tokens
+            tokens = getTokens(response.readEntity(String.class));
+        } finally {
+            response.close();
         }
-        // check that we got all tokens
-        Map<String, String> tokens = getTokens(response.getEntity());
         if (tokens.size() != 3
                 || !tokens.containsKey(OAuth.OAUTH_TOKEN)
                 || !(tokens.get(OAuth.OAUTH_TOKEN).length() > 0)
@@ -205,14 +205,20 @@ public class WebgephiAuthenticator {
     // ACCESS TOKEN ==============================================================================================================
     private Token getAccessToken() throws Exception {
         String url = getAccessURL(consumerKey, consumerSecret, requestToken.getToken(), requestToken.getSecret(), requestToken.getVerifier());
-        ClientRequest request = ClientRequestFactory.create(url);
-        ClientResponse<String> response = request.get(String.class);
-        if (HttpResponseCodes.SC_OK != response.getStatus()) {
-            response.releaseConnection();
-            throw new RuntimeException("Access token can not be obtained");
+
+        Client client = ClientRequestFactory.create();
+        Response response = client.target(url).request().get();
+
+        Map<String, String> tokens = null;
+        try {
+            if (HttpResponseCodes.SC_OK != response.getStatus()) {
+                throw new RuntimeException("Access token can not be obtained");
+            }
+            // check that we got all tokens
+           tokens = getTokens(response.readEntity(String.class));
+        } finally {
+            response.close();
         }
-        // check that we got all tokens
-        Map<String, String> tokens = getTokens(response.getEntity());
         if (tokens.size() != 2
                 || !tokens.containsKey(OAuth.OAUTH_TOKEN)
                 || !(tokens.get(OAuth.OAUTH_TOKEN).length() > 0)

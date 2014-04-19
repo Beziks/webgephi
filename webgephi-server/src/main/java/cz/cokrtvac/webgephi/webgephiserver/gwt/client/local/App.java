@@ -7,7 +7,6 @@ import cz.cokrtvac.webgephi.webgephiserver.gwt.client.local.ui.NavBar;
 import cz.cokrtvac.webgephi.webgephiserver.gwt.client.local.ui.WelcomePage;
 import cz.cokrtvac.webgephi.webgephiserver.gwt.client.local.ui.message.Message;
 import cz.cokrtvac.webgephi.webgephiserver.gwt.client.shared.Alert;
-import org.jboss.errai.ioc.client.api.AfterInitialization;
 import org.jboss.errai.security.client.local.Identity;
 import org.jboss.errai.ui.nav.client.local.Navigation;
 import org.jboss.errai.ui.nav.client.local.TransitionTo;

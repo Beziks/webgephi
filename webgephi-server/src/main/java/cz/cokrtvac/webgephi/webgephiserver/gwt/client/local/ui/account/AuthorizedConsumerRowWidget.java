@@ -1,13 +1,10 @@
 package cz.cokrtvac.webgephi.webgephiserver.gwt.client.local.ui.account;
 
-import com.google.gwt.dom.client.AnchorElement;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.Event;
-import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
-import cz.cokrtvac.webgephi.webgephiserver.gwt.client.local.ui.FormWidget;
 import cz.cokrtvac.webgephi.webgephiserver.gwt.client.local.ui.oauth_authorization.ScopeWidget;
 import cz.cokrtvac.webgephi.webgephiserver.gwt.client.shared.model.OAuthAccessTokenEntity;
 import cz.cokrtvac.webgephi.webgephiserver.gwt.client.shared.role.NoSuchRoleException;

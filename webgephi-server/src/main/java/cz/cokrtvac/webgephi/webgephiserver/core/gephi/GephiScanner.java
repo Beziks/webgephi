@@ -32,6 +32,10 @@ public class GephiScanner {
             try {
                 if (LayoutBuilder.class.isAssignableFrom(c)) {
                     LayoutBuilder builder = (LayoutBuilder) c.newInstance();
+                    if(builder.getName().equalsIgnoreCase("test")){
+                        // Skip test layout
+                        continue;
+                    }
                     Layout layout = builder.buildLayout();
                     layout.resetPropertiesValues();
                     out.add(layout);

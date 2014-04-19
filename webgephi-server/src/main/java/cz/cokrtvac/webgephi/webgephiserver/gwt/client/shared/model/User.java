@@ -1,6 +1,5 @@
 package cz.cokrtvac.webgephi.webgephiserver.gwt.client.shared.model;
 
-import cz.cokrtvac.webgephi.api.model.user.UserXml;
 import org.jboss.errai.common.client.api.annotations.Portable;
 import org.jboss.errai.databinding.client.api.Bindable;
 

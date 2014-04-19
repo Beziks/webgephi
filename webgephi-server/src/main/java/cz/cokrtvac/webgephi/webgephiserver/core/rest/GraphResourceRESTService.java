@@ -1,6 +1,6 @@
 package cz.cokrtvac.webgephi.webgephiserver.core.rest;
 
-import cz.cokrtvac.webgephi.api.model.GraphFunction;
+import cz.cokrtvac.webgephi.api.model.GraphFunctionXml;
 import cz.cokrtvac.webgephi.api.model.WebgephiWebException;
 import cz.cokrtvac.webgephi.api.model.graph.GraphDetailXml;
 import cz.cokrtvac.webgephi.api.model.graph.GraphsXml;
@@ -24,7 +24,6 @@ import cz.cokrtvac.webgephi.webgephiserver.core.rest.interceptor.WebException;
 import cz.cokrtvac.webgephi.webgephiserver.core.util.HtmlUtils;
 import cz.cokrtvac.webgephi.webgephiserver.core.util.security_annotation.Secure;
 import cz.cokrtvac.webgephi.webgephiserver.gwt.client.shared.model.GraphEntity;
-import cz.cokrtvac.webgephi.webgephiserver.gwt.client.shared.model.User;
 import cz.cokrtvac.webgephi.webgephiserver.gwt.client.shared.model.UserEntity;
 import cz.cokrtvac.webgephi.webgephiserver.gwt.client.shared.role.Role;
 import org.jboss.resteasy.links.LinkResource;
@@ -181,7 +180,7 @@ public class GraphResourceRESTService {
             @LinkResource(value = UserXml.class, rel = "graphs")
     })
     @GET
-    public GraphsXml getAllGraphs(@Context HttpServletRequest req, @PathParam("user") String user, @QueryParam("page") Long page, @QueryParam("pageSize") Integer pageSize) {
+    public GraphsXml getAllGraphs(@Context HttpServletRequest req, @PathParam("user") String user, @QueryParam("page") Long page, @QueryParam("pageSize") Integer pageSize, @QueryParam("desc") boolean desc) {
         UserEntity userEntity = userDAO.getUserEntity(user);
         if (userEntity == null) {
             throw new WebgephiWebException(Status.NOT_FOUND, "User " + user + " does not exist");
@@ -195,18 +194,18 @@ public class GraphResourceRESTService {
         }
 
         GraphsXml graphs = new GraphsXml();
-        long cnt = graphDAO.count();
-        long lastPage = (graphDAO.lastPage(pageSize)) + 1;
-        log.trace("Cnt: " + cnt + ", Last page: " + lastPage);
+        //long cnt = graphDAO.count(userEntity);
+        long lastPage = (graphDAO.lastPage(userEntity, pageSize)) + 1;
+        //log.trace("Cnt: " + cnt + ", Last page: " + lastPage);
 
         if (page > lastPage) {
             page = lastPage;
         }
 
-        graphs.setAtomLinks(page, lastPage, pageSize == 50 ? null : pageSize);
+        graphs.setAtomLinks(page, lastPage, pageSize == 50 ? null : pageSize, desc);
         graphs.setOwner(userDAO.get(user).getUsername());
 
-        for (GraphEntity e : graphDAO.getPage(userDAO.getUserEntity(user), pageSize, page - 1)) {
+        for (GraphEntity e : graphDAO.getPage(userDAO.getUserEntity(user), pageSize, page - 1, desc)) {
             GraphDetailXml xml = WebgephiXmlFactory.create(e);
             graphs.getGraphs().add(xml);
         }
@@ -223,7 +222,7 @@ public class GraphResourceRESTService {
     @Secure(value = Role.GRAPHS_WRITE, owner = "#{arg2}")
     @POST
     @AddLinksEnhanced
-    @LinkResource(value = GraphDetailXml.class, pathParameters = {"${owner}", "${id}"})
+    @LinkResource(value = GraphDetailXml.class, pathParameters = {"${owner}"})
     @Consumes({MediaType.TEXT_XML, MediaType.APPLICATION_XML})
     public Response addGraph(@Context HttpServletRequest req, Document document, @PathParam("user") String user, @QueryParam("name") String name) {
         log.debug("POSTing GEXF: " + XmlUtil.toString(document) + "\nname=" + name);
@@ -266,13 +265,13 @@ public class GraphResourceRESTService {
     @PUT
     @Path("{id}")
     @Consumes({MediaType.TEXT_XML, MediaType.APPLICATION_XML})
-    public Response applyFunction(@Context HttpServletRequest req, GraphFunction function, @PathParam("user") String user, @PathParam("id") Long id, @QueryParam("repeat") Integer repeat) {
+    public Response applyFunction(@Context HttpServletRequest req, GraphFunctionXml function, @PathParam("user") String user, @PathParam("id") Long id, @QueryParam("name") String name, @QueryParam("repeat") Integer repeat) {
         try {
             GraphDetailXml xml = null;
             if (function.getFunction() instanceof LayoutXml) {
-                xml = applyLayout(req, (LayoutXml) function.getFunction(), user, id, repeat);
+                xml = applyLayout(req, (LayoutXml) function.getFunction(), user, id, name, repeat);
             } else if (function.getFunction() instanceof StatisticXml) {
-                xml = applyStatistics(req, (StatisticXml) function.getFunction(), user, id);
+                xml = applyStatistics(req, (StatisticXml) function.getFunction(), user, id, name);
             } else {
                 throw new IllegalArgumentException("Function not implemented.");
             }
@@ -285,7 +284,7 @@ public class GraphResourceRESTService {
     }
 
     /* LAYOUT ====================================================================================================================================== */
-    private GraphDetailXml applyLayout(@Context HttpServletRequest req, LayoutXml layout, @PathParam("user") String user, @PathParam("id") Long id, @QueryParam("repeat") Integer repeat)
+    private GraphDetailXml applyLayout(HttpServletRequest req, LayoutXml layout, String user, Long id, String newName, Integer repeat)
             throws ParserConfigurationException, SAXException, IOException {
 
         GraphEntity e = getGraph(user, id);
@@ -303,7 +302,11 @@ public class GraphResourceRESTService {
             String resXml = gephiExporter.toGexf(ww);
 
             GraphEntity result = new GraphEntity();
-            result.setName(e.getName() + "_" + StringUtil.uriSafe(layout.getName()));
+            if (newName != null) {
+                result.setName(newName);
+            } else {
+                result.setName(e.getName() + "_" + StringUtil.uriSafe(layout.getName()));
+            }
             result.setParent(e);
             result.setXml(resXml);
             result.setStatisticsReport(e.getStatisticsReport());
@@ -320,7 +323,7 @@ public class GraphResourceRESTService {
 
 	/* STATISTICS ====================================================================================================================================== */
 
-    private GraphDetailXml applyStatistics(@Context HttpServletRequest req, StatisticXml statisticXml, @PathParam("user") String user, @PathParam("id") Long id) throws ParserConfigurationException,
+    private GraphDetailXml applyStatistics(@Context HttpServletRequest req, StatisticXml statisticXml, @PathParam("user") String user, @PathParam("id") Long id, String newName) throws ParserConfigurationException,
             SAXException, IOException {
 
         GraphEntity e = getGraph(user, id);
@@ -334,7 +337,12 @@ public class GraphResourceRESTService {
             String resXml = gephiExporter.toGexf(ww);
 
             GraphEntity result = new GraphEntity();
-            result.setName(e.getName() + "_" + StringUtil.uriSafe(statisticXml.getName()));
+
+            if (newName != null) {
+                result.setName(newName);
+            } else {
+                result.setName(e.getName() + "_" + StringUtil.uriSafe(statisticXml.getName()));
+            }
             result.setParent(e);
             result.setOwner(e.getOwner());
             result.setXml(resXml);

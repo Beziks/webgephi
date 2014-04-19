@@ -37,9 +37,10 @@ public class ErrorHtmlBodyWritter implements MessageBodyWriter<ErrorXml> {
                 (
                         "<html><head><title>Error " + errorXml.getCode().getNumber() + " (" + errorXml.getCode().getCode() + ")</title></head>" +
                                 "<body>" +
-                                "<h1>" + errorXml.getCode().getNumber() + " (" + errorXml.getCode().getCode() + ")</h1>" +                                "<ul>" +
-                                "<li>Message: " + errorXml.getMessage() + "</li>" +
-                                "<li>Detail: " + errorXml.getDetail() + "</li>" +
+                                "<h1>" + errorXml.getCode().getNumber() + " (" + errorXml.getCode().getCode() + ")</h1>" +
+                                "<ul class=\"webgephiErrorReport\">" +
+                                "<li>Message: <span class=\"webgephiErrorMessage\">" + errorXml.getMessage() + "</span></li>" +
+                                "<li>Detail: <span class=\"webgephiErrorDetail\">" + errorXml.getDetail() + "</span></li>" +
                                 "</ul></body></html>"
 
                 ).getBytes()

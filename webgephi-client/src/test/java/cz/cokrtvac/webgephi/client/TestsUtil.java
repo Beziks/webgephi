@@ -25,4 +25,8 @@ public class TestsUtil {
     public static String getStatisticClusteringCoeficient() throws IOException {
         return IOUtil.readFile(TestsUtil.class.getResourceAsStream("/statisticClusteringCoeficient.xml"));
     }
+
+    public static Token getTestAccessToken(){
+        return new Token("test.client", "68c17d0d-test-4b0e-bb2f-f4fe50d83704", "060a7ba5-test-4969-a832-714b05f81440", "b51b92a5-test-492f-8ad7-e9dcb459ab2e");
+    }
 }

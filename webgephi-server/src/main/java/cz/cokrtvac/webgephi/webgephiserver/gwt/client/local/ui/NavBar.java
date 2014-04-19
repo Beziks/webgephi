@@ -2,13 +2,12 @@ package cz.cokrtvac.webgephi.webgephiserver.gwt.client.local.ui;
 
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.KeyCodes;
-import com.google.gwt.event.dom.client.KeyPressEvent;
-import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.*;
+import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.PasswordTextBox;
+import com.google.gwt.user.client.ui.TextBox;
 import cz.cokrtvac.webgephi.webgephiserver.gwt.client.shared.Login;
 import cz.cokrtvac.webgephi.webgephiserver.gwt.client.shared.Logout;
 import org.jboss.errai.ioc.client.api.AfterInitialization;

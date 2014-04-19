@@ -1,14 +1,14 @@
 package cz.cokrtvac.webgephi.clientlib;
 
 import cz.cokrtvac.webgephi.api.util.XmlUtil;
-import cz.cokrtvac.webgephi.client.WebgephiClient;
 import cz.cokrtvac.webgephi.client.WebgephiClientException;
-import org.jboss.resteasy.client.ClientResponse;
+import cz.cokrtvac.webgephi.client.WebgephiOAuthClient;
 import org.slf4j.Logger;
 
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.ws.rs.core.Response;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
@@ -50,27 +50,28 @@ public class ClientBean implements Serializable {
 
 
     public String sendRequest() throws WebgephiClientException {
-        WebgephiClient client = connectionBean.getWebgephiClient();
+        WebgephiOAuthClient client = connectionBean.getWebgephiClient();
         if (client == null) {
             setMessage("Client is null, you have to log in first");
             return null;
         }
 
-        ClientResponse<String> response = null;
+        Response response = null;
 
         if ("GET".equals(method)) {
-            response = client.get(resource, String.class);
+            response = client.get(resource);
         } else if ("PUT".equals(method)) {
-            response = client.put(resource, String.class, null, body);
+            response = client.put(resource, null, body);
         } else if ("POST".equals(method)) {
-            response = client.post(resource, String.class, null, body);
+            response = client.post(resource, null, body);
         } else {
             setMessage("Error");
             return null;
         }
 
-        setStatus(response.getStatus() + " (" + response.getResponseStatus().getReasonPhrase() + ")");
-        setResponseBody(XmlUtil.prettifyXml(response.getEntity()).trim());
+        setStatus(response.getStatus() + " (" + response.getStatusInfo().getReasonPhrase() + ")");
+        setResponseBody(XmlUtil.prettifyXml(response.readEntity(String.class)).trim());
+        response.close();
 
         log.info(getResponseBody());
 

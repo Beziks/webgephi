@@ -1,6 +1,6 @@
 package cz.cokrtvac.webgephi.client;
 
-import org.jboss.resteasy.client.ClientResponse;
+import cz.cokrtvac.webgephi.api.model.graph.GraphsXml;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
@@ -8,6 +8,8 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
+import javax.ws.rs.core.Response;
 
 /**
  * User: Vaclav Cokrt, beziks@gmail.com
@@ -17,18 +19,19 @@ import org.testng.annotations.Test;
 public class WebgephiClientTest {
     private Logger log = LoggerFactory.getLogger(getClass());
 
-    private Token token;
-    private WebgephiClient client;
+    private WebgephiOAuthClient client;
+    private Long firstGraphId;
 
     @BeforeClass
-    public void init() {
-        // Access token to admin account (all scopes)
-        token = new Token("client.webgephi.cz", "68c17d0d-5090-4b0e-bb2f-f4fe50d83704", "060a7ba5-d8c0-4969-a832-714b05f81440", "b51b92a5-c65c-492f-8ad7-e9dcb459ab2e");
-        client = new WebgephiClient("https://127.0.0.1:8443/webgephiserver/rest", token);
+    public void init() throws WebgephiClientException {
+        // Access token to testuser account (all scopes)
+        client = new WebgephiOAuthClient("https://webgephi.local:8443/rest", TestsUtil.getTestAccessToken());
+        firstGraphId = client.get("users/testuser/graphs").readEntity(GraphsXml.class).getGraphs().get(0).getId();
     }
 
     @BeforeMethod
     public void setUp() throws Exception {
+
     }
 
     @AfterMethod
@@ -38,8 +41,8 @@ public class WebgephiClientTest {
     @Test
     public void testGet() throws Exception {
         testUrl("users", 403, "<error");
-        testUrl("users/admin", 200, "<user");
-        testUrl("users/admin/graphs", 200, "Missereables");
+        testUrl("users/testuser", 200, "<user");
+        testUrl("users/testuser/graphs", 200, "Missereables");
         testUrl("users/user", 403, "<error");
         testUrl("users/user/graphs", 403, "<error");
         testUrl("layouts", 200, "<layout");
@@ -49,7 +52,7 @@ public class WebgephiClientTest {
     @Test
     public void testPost() throws Exception {
         String body = TestsUtil.getMisserablesGEXF();
-        ClientResponse<String> r = client.post("users/admin/graphs", String.class, null, body);
+        Response r = client.post("users/testuser/graphs", null, body);
         log.info(r.getStatus() + " | " + r.getEntity());
         Assert.assertEquals(r.getStatus(), 201);
     }
@@ -57,7 +60,7 @@ public class WebgephiClientTest {
     //@Test
     public void testLargePost() throws Exception {
         String body = TestsUtil.getTwitterGEXF();
-        ClientResponse<String> r = client.post("users/admin/graphs", String.class, null, body);
+        Response r = client.post("users/testuser/graphs", null, body);
         log.info(r.getStatus() + " | " + r.getEntity());
         Assert.assertEquals(r.getStatus(), 201);
     }
@@ -65,7 +68,7 @@ public class WebgephiClientTest {
     @Test
     public void testPutLayout() throws Exception {
         String body = TestsUtil.getLayoutRotate();
-        ClientResponse<String> r = client.put("users/admin/graphs/18", String.class, null, body);
+        Response r = client.put("users/testuser/graphs/" + firstGraphId, null, body);
         log.info(r.getStatus() + " | " + r.getEntity());
         Assert.assertEquals(r.getStatus(), 201);
     }
@@ -73,15 +76,20 @@ public class WebgephiClientTest {
     @Test
     public void testPutStatistic() throws Exception {
         String body = TestsUtil.getStatisticClusteringCoeficient();
-        ClientResponse<String> r = client.put("users/admin/graphs/18", String.class, null, body);
+        Response r = client.put("users/testuser/graphs/" + firstGraphId, null, body);
         log.info(r.getStatus() + " | " + r.getEntity());
         Assert.assertEquals(r.getStatus(), 201);
     }
 
     private void testUrl(String resource, int expectedStatus, String contains) throws WebgephiClientException {
-        ClientResponse<String> r = client.get(resource, String.class);
-        log.info(r.getStatus() + " | " + r.getEntity());
-        Assert.assertEquals(r.getStatus(), expectedStatus);
-        Assert.assertTrue(r.getEntity().contains(contains));
+        try {
+            Response r = client.get(resource);
+            log.info(r.getStatus() + " | " + r.getEntity());
+            Assert.assertEquals(r.getStatus(), expectedStatus);
+            Assert.assertTrue(r.readEntity(String.class).contains(contains));
+        } catch (WebgephiClientException e) {
+            log.error("Test failed: " + e.getMessage(), e);
+            throw e;
+        }
     }
 }

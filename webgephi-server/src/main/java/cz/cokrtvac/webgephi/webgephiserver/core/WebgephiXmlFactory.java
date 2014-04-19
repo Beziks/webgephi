@@ -13,6 +13,7 @@ import org.gephi.layout.spi.Layout;
 import org.gephi.layout.spi.LayoutProperty;
 
 import java.lang.reflect.InvocationTargetException;
+import java.net.URI;
 
 /**
  * User: Vaclav Cokrt, beziks@gmail.com
@@ -22,17 +23,22 @@ import java.lang.reflect.InvocationTargetException;
 public class WebgephiXmlFactory {
     public static GraphDetailXml create(GraphEntity entity) {
         GraphDetailXml xml = new GraphDetailXml();
-        xml.setId(String.valueOf(entity.getId()));
+        xml.setId(entity.getId());
         xml.setName(entity.getName());
+        xml.setCreated(entity.getCreated());
         xml.setOwner(entity.getOwner().getUsername());
-
-        xml.setHasStatistics(entity.getStatisticsReport() != null);
+        if (entity.getStatisticsReport() != null) {
+            xml.restServiceDiscovery.addLink(URI.create(""), GraphDetailXml.STATISTICS_REPORT);
+        }
 
         if (entity.getParent() != null) {
             GraphDetailXml xmlParent = new GraphDetailXml();
             xmlParent.setName(entity.getParent().getName());
-            xmlParent.setId(String.valueOf(entity.getParent().getId()));
-            xmlParent.setHasStatistics(entity.getParent().getStatisticsReport() != null);
+            xmlParent.setCreated(entity.getParent().getCreated());
+            xmlParent.setId(entity.getParent().getId());
+            if (entity.getParent().getStatisticsReport() != null) {
+                xmlParent.restServiceDiscovery.addLink(URI.create(""), GraphDetailXml.STATISTICS_REPORT);
+            }
             xmlParent.setOwner(entity.getParent().getOwner().getUsername());
             xml.setParent(xmlParent);
         }

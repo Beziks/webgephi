@@ -72,6 +72,7 @@ public class LoginManager {
 
     public Set<Role> getUserRoles(String username) {
         User user = identityManager.getUser(username);
+
         IdentityQuery<org.picketlink.idm.model.Role> query = identityManager.createIdentityQuery(org.picketlink.idm.model.Role.class);
         query.setParameter(org.picketlink.idm.model.Role.ROLE_OF, user);
 

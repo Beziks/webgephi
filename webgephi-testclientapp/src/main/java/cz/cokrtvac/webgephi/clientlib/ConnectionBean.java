@@ -3,7 +3,7 @@ package cz.cokrtvac.webgephi.clientlib;
 import cz.cokrtvac.webgephi.client.Token;
 import cz.cokrtvac.webgephi.client.WebgephiAuthenticator;
 import cz.cokrtvac.webgephi.client.WebgephiAuthenticatorException;
-import cz.cokrtvac.webgephi.client.WebgephiClient;
+import cz.cokrtvac.webgephi.client.WebgephiOAuthClient;
 import cz.cokrtvac.webgephi.client.util.UrlUtil;
 import org.slf4j.Logger;
 
@@ -38,7 +38,7 @@ public class ConnectionBean implements Serializable {
     private Set<String> scopes = new HashSet<String>();
 
     private WebgephiAuthenticator authenticator;
-    private WebgephiClient webgephiClient;
+    private WebgephiOAuthClient webgephiClient;
 
     private String message;
 
@@ -85,7 +85,7 @@ public class ConnectionBean implements Serializable {
     public void setVerifier(String verifier) {
         try {
             Token accessToken = authenticator.obtainAccessToken(verifier);
-            webgephiClient = new WebgephiClient(UrlUtil.concat(serverBase, "rest"), accessToken);
+            webgephiClient = new WebgephiOAuthClient(UrlUtil.concat(serverBase, "rest"), accessToken);
             setMessage("Authorization success");
         } catch (WebgephiAuthenticatorException e) {
             log.error("Request for access token failed", e);
@@ -94,7 +94,7 @@ public class ConnectionBean implements Serializable {
     }
 
     // GETTERS and SETTERS ===========================
-    public WebgephiClient getWebgephiClient() {
+    public WebgephiOAuthClient getWebgephiClient() {
         return webgephiClient;
     }
 

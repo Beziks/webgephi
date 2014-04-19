@@ -8,6 +8,8 @@ import org.jboss.resteasy.links.impl.RESTUtils;
 import org.jboss.resteasy.spi.Registry;
 import org.jboss.resteasy.spi.ResteasyProviderFactory;
 import org.jboss.resteasy.spi.interception.DecoratorProcessor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
@@ -16,6 +18,7 @@ import javax.xml.bind.Marshaller.Listener;
 import java.lang.annotation.Annotation;
 
 public class EnhancedLinkDecorator implements DecoratorProcessor<Marshaller, AddLinksEnhanced> {
+    private static Logger log = LoggerFactory.getLogger(EnhancedLinkDecorator.class);
 
     public Marshaller decorate(Marshaller target, final AddLinksEnhanced annotation, Class type, Annotation[] annotations, MediaType mediaType) {
         target.setListener(new Listener() {
@@ -24,6 +27,14 @@ public class EnhancedLinkDecorator implements DecoratorProcessor<Marshaller, Add
                 UriInfo uriInfo = ResteasyProviderFactory.getContextData(UriInfo.class);
                 ResourceMethodRegistry registry = (ResourceMethodRegistry) ResteasyProviderFactory.getContextData(Registry.class);
 
+                boolean removeStatLink = false;
+                if (entity instanceof GraphDetailXml) {
+                    GraphDetailXml xml = (GraphDetailXml) entity;
+                    AtomLink stat = xml.restServiceDiscovery.getLinkForRel(GraphDetailXml.STATISTICS_REPORT);
+                    removeStatLink = stat == null;
+                    xml.restServiceDiscovery.remove(stat);
+                }
+
                 // find all rest service classes and scan them
                 RESTUtils.addDiscovery(entity, uriInfo, registry);
 
@@ -31,7 +42,7 @@ public class EnhancedLinkDecorator implements DecoratorProcessor<Marshaller, Add
                     updateLinksType((AtomLink) entity);
                 }
                 if (entity instanceof GraphDetailXml) {
-                    updateGraphDetailXml((GraphDetailXml) entity);
+                    updateGraphDetailXml((GraphDetailXml) entity, removeStatLink);
                 }
                 if (entity instanceof GraphsXml) {
                     updateGraphsAtomLinks((GraphsXml) entity);
@@ -54,9 +65,9 @@ public class EnhancedLinkDecorator implements DecoratorProcessor<Marshaller, Add
         }
     }
 
-    private void updateGraphDetailXml(GraphDetailXml graphDetailXml) {
-        AtomLink link = graphDetailXml.restServiceDiscovery.getLinkForRel(GraphDetailXml.STATISTICS_REPORT);
-        if (!graphDetailXml.hasStatistics()) {
+    private void updateGraphDetailXml(GraphDetailXml graphDetailXml, boolean removeStatLink) {
+        if(removeStatLink){
+            AtomLink link = graphDetailXml.restServiceDiscovery.getLinkForRel(GraphDetailXml.STATISTICS_REPORT);
             graphDetailXml.restServiceDiscovery.remove(link);
         }
     }

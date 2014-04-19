@@ -4,8 +4,8 @@
       http://java.sun.com/xml/ns/javaee/beans_1_0.xsd">
     <interceptors>
         <!-- Interceptors are executed in this order -->
-        <class>org.jboss.errai.security.server.SecurityUserInterceptor</class>
-        <class>org.jboss.errai.security.server.ServerSecurityRoleInterceptor</class>
+        <!--<class>org.jboss.errai.security.server.SecurityUserInterceptor</class>
+        <class>org.jboss.errai.security.server.ServerSecurityRoleInterceptor</class>  -->
 
         <class>cz.cokrtvac.webgephi.webgephiserver.core.rest.interceptor.WebgephiWebExceptionInterceptor</class>
         <class>cz.cokrtvac.webgephi.webgephiserver.core.util.security_annotation.SecurityInterceptor</class>

@@ -15,7 +15,6 @@ import cz.cokrtvac.webgephi.webgephiserver.gwt.client.shared.model.User;
 import cz.cokrtvac.webgephi.webgephiserver.gwt.client.shared.model.ValidationException;
 import org.jboss.errai.common.client.api.Caller;
 import org.jboss.errai.common.client.api.ErrorCallback;
-import org.jboss.errai.common.client.api.RemoteCallback;
 import org.jboss.errai.common.client.api.VoidCallback;
 import org.jboss.errai.databinding.client.api.DataBinder;
 import org.jboss.errai.databinding.client.api.PropertyChangeEvent;

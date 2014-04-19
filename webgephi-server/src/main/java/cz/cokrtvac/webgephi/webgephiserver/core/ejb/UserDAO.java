@@ -92,6 +92,10 @@ public class UserDAO {
             throw new ValidationException("User " + user.getUsername() + " is not valid", "Username " + user.getUsername() + " is already taken.");
         }
 
+        if(user.getUsername().equalsIgnoreCase("logged")){
+            throw new ValidationException(user.getUsername() + " is not valid username. 'Logged' is a reserved word.");
+        }
+
         // Validate
         Set<ConstraintViolation<User>> results = validator.validate(user);
         List<String> reasons = new ArrayList<String>();

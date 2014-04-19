@@ -12,7 +12,7 @@ import javax.xml.bind.annotation.*;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.NONE)
-public class PropertyXml<T> implements HasId {
+public class PropertyXml<T> {
     private String id;
     private Class<?> type;
     private String name;
