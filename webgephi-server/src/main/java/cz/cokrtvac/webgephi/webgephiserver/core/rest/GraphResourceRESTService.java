@@ -5,9 +5,9 @@ import cz.cokrtvac.webgephi.api.model.WebgephiWebException;
 import cz.cokrtvac.webgephi.api.model.graph.GraphDetailXml;
 import cz.cokrtvac.webgephi.api.model.graph.GraphsXml;
 import cz.cokrtvac.webgephi.api.model.layout.LayoutXml;
+import cz.cokrtvac.webgephi.api.model.ranking.RankingXml;
 import cz.cokrtvac.webgephi.api.model.statistic.StatisticXml;
 import cz.cokrtvac.webgephi.api.model.user.UserXml;
-import cz.cokrtvac.webgephi.api.util.StringUtil;
 import cz.cokrtvac.webgephi.api.util.XmlUtil;
 import cz.cokrtvac.webgephi.webgephiserver.core.WebgephiXmlFactory;
 import cz.cokrtvac.webgephi.webgephiserver.core.ejb.GraphDAO;
@@ -15,6 +15,7 @@ import cz.cokrtvac.webgephi.webgephiserver.core.ejb.UserDAO;
 import cz.cokrtvac.webgephi.webgephiserver.core.gephi.GephiExporter;
 import cz.cokrtvac.webgephi.webgephiserver.core.gephi.GephiImporter;
 import cz.cokrtvac.webgephi.webgephiserver.core.gephi.layout.GephiLayoutProcessor;
+import cz.cokrtvac.webgephi.webgephiserver.core.gephi.ranking.GephiRankingProcessor;
 import cz.cokrtvac.webgephi.webgephiserver.core.gephi.statistics.GephiStatisticsProcessor;
 import cz.cokrtvac.webgephi.webgephiserver.core.gephi.statistics.StatisticsWrapper;
 import cz.cokrtvac.webgephi.webgephiserver.core.gephi.workspace.GephiWorkspaceProvider;
@@ -65,6 +66,9 @@ public class GraphResourceRESTService {
 
     @Inject
     private GephiStatisticsProcessor statisticsProcessor;
+
+    @Inject
+    private GephiRankingProcessor rankingProcessor;
 
     @Inject
     private GephiExporter gephiExporter;
@@ -225,7 +229,7 @@ public class GraphResourceRESTService {
     @LinkResource(value = GraphDetailXml.class, pathParameters = {"${owner}"})
     @Consumes({MediaType.TEXT_XML, MediaType.APPLICATION_XML})
     public Response addGraph(@Context HttpServletRequest req, Document document, @PathParam("user") String user, @QueryParam("name") String name) {
-        log.debug("POSTing GEXF: " + XmlUtil.toString(document) + "\nname=" + name);
+        log.debug("POSTing GEXF name=" + name);
 
         try {
             WorkspaceWrapper ww = gephiManager.getWorkspace();
@@ -272,6 +276,8 @@ public class GraphResourceRESTService {
                 xml = applyLayout(req, (LayoutXml) function.getFunction(), user, id, name, repeat);
             } else if (function.getFunction() instanceof StatisticXml) {
                 xml = applyStatistics(req, (StatisticXml) function.getFunction(), user, id, name);
+            } else if (function.getFunction() instanceof RankingXml) {
+                xml = applyRanking(req, (RankingXml) function.getFunction(), user, id, name);
             } else {
                 throw new IllegalArgumentException("Function not implemented.");
             }
@@ -305,7 +311,7 @@ public class GraphResourceRESTService {
             if (newName != null) {
                 result.setName(newName);
             } else {
-                result.setName(e.getName() + "_" + StringUtil.uriSafe(layout.getName()));
+                result.setName(e.getName() + "_" + layout.getId());
             }
             result.setParent(e);
             result.setXml(resXml);
@@ -341,7 +347,7 @@ public class GraphResourceRESTService {
             if (newName != null) {
                 result.setName(newName);
             } else {
-                result.setName(e.getName() + "_" + StringUtil.uriSafe(statisticXml.getName()));
+                result.setName(e.getName() + "_" + statisticXml.getId());
             }
             result.setParent(e);
             result.setOwner(e.getOwner());
@@ -355,6 +361,41 @@ public class GraphResourceRESTService {
             }
 
             result.setStatisticsReport(report);
+            graphDAO.persist(result);
+
+            GraphDetailXml xml = WebgephiXmlFactory.create(result);
+
+            return xml;
+        } finally {
+            gephiManager.clear();
+        }
+    }
+
+    /* RANKING ====================================================================================================================================== */
+
+    private GraphDetailXml applyRanking(@Context HttpServletRequest req, RankingXml rankingXml, @PathParam("user") String user, @PathParam("id") Long id, String newName) throws ParserConfigurationException,
+            SAXException, IOException {
+
+        GraphEntity e = getGraph(user, id);
+        log.debug("Ranking: " + rankingXml.toString());
+
+        WorkspaceWrapper ww = gephiManager.getWorkspace();
+        gephiImporter.importGexf(e.getXml(), ww);
+
+        try {
+            ww = rankingProcessor.process(ww, rankingXml);
+            String resXml = gephiExporter.toGexf(ww);
+
+            GraphEntity result = new GraphEntity();
+
+            if (newName != null) {
+                result.setName(newName);
+            } else {
+                result.setName(e.getName() + "_" + rankingXml.getId());
+            }
+            result.setParent(e);
+            result.setOwner(e.getOwner());
+            result.setXml(resXml);
             graphDAO.persist(result);
 
             GraphDetailXml xml = WebgephiXmlFactory.create(result);

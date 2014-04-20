@@ -7,6 +7,8 @@ import cz.cokrtvac.webgephi.api.model.graph.GraphDetailXml;
 import cz.cokrtvac.webgephi.api.model.graph.GraphsXml;
 import cz.cokrtvac.webgephi.api.model.layout.LayoutXml;
 import cz.cokrtvac.webgephi.api.model.layout.LayoutsXml;
+import cz.cokrtvac.webgephi.api.model.ranking.RankingXml;
+import cz.cokrtvac.webgephi.api.model.ranking.RankingsXml;
 import cz.cokrtvac.webgephi.api.model.statistic.StatisticXml;
 import cz.cokrtvac.webgephi.api.model.statistic.StatisticsXml;
 import cz.cokrtvac.webgephi.api.model.user.UserXml;
@@ -116,6 +118,26 @@ public class WebgephiEntityClientImpl implements WebgephiEntityClient {
         return applyLayoutFunction(getLogged(), graphId, layoutXml, newName, repeat);
     }
 
+    @Override
+    public GraphDetailXml applyStatisticFunction(String username, Long graphId, StatisticXml statisticXml, String newName) throws ErrorHttpResponseException, WebgephiClientException {
+        return applyFunction(username, graphId, new GraphFunctionXml(statisticXml), newName);
+    }
+
+    @Override
+    public GraphDetailXml applyStatisticFunction(Long graphId, StatisticXml statisticXml, String newName) throws ErrorHttpResponseException, WebgephiClientException {
+        return applyFunction(graphId, new GraphFunctionXml(statisticXml), newName);
+    }
+
+    @Override
+    public GraphDetailXml applyRankingFunction(String username, Long graphId, RankingXml rankingXml, String newName) throws ErrorHttpResponseException, WebgephiClientException {
+        return applyFunction(username, graphId, new GraphFunctionXml(rankingXml), newName);
+    }
+
+    @Override
+    public GraphDetailXml applyRankingFunction(Long graphId, RankingXml rankingXml, String newName) throws ErrorHttpResponseException, WebgephiClientException {
+        return applyFunction(graphId, new GraphFunctionXml(rankingXml), newName);
+    }
+
     // Graph formats ------------------------------------
     @Override
     public String getGraphInFormat(String username, Long graphId, String format) throws ErrorHttpResponseException, WebgephiClientException {
@@ -182,6 +204,16 @@ public class WebgephiEntityClientImpl implements WebgephiEntityClient {
         return get("statistics/" + statisticId, StatisticXml.class);
     }
 
+    @Override
+    public RankingsXml getRankings() throws ErrorHttpResponseException, WebgephiClientException {
+        return get("rankings", RankingsXml.class);
+    }
+
+    @Override
+    public RankingXml getRanking(String rankingId) throws ErrorHttpResponseException, WebgephiClientException {
+        return get("rankings/" + rankingId, RankingXml.class);
+    }
+
     // Utils ==============================================================================
     protected <T> T get(String targetPath, Class<T> responseType) throws ErrorHttpResponseException, WebgephiClientException {
         Response response = get(targetPath);
@@ -226,7 +258,8 @@ public class WebgephiEntityClientImpl implements WebgephiEntityClient {
     }
 
     private ErrorXml parseError(Response response) {
-        if (MediaType.APPLICATION_XML_TYPE.isCompatible(response.getMediaType())) {
+        System.out.println(response.getMediaType());
+        if (MediaType.APPLICATION_XML_TYPE.isCompatible(response.getMediaType()) || MediaType.TEXT_XML_TYPE.isCompatible(response.getMediaType())) {
             ErrorXml err = response.readEntity(ErrorXml.class);
             return err;
         }

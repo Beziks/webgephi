@@ -129,28 +129,24 @@ public class ConsumerApplicationWidget extends FormWidget {
     private void init() {
         log.info("Initializing...");
 
-        System.out.println("INIT START");
         errors.put("key", keyError);
         errors.put("secret", secretError);
         errors.put("applicationName", applicationNameError);
         errors.put("connectUri", connectUriError);
 
         for (Element e : errors.values()) {
-            System.out.println("hide");
             hideError(e);
         }
 
         clientApp.addPropertyChangeHandler(new PropertyChangeHandler<Object>() {
             @Override
             public void onPropertyChange(PropertyChangeEvent<Object> objectPropertyChangeEvent) {
-                System.out.println("Changed: " + objectPropertyChangeEvent.getPropertyName());
                 Set<ConstraintViolation<Object>> errs = validator.validateProperty(objectPropertyChangeEvent.getSource(), objectPropertyChangeEvent.getPropertyName());
 
                 Element error = errors.get(objectPropertyChangeEvent.getPropertyName());
                 String message = "";
 
                 for (ConstraintViolation<Object> v : errs) {
-                    System.out.println(v.getMessage());
                     message += v.getMessage() + "<br />";
                 }
 

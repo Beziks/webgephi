@@ -103,7 +103,6 @@ public class UserProfileWidget extends FormWidget {
 
     @PostConstruct
     private void init() {
-        System.out.println("INIT START");
         errors.put("username", usernameError);
         errors.put("password", passwordError);
         errors.put("firstName", firstNameError);
@@ -111,21 +110,18 @@ public class UserProfileWidget extends FormWidget {
         errors.put("email", emailError);
 
         for (Element e : errors.values()) {
-            System.out.println("hide");
             hideError(e);
         }
 
         user.addPropertyChangeHandler(new PropertyChangeHandler<Object>() {
             @Override
             public void onPropertyChange(PropertyChangeEvent<Object> objectPropertyChangeEvent) {
-                System.out.println("Changed: " + objectPropertyChangeEvent.getPropertyName());
                 Set<ConstraintViolation<Object>> errs = validator.validateProperty(objectPropertyChangeEvent.getSource(), objectPropertyChangeEvent.getPropertyName());
 
                 Element error = errors.get(objectPropertyChangeEvent.getPropertyName());
                 String message = "";
 
                 for (ConstraintViolation<Object> v : errs) {
-                    System.out.println(v.getMessage());
                     message += v.getMessage() + "<br />";
                 }
 

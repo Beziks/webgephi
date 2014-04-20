@@ -6,6 +6,8 @@ import cz.cokrtvac.webgephi.api.model.graph.GraphDetailXml;
 import cz.cokrtvac.webgephi.api.model.graph.GraphsXml;
 import cz.cokrtvac.webgephi.api.model.layout.LayoutXml;
 import cz.cokrtvac.webgephi.api.model.layout.LayoutsXml;
+import cz.cokrtvac.webgephi.api.model.ranking.RankingXml;
+import cz.cokrtvac.webgephi.api.model.ranking.RankingsXml;
 import cz.cokrtvac.webgephi.api.model.statistic.StatisticXml;
 import cz.cokrtvac.webgephi.api.model.statistic.StatisticsXml;
 import cz.cokrtvac.webgephi.api.model.user.UserXml;
@@ -104,6 +106,13 @@ public class WebgephiEntityClientTest {
 
         StatisticXml statisticXml = client.getStatistic("page-rank");
         log.info("Response: " + statisticsXml);
+
+        RankingsXml rankingsXml = client.getRankings();
+        log.info("Response: " + rankingsXml);
+
+        RankingXml rankingXml = client.getRanking(RankingXml.SIZE_RANKING_ID);
+        log.info("Response: " + rankingXml);
+        Assert.assertEquals(Float.class, rankingXml.getProperty(RankingXml.SIZE_RANKING_PROPERTY_SIZE2).getValue().getClass());
     }
 
     @Test
@@ -152,6 +161,12 @@ public class WebgephiEntityClientTest {
         String html = client.getGraphStatisticReport(g3.getId());
         Assert.assertTrue(html.contains("PageRank Report"));
         log.info("Statistic report: " + html);
+
+        // Apply ranking
+        RankingXml rank = client.getRanking(RankingXml.COLOR_RANKING_ID);
+        ((PropertyXml<String>) rank.getProperty(RankingXml.RANKING_ATTRIBUTE_ID)).setValue("pageranks");
+        GraphDetailXml g4 = client.applyRankingFunction(g3.getId(), rank, "afterRanking");
+        log.info("Graph after ranking " + g4);
     }
 
     @Test(expectedExceptions = ErrorHttpResponseException.class)

@@ -14,13 +14,23 @@ import javax.xml.bind.annotation.*;
 @XmlAccessorType(XmlAccessType.NONE)
 public class PropertyXml<T> {
     private String id;
-    private Class<?> type;
+    //private Class<?> type;
     private String name;
     private String description;
     private T value;
 
+    public PropertyXml() {
+    }
+
+    public PropertyXml(String id, String name, String description, T value) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.value = value;
+    }
+
     @XmlID
-    @XmlAttribute
+    @XmlAttribute(required = true)
     public String getId() {
         return id;
     }
@@ -29,14 +39,14 @@ public class PropertyXml<T> {
         this.id = id;
     }
 
-    @XmlElement(required = true)
+    /*@XmlElement(required = true)
     public Class<?> getType() {
         return type;
     }
 
     public void setType(Class<?> type) {
         this.type = type;
-    }
+    } */
 
     @XmlElement(required = true)
     public String getName() {
@@ -67,7 +77,7 @@ public class PropertyXml<T> {
 
     @Override
     public String toString() {
-        return "PropertyXml{" + "type=" + type + ", name='" + name + '\'' + ", description='" + description + '\'' + ", value=" + value + '}';
+        return "PropertyXml{name='" + name + '\'' + ", description='" + description + '\'' + ", value=" + value + '}';
     }
 
     @XmlElementRef

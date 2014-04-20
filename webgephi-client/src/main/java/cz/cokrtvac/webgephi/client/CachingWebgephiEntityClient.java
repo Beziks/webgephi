@@ -8,6 +8,8 @@ import cz.cokrtvac.webgephi.api.model.graph.GraphDetailXml;
 import cz.cokrtvac.webgephi.api.model.graph.GraphsXml;
 import cz.cokrtvac.webgephi.api.model.layout.LayoutXml;
 import cz.cokrtvac.webgephi.api.model.layout.LayoutsXml;
+import cz.cokrtvac.webgephi.api.model.ranking.RankingXml;
+import cz.cokrtvac.webgephi.api.model.ranking.RankingsXml;
 import cz.cokrtvac.webgephi.api.model.statistic.StatisticXml;
 import cz.cokrtvac.webgephi.api.model.statistic.StatisticsXml;
 import cz.cokrtvac.webgephi.api.model.user.UserXml;
@@ -31,8 +33,10 @@ public class CachingWebgephiEntityClient implements WebgephiEntityClient {
 
     private static final String LAYOUTS_KEY = DELIM + "layouts" + DELIM;
     private static final String STATISTICS_KEY = DELIM + "statistics" + DELIM;
+    private static final String RANKINGS_KEY = DELIM + "rankings" + DELIM;
     private static final String LAYOUT_KEY_PREFIX = "layout" + DELIM;
     private static final String STATISTIC_KEY_PREFIX = "statistic" + DELIM;
+    private static final String RANKING_KEY_PREFIX = "ranking" + DELIM;
 
 
     private WebgephiEntityClient wrapped;
@@ -81,11 +85,17 @@ public class CachingWebgephiEntityClient implements WebgephiEntityClient {
                             if (key.equals(STATISTICS_KEY)) {
                                 return wrapped.getStatistics();
                             }
+                            if (key.equals(RANKINGS_KEY)) {
+                                return wrapped.getRankings();
+                            }
                             if (key.startsWith(LAYOUT_KEY_PREFIX)) {
                                 return wrapped.getLayout(key.substring(LAYOUT_KEY_PREFIX.length()));
                             }
                             if (key.startsWith(STATISTIC_KEY_PREFIX)) {
                                 return wrapped.getStatistic(key.substring(STATISTIC_KEY_PREFIX.length()));
+                            }
+                            if (key.startsWith(RANKING_KEY_PREFIX)) {
+                                return wrapped.getRanking(key.substring(RANKING_KEY_PREFIX.length()));
                             }
                             throw new IllegalArgumentException("Unknown chache format " + key);
                         }
@@ -180,6 +190,26 @@ public class CachingWebgephiEntityClient implements WebgephiEntityClient {
     }
 
     @Override
+    public GraphDetailXml applyStatisticFunction(String username, Long graphId, StatisticXml statisticXml, String newName) throws ErrorHttpResponseException, WebgephiClientException {
+        return wrapped.applyStatisticFunction(username, graphId, statisticXml, newName);
+    }
+
+    @Override
+    public GraphDetailXml applyStatisticFunction(Long graphId, StatisticXml statisticXml, String newName) throws ErrorHttpResponseException, WebgephiClientException {
+        return wrapped.applyStatisticFunction(graphId, statisticXml, newName);
+    }
+
+    @Override
+    public GraphDetailXml applyRankingFunction(String username, Long graphId, RankingXml rankingXml, String newName) throws ErrorHttpResponseException, WebgephiClientException {
+        return wrapped.applyRankingFunction(username, graphId, rankingXml, newName);
+    }
+
+    @Override
+    public GraphDetailXml applyRankingFunction(Long graphId, RankingXml rankingXml, String newName) throws ErrorHttpResponseException, WebgephiClientException {
+        return wrapped.applyRankingFunction(graphId, rankingXml, newName);
+    }
+
+    @Override
     public String getGraphInFormat(String username, Long graphId, String format) throws ErrorHttpResponseException, WebgephiClientException {
         try {
             return graphFormatCache.get(username + DELIM + graphId + DELIM + format);
@@ -258,6 +288,26 @@ public class CachingWebgephiEntityClient implements WebgephiEntityClient {
     public StatisticXml getStatistic(String statisticId) throws ErrorHttpResponseException, WebgephiClientException {
         try {
             return (StatisticXml) functionsCache.get(STATISTIC_KEY_PREFIX + statisticId);
+        } catch (ExecutionException e) {
+            rethrowError(e);
+            return null;
+        }
+    }
+
+    @Override
+    public RankingsXml getRankings() throws ErrorHttpResponseException, WebgephiClientException {
+        try {
+            return (RankingsXml) functionsCache.get(RANKINGS_KEY);
+        } catch (ExecutionException e) {
+            rethrowError(e);
+            return null;
+        }
+    }
+
+    @Override
+    public RankingXml getRanking(String rankingId) throws ErrorHttpResponseException, WebgephiClientException {
+        try {
+            return (RankingXml) functionsCache.get(RANKING_KEY_PREFIX + rankingId);
         } catch (ExecutionException e) {
             rethrowError(e);
             return null;

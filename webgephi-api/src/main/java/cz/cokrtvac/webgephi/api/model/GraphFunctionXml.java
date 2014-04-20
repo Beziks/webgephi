@@ -1,6 +1,7 @@
 package cz.cokrtvac.webgephi.api.model;
 
 import cz.cokrtvac.webgephi.api.model.layout.LayoutXml;
+import cz.cokrtvac.webgephi.api.model.ranking.RankingXml;
 import cz.cokrtvac.webgephi.api.model.statistic.StatisticXml;
 
 import javax.xml.bind.annotation.*;
@@ -18,7 +19,8 @@ public class GraphFunctionXml {
 
     @XmlElements({
             @XmlElement(name = "layout", type = LayoutXml.class),
-            @XmlElement(name = "statistic", type = StatisticXml.class)
+            @XmlElement(name = "statistic", type = StatisticXml.class),
+            @XmlElement(name = "ranking", type = RankingXml.class)
     })
     public AbstractFunction getFunction() {
         return function;

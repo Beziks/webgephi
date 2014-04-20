@@ -60,6 +60,5 @@ public class HtmlUtils {
 
     public static void main(String[] args) throws SAXException, ParserConfigurationException, IOException, TransformerException {
         String inputHtml = "<HTML> <BODY> <h1>Eigenvector Centrality Report</h1> <hr><h2> Parameters: </h2>Network Interpretation:  undirected<br>Number of iterations: 100<br>Sum change: 0.009429377861440071<br> <h2> Results: </h2><IMG SRC=\"file:C:\\Users\\beziks\\AppData\\Local\\Temp\\temp7513478020397302488111180292539843\\eigenvector-centralities.png\" WIDTH=\"600\" HEIGHT=\"400\" BORDER=\"0\" USEMAP=\"#chart\"></IMG></BODY></HTML>";
-        System.out.println(embededImages(inputHtml));
     }
 }

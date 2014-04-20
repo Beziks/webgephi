@@ -16,7 +16,6 @@ public class ImageUtils {
             byte[] imageByte = IOUtils.read(file);
 
             String base64 = Base64.encodeBase64String(imageByte);
-            //System.out.println(base64);
             return base64;
         } catch (Exception e) {
             return null;

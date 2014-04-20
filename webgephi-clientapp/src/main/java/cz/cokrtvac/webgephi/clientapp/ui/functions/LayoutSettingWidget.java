@@ -27,9 +27,9 @@ public class LayoutSettingWidget extends FunctionSettingWidget {
         repeat = new IntStepper("Repeat execution");
         repeat.setValue(1);
         repeat.setStepAmount(1);
-        repeat.setMaxValue(10);
+        repeat.setMaxValue(100);
         repeat.setMinValue(1);
-        repeat.setManualInputAllowed(false);
+        repeat.setManualInputAllowed(true);
         l.addComponent(repeat);
         return l;
     }

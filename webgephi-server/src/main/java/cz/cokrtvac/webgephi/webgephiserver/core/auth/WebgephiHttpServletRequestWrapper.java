@@ -18,6 +18,7 @@ public class WebgephiHttpServletRequestWrapper extends HttpServletRequestWrapper
 
     public WebgephiHttpServletRequestWrapper(HttpServletRequest request, String username, Set<String> roles, String authType) {
         super(request);
+        this.roles = roles;
         this.principal = new PrincipalWithRoles(username, new HashSet<String>(roles));
         this.authType = authType;
     }

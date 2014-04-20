@@ -154,8 +154,6 @@ public class WebgephiImportProcessor extends AbstractProcessor implements Proces
             edgeCount++;
             graph.addEdge(e);
         }
-
-        System.out.println("# Nodes loaded: " + nodeCount + "\n# Edges loaded: " + edgeCount);
         workspace = null;
     }
 }

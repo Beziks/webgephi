@@ -7,6 +7,8 @@ import com.vaadin.ui.TabSheet;
 import cz.cokrtvac.webgephi.api.model.graph.GraphDetailXml;
 import cz.cokrtvac.webgephi.api.model.layout.LayoutXml;
 import cz.cokrtvac.webgephi.api.model.layout.LayoutsXml;
+import cz.cokrtvac.webgephi.api.model.ranking.RankingXml;
+import cz.cokrtvac.webgephi.api.model.ranking.RankingsXml;
 import cz.cokrtvac.webgephi.api.model.statistic.StatisticXml;
 import cz.cokrtvac.webgephi.api.model.statistic.StatisticsXml;
 import cz.cokrtvac.webgephi.client.ErrorHttpResponseException;
@@ -58,10 +60,10 @@ public class FunctionsTabPanel extends CustomComponent {
         LayoutsXml layoutsXml = userSession.getWebgephiClient().getLayouts();
 
         Accordion layAccordion = new Accordion();
-        tabSheet.addTab(layAccordion, "Layout functions");
+        tabSheet.addTab(layAccordion, "Layouts");
         layAccordion.setHeight(100.0f, Unit.PERCENTAGE);
 
-        for(LayoutXml l : layoutsXml.getLayouts()){
+        for (LayoutXml l : layoutsXml.getLayouts()) {
             FunctionSettingWidget s = new LayoutSettingWidget(l, userSession);
             layAccordion.addTab(s, l.getName());
             allFunctions.add(s);
@@ -71,24 +73,37 @@ public class FunctionsTabPanel extends CustomComponent {
         StatisticsXml statisticsXml = userSession.getWebgephiClient().getStatistics();
 
         Accordion statAccordion = new Accordion();
-        tabSheet.addTab(statAccordion, "Statistic functions");
+        tabSheet.addTab(statAccordion, "Statistics");
         statAccordion.setHeight(100.0f, Unit.PERCENTAGE);
 
-        for(StatisticXml st : statisticsXml.getStatistics()){
+        for (StatisticXml st : statisticsXml.getStatistics()) {
             FunctionSettingWidget s = new StatisticSettingWidget(st, userSession);
             statAccordion.addTab(s, st.getName());
             allFunctions.add(s);
         }
+
+        // Rankings
+        RankingsXml rankingsXml = userSession.getWebgephiClient().getRankings();
+
+        Accordion rankingsAccordion = new Accordion();
+        tabSheet.addTab(rankingsAccordion, "Rankings");
+        rankingsAccordion.setHeight(100.0f, Unit.PERCENTAGE);
+
+        for (RankingXml st : rankingsXml.getRankings()) {
+            RankingSettingWidget s = new RankingSettingWidget(st, userSession);
+            rankingsAccordion.addTab(s, st.getName());
+            allFunctions.add(s);
+        }
     }
 
-    private void updateSelection(@Observes @Selected GraphDetailXml graph){
+    private void updateSelection(@Observes @Selected GraphDetailXml graph) {
         if (currentGraph != null && graph.getId().equals(currentGraph.getId())) {
             // No update needed
             return;
         }
         currentGraph = graph;
-        for(FunctionSettingWidget w : allFunctions){
-            w.graphChanged(currentGraph);
+        for (FunctionSettingWidget w : allFunctions) {
+            w.graphChanged(currentGraph, userSession);
         }
     }
 

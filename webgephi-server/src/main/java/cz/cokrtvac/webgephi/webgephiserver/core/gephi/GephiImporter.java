@@ -3,7 +3,6 @@ package cz.cokrtvac.webgephi.webgephiserver.core.gephi;
 import cz.cokrtvac.webgephi.webgephiserver.core.gephi.bugfix.WebgephiImportProcessor;
 import cz.cokrtvac.webgephi.webgephiserver.core.gephi.workspace.WorkspaceWrapper;
 import org.gephi.io.importer.api.Container;
-import org.gephi.io.importer.api.EdgeDefault;
 import org.gephi.io.importer.api.ImportController;
 import org.gephi.io.importer.spi.FileImporter;
 import org.slf4j.Logger;
@@ -25,7 +24,8 @@ public class GephiImporter {
 
         FileImporter fileImporter = importController.getFileImporter(GEXF_FORMAT);
         Container container = importController.importFile(new StringReader(gexf), fileImporter);
-        container.getLoader().setEdgeDefault(EdgeDefault.UNDIRECTED); // Force UNDIRECTED
+        container.setAutoScale(false);
+        // TODO container.getLoader().setEdgeDefault(EdgeDefault.UNDIRECTED); // Force UNDIRECTED
 
         // Append imported data to GraphAPI
         importController.process(container, new WebgephiImportProcessor(), workspaceWrapper.getWorkspace());

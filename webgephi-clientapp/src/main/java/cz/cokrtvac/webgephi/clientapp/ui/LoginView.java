@@ -5,6 +5,7 @@ import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.ExternalResource;
 import com.vaadin.server.Page;
+import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.*;
 import cz.cokrtvac.webgephi.client.WebgephiAuthenticator;
 import cz.cokrtvac.webgephi.client.WebgephiAuthenticatorException;
@@ -63,6 +64,11 @@ public class LoginView extends VerticalLayout implements View, Page.BrowserWindo
             Link link = new Link("Login using OAuth", new ExternalResource(url));
             vl.addComponent(link);
             link.setStyleName("loginLink");
+
+            Label info = new Label("(This application is only a graphic interface and is fully dependent on <a href='" + userSession.getServerUrl() + "'>" + userSession.getServerUrl() + "</a>. You must have an account there.)");
+            info.setContentMode(ContentMode.HTML);
+            vl.addComponent(info);
+            info.setStyleName("infoLabel");
 
             addComponent(vl);
 

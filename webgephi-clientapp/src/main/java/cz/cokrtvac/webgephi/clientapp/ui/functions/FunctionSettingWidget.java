@@ -42,7 +42,7 @@ public abstract class FunctionSettingWidget extends CustomComponent {
         setEnabled(false);
 
         Component header = createHeader();
-        if(header != null){
+        if (header != null) {
             layout.addComponent(header);
         }
 
@@ -85,27 +85,56 @@ public abstract class FunctionSettingWidget extends CustomComponent {
     protected Layout createHeader() {
         CssLayout l = new CssLayout();
         graphName = new TextField("Graph name", "Enter new graph name...");
+        graphName.setWidth(100, Unit.PERCENTAGE);
+        graphName.setMaxLength(200);
         l.addComponent(graphName);
         return l;
     }
 
-    public void graphChanged(GraphDetailXml graph){
+    public void graphChanged(GraphDetailXml graph, UserSession userSession) {
         this.currentGraph = graph;
         setEnabled(graph != null);
-        graphName.setValue(graph.getName() + "_" + function.getId());
+
+        String name = graph.getName();
+        int ii = name.lastIndexOf("#");
+        if (ii < 0) {
+            name += "#1";
+        } else {
+            String num = name.substring(ii + 1);
+            try {
+                Integer n = Integer.valueOf(num);
+                name = name.substring(0, ii + 1) + ++n;
+            } catch (Exception e) {
+                name += "#1";
+            }
+        }
+
+        if (name.length() > 200) {
+            name = name.substring(0, 200);
+        }
+
+        graphName.setValue(name);
+
+        for (AbstractPropertyInput<?> i : inputs) {
+            i.graphChanged(graph, userSession);
+        }
 
     }
 
-    public void inputChanged(AbstractPropertyInput<?> source){
-        if(executeButton == null){
+    public void inputChanged(AbstractPropertyInput<?> source) {
+        if (executeButton == null) {
             return;
         }
-        for(AbstractPropertyInput<?> i : inputs){
-            if(!i.isValid()){
+        for (AbstractPropertyInput<?> i : inputs) {
+            if (!i.isValid()) {
                 executeButton.setEnabled(false);
                 return;
             }
         }
         executeButton.setEnabled(true);
+    }
+
+    public UserSession getUserSession() {
+        return userSession;
     }
 }

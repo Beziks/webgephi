@@ -84,7 +84,7 @@ public class WebgephiXmlFactory {
     public static PropertyXml create(LayoutProperty layoutProperty) {
         PropertyXml xml = new PropertyXml();
         xml.setName(layoutProperty.getProperty().getName());
-        xml.setType(layoutProperty.getProperty().getValueType());
+        //xml.setType(layoutProperty.getProperty().getValueType());
         xml.setId(layoutProperty.getCanonicalName());
         xml.setDescription(layoutProperty.getProperty().getShortDescription());
         try {
@@ -102,7 +102,7 @@ public class WebgephiXmlFactory {
     public static PropertyXml create(StatisticsWrapper.StatisticsProperty statisticsProperty) {
         PropertyXml xml = new PropertyXml();
         xml.setName(statisticsProperty.getName());
-        xml.setType(statisticsProperty.getValueType());
+        // xml.setType(statisticsProperty.getValueType());
         xml.setId(statisticsProperty.getName());
         // TODO xml.setDescription("not available");
         xml.setValue(statisticsProperty.getValue());

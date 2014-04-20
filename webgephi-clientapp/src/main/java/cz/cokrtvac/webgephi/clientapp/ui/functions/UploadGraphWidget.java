@@ -60,6 +60,8 @@ public class UploadGraphWidget extends CustomComponent {
             }
         });
 
+        uploadInfoWindow.setStyleName("right-bottom");
+
         final TextField nameField = new TextField("Graph name");
         nameField.setWidth(100, Unit.PERCENTAGE);
         nameField.setRequired(true);
@@ -102,7 +104,7 @@ public class UploadGraphWidget extends CustomComponent {
         vl.addComponent(new Button("Create graph", new Button.ClickListener() {
             @Override
             public void buttonClick(Button.ClickEvent event) {
-                if(!nameField.isValid() || !textArea.isValid()){
+                if (!nameField.isValid() || !textArea.isValid()) {
                     Notification.show("Invalid input data", "Check required fields", Notification.Type.WARNING_MESSAGE);
                     return;
                 }

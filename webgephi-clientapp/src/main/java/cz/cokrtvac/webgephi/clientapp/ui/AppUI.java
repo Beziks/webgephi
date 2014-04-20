@@ -76,6 +76,7 @@ public class AppUI extends UI {
 
         Panel mainContent = new Panel();
         layout.addComponent(mainContent);
+        footerWidget.init();
         layout.addComponent(footerWidget);
 
         // Init navigator

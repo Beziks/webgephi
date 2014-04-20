@@ -62,7 +62,7 @@
     margin-right: 10px;
   }
 
-  .loginLabel, .loginLink {
+  .loginLabel, .loginLink, .infoLabel {
     text-align: center;
     font-size: 15px;
   }
@@ -70,5 +70,22 @@
   .loginLink {
     font-size: 20px;
     font-weight: bold;
+  }
+
+  .infoLabel {
+    font-size: 12px;
+  }
+
+  .right-bottom {
+    left: auto !important;
+    top: auto !important;
+    right: 20px;
+    bottom: 20px;
+  }
+
+  .v-colorpicker-popup {
+    left: 400px !important;;
+    top: 100px !important;;
+
   }
 }

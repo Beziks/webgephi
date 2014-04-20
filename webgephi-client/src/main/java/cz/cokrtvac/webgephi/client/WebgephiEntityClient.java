@@ -5,6 +5,8 @@ import cz.cokrtvac.webgephi.api.model.graph.GraphDetailXml;
 import cz.cokrtvac.webgephi.api.model.graph.GraphsXml;
 import cz.cokrtvac.webgephi.api.model.layout.LayoutXml;
 import cz.cokrtvac.webgephi.api.model.layout.LayoutsXml;
+import cz.cokrtvac.webgephi.api.model.ranking.RankingXml;
+import cz.cokrtvac.webgephi.api.model.ranking.RankingsXml;
 import cz.cokrtvac.webgephi.api.model.statistic.StatisticXml;
 import cz.cokrtvac.webgephi.api.model.statistic.StatisticsXml;
 import cz.cokrtvac.webgephi.api.model.user.UserXml;
@@ -53,6 +55,14 @@ public interface WebgephiEntityClient extends WebgephiClient {
 
     GraphDetailXml applyLayoutFunction(Long graphId, LayoutXml layoutXml, String newName, int repeat) throws ErrorHttpResponseException, WebgephiClientException;
 
+    GraphDetailXml applyStatisticFunction(String username, Long graphId, StatisticXml statisticXml, String newName) throws ErrorHttpResponseException, WebgephiClientException;
+
+    GraphDetailXml applyStatisticFunction(Long graphId, StatisticXml statisticXml, String newName) throws ErrorHttpResponseException, WebgephiClientException;
+
+    GraphDetailXml applyRankingFunction(String username, Long graphId, RankingXml rankingXml, String newName) throws ErrorHttpResponseException, WebgephiClientException;
+
+    GraphDetailXml applyRankingFunction(Long graphId, RankingXml rankingXml, String newName) throws ErrorHttpResponseException, WebgephiClientException;
+
     // Graph formats ------------------------------------
     String getGraphInFormat(String username, Long graphId, String format) throws ErrorHttpResponseException, WebgephiClientException;
 
@@ -81,6 +91,10 @@ public interface WebgephiEntityClient extends WebgephiClient {
     StatisticsXml getStatistics() throws ErrorHttpResponseException, WebgephiClientException;
 
     StatisticXml getStatistic(String statisticId) throws ErrorHttpResponseException, WebgephiClientException;
+
+    RankingsXml getRankings() throws ErrorHttpResponseException, WebgephiClientException;
+
+    RankingXml getRanking(String rankingId) throws ErrorHttpResponseException, WebgephiClientException;
 
     // Wrapped methods ======================================================================
     @Override

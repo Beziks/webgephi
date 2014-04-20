@@ -13,10 +13,7 @@
     <div class="jumbotron">
         <div class="container">
             <h1><span data-field="title">Welcome to Webgephi SERVER</span></h1>
-
-            <p></p>
-
-            <p><a class="btn btn-primary btn-lg" role="button">Learn more &raquo;</a></p>
+            <br/>
         </div>
     </div>
 
@@ -25,29 +22,43 @@
             <!-- Example row of columns -->
             <div class="row">
                 <div class="col-md-4">
-                    <h2>Heading</h2>
+                    <h2>About this application</h2>
 
-                    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio
-                        dui. </p>
+                    <p>This application is a web interface over an opensource application <a href="http://gephi.org">Gephi</a>
+                        (<a href="http://gephi.org/toolkit/">Gephi toolkit</a> to be exact). Gephi is a JavaSE (desktop) application for graph
+                        manipulation and visualization.
+                    </p>
 
-                    <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+                    <p>
+                        <em>Gephi is an interactive visualization and exploration platform for all kinds of networks and complex systems, dynamic and hierarchical graphs.</em>
+                    </p>
+
+                    <p>
+                        Webgephi provides a REST interface to most of Gephi functionality. This application served only as a backend, for an end user, there is a
+                        frontend application <a href="http://client.webgephi.cz">Webgepi client</a> (or anybody can write his own frontend app).
+                    </p>
                 </div>
                 <div class="col-md-4">
-                    <h2>Heading</h2>
+                    <h2>For regular users...</h2>
 
-                    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio
-                        dui. </p>
+                    <p>You was probably redirected here from some client application. If so, login (or <a href="#createAccount">create an account here</a>) and provide
+                        access to your account to the client application.</p>
 
-                    <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+                    <p>Anytime, you can use an <a href="http://client.webgephi.cz">official client application</a> to manipulate your graphs.</p>
                 </div>
                 <div class="col-md-4">
-                    <h2>Heading</h2>
+                    <h2>For developers...</h2>
 
-                    <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo
-                        sit
-                        amet risus.</p>
+                    <p>This application provides access to Gephi functionality using REST interface. If you want to use it in your project, <a href="#createAccount">create an account
+                        here</a> and <a href="#consumerApplication">register your application</a>.</p>
 
-                    <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+                    <p>Access to accounts of other users is provided using OAuth1 (recommended solution) or Basic authentication (discouraged). REST interface is
+                        available on <a href="rest">/rest path</a>.</p>
+
+                    <p>
+                        For more information, see <a href="#restDocs">documentation of REST interface</a> and <a href="#authDocs">documentation about authorization</a>.
+                        All project is available on <a href="https://github.com/Beziks/webgephi">Github</a>.
+                    </p>
                 </div>
             </div>
         </div>
