@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>org.gephi.ranking.plugin.transformer.AbstractSizeTransformer</OriginalElement>
+  <nodes>
+    <node x="126.0" y="319.0">org.gephi.ranking.plugin.InDegreeRankingBuilder.InDegreeRanking</node>
+    <node x="353.0" y="163.0">org.gephi.ranking.plugin.transformer.RenderableSizeTransformerBuilder.RenderableSizeTransformer</node>
+    <node x="-3.0" y="163.0">org.gephi.ranking.plugin.transformer.LabelColorTransformerBuilder.LabelColorTransformer</node>
+    <node x="446.0" y="112.0">org.gephi.ranking.plugin.transformer.AbstractSizeTransformer</node>
+    <node x="78.0" y="112.0">org.gephi.ranking.plugin.transformer.AbstractColorTransformer</node>
+    <node x="295.75" y="30.0">org.gephi.ranking.api.Transformer</node>
+    <node x="275.25" y="78.0">org.gephi.ranking.plugin.transformer.AbstractTransformer</node>
+    <node x="260.0" y="263.0">org.gephi.ranking.plugin.AbstractRanking</node>
+    <node x="390.0" y="319.0">org.gephi.ranking.plugin.AttributeRankingBuilder.DynamicAttributeRanking</node>
+    <node x="565.0" y="319.0">org.gephi.ranking.plugin.OutDegreeRankingBuilder.OutDegreeRanking</node>
+    <node x="160.0" y="163.0">org.gephi.ranking.plugin.transformer.RenderableColorTransformerBuilder.RenderableColorTransformer</node>
+    <node x="280.5" y="215.0">org.gephi.ranking.api.Ranking</node>
+    <node x="263.0" y="319.0">org.gephi.ranking.plugin.DegreeRankingBuilder.DegreeRanking</node>
+    <node x="-9.0" y="319.0">org.gephi.ranking.plugin.AttributeRankingBuilder.AttributeRanking</node>
+    <node x="540.0" y="163.0">org.gephi.ranking.plugin.transformer.LabelSizeTransformerBuilder.LabelSizeTransformer</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="org.gephi.ranking.plugin.transformer.RenderableColorTransformerBuilder.RenderableColorTransformer" target="org.gephi.ranking.plugin.transformer.AbstractColorTransformer">
+      <point x="0.0" y="-14.0" />
+      <point x="246.5" y="165.0" />
+      <point x="197.25" y="165.0" />
+      <point x="39.75" y="14.0" />
+    </edge>
+    <edge source="org.gephi.ranking.plugin.transformer.RenderableSizeTransformerBuilder.RenderableSizeTransformer" target="org.gephi.ranking.plugin.transformer.AbstractSizeTransformer">
+      <point x="0.0" y="-14.0" />
+      <point x="436.5" y="165.0" />
+      <point x="484.25" y="165.0" />
+      <point x="-38.25" y="14.0" />
+    </edge>
+    <edge source="org.gephi.ranking.plugin.AbstractRanking" target="org.gephi.ranking.api.Ranking">
+      <point x="0.0" y="-14.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="org.gephi.ranking.plugin.transformer.AbstractTransformer" target="org.gephi.ranking.api.Transformer">
+      <point x="0.0" y="-14.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="org.gephi.ranking.plugin.InDegreeRankingBuilder.InDegreeRanking" target="org.gephi.ranking.plugin.AbstractRanking">
+      <point x="0.0" y="-14.0" />
+      <point x="184.5" y="312.0" />
+      <point x="294.9" y="312.0" />
+      <point x="-22.600000000000023" y="14.0" />
+    </edge>
+    <edge source="org.gephi.ranking.plugin.transformer.LabelColorTransformerBuilder.LabelColorTransformer" target="org.gephi.ranking.plugin.transformer.AbstractColorTransformer">
+      <point x="0.0" y="-14.0" />
+      <point x="68.5" y="165.0" />
+      <point x="117.75" y="165.0" />
+      <point x="-39.75" y="14.0" />
+    </edge>
+    <edge source="org.gephi.ranking.plugin.transformer.LabelSizeTransformerBuilder.LabelSizeTransformer" target="org.gephi.ranking.plugin.transformer.AbstractSizeTransformer">
+      <point x="0.0" y="-14.0" />
+      <point x="608.5" y="165.0" />
+      <point x="560.75" y="165.0" />
+      <point x="38.25" y="14.0" />
+    </edge>
+    <edge source="org.gephi.ranking.plugin.OutDegreeRankingBuilder.OutDegreeRanking" target="org.gephi.ranking.plugin.AbstractRanking">
+      <point x="0.0" y="-14.0" />
+      <point x="627.5" y="284.0" />
+      <point x="361.70000000000005" y="284.0" />
+      <point x="45.200000000000045" y="14.0" />
+    </edge>
+    <edge source="org.gephi.ranking.plugin.transformer.AbstractColorTransformer" target="org.gephi.ranking.plugin.transformer.AbstractTransformer">
+      <point x="0.0" y="-14.0" />
+      <point x="160.5" y="125.0" />
+      <point x="308.75" y="125.0" />
+      <point x="-33.5" y="14.0" />
+    </edge>
+    <edge source="org.gephi.ranking.plugin.AttributeRankingBuilder.DynamicAttributeRanking" target="org.gephi.ranking.plugin.AbstractRanking">
+      <point x="0.0" y="-14.0" />
+      <point x="467.5" y="312.0" />
+      <point x="339.1" y="311.0" />
+      <point x="22.600000000000023" y="14.0" />
+    </edge>
+    <edge source="org.gephi.ranking.plugin.AttributeRankingBuilder.AttributeRanking" target="org.gephi.ranking.plugin.AbstractRanking">
+      <point x="0.0" y="-14.0" />
+      <point x="48.5" y="284.0" />
+      <point x="271.29999999999995" y="284.0" />
+      <point x="-45.200000000000045" y="14.0" />
+    </edge>
+    <edge source="org.gephi.ranking.plugin.DegreeRankingBuilder.DegreeRanking" target="org.gephi.ranking.plugin.AbstractRanking">
+      <point x="0.0" y="-14.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="org.gephi.ranking.plugin.transformer.AbstractSizeTransformer" target="org.gephi.ranking.plugin.transformer.AbstractTransformer">
+      <point x="0.0" y="-14.0" />
+      <point x="525.5" y="125.0" />
+      <point x="375.75" y="125.0" />
+      <point x="33.5" y="14.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="407.8888888888889" y="280.16666666666663" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

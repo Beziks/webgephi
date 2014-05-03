@@ -6,7 +6,7 @@
 % english thesis in English language
 % hidelinks remove colour boxes around hyperlinks
 
-\documentclass[thesis=B,czech]{FITthesis}[2012/06/26]
+\documentclass[thesis=M,czech]{FITthesis}[2014/05/6]
 
 \usepackage[utf8]{inputenc} % LaTeX source encoded as UTF-8
 
@@ -15,6 +15,48 @@
 % \usepackage{amssymb} %additional math symbols
 
 \usepackage{dirtree} %directory tree visualisation
+
+%-----------------------------------------------------
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+
+
+\lstset{ %
+  backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
+  basicstyle=\footnotesize,        % the size of the fonts that are used for the code
+  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+  breaklines=true,                 % sets automatic line breaking
+  captionpos=b,                    % sets the caption-position to bottom
+  commentstyle=\color{mygreen},    % comment style
+  deletekeywords={...},            % if you want to delete keywords from the given language
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+  frame=single,                    % adds a frame around the code
+  keepspaces=false,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+  keywordstyle=\color{blue},       % keyword style
+  language=Java,                 % the language of the code
+  morekeywords={*,...},            % if you want to add more keywords to the set
+  numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbersep=5pt,                   % how far the line-numbers are from the code
+  numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showstringspaces=false,          % underline spaces within strings only
+  showtabs=false,                  % show tabs within strings adding particular underscores
+  stepnumber=2,                    % the step between two line-numbers. If it's 1, each line will be numbered
+  stringstyle=\color{mymauve},     % string literal style
+  tabsize=2,                       % sets default tabsize to 2 spaces
+  title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
+}
+
+\renewcommand{\lstlistingname}{Ukázka zdroj. kódu}% Listing -> Algorithm
+\renewcommand{\lstlistlistingname}{Seznam ukázek zdroj. kódu}
+
+% --------------------------------------------------------------------
 
 % % list of acronyms
 % \usepackage[acronym,nonumberlist,toc,numberedsection=autolabel]{glossaries}
@@ -36,21 +78,20 @@
 % akademických titulů
 \supervisor{Ing. Jaroslav Kuchař}
 \acknowledgements{Doplňte, máte-li komu a za co děkovat. V~opačném případě úplně odstraňte tento příkaz.}
-\abstractCS{Cílem této práce je vytvoření aplikace WebGephi, která zpřístupní funkcionalitu aplikace Gephi\cite{gephi} pomocí standardních 
-webových technologií. Gephi je opensource desktopová aplikace sloužící k vizualizaci a manipulaci s grafy. WebGehi bude poskytovat jednotné REST\footnote{Representational State Transfer - architektura webového rozhraní (webových služeb)} rozhranní
-k funkcionalitě Gephi. Aplikace bude obsahovat také řízení přístupu - správu uživatelů a klientských aplikací. Součástí řešení bude i ukázková klientská 
-aplikace - grafická nadstavba demonstrující funkcionalitu WebGephi.}
+\abstractCS{Cílem této práce je vytvoření aplikace \textit{WebGephi}, která zpřístupní funkcionalitu aplikace \textit{Gephi}\cite{gephi} pomocí standardních 
+webových technologií. \textit{Gephi} je opensource desktopová aplikace sloužící k vizualizaci a manipulaci s grafy. WebGephi bude poskytovat jednotné REST\footnote{Representational State Transfer - architektura webového rozhraní (webových služeb)} rozhraní
+k funkcionalitě \textit{Gephi}. Aplikace bude obsahovat také řízení přístupu - správu uživatelů a klientských aplikací. Součástí řešení bude i ukázková klientská 
+aplikace - grafická nadstavba demonstrující funkcionalitu \textit{WebGephi}.}
 \abstractEN{TODO the same in english}
 \placeForDeclarationOfAuthenticity{V~Praze}
 \declarationOfAuthenticityOption{4} %volba Prohlášení (číslo 1-6)
-\keywordsCS{Gephi, Gephi toolkit, graf, REST, webové služby, webová aplikace}
-\keywordsEN{Gephi, Gephi toolkit, graph, REST, web services, web application}
+\keywordsCS{Gephi, Gephi Toolkit, graf, REST, webové služby, webová aplikace}
+\keywordsEN{Gephi, Gephi Toolkit, graph, REST, web services, web application}
 \newtheorem{definice}{Definice}
+
 
 \begin{document}
 
-% \newacronym{CVUT}{{\v C}VUT}{{\v C}esk{\' e} vysok{\' e} u{\v c}en{\' i} technick{\' e} v Praze}
-% \newacronym{FIT}{FIT}{Fakulta informa{\v c}n{\' i}ch technologi{\' i}}
 
 \begin{introduction}
 	\uv{Graf je základním objektem teorie grafů. Jedná se o reprezentaci množiny objektů, u které chceme znázornit, 
@@ -58,57 +99,476 @@ aplikace - grafická nadstavba demonstrující funkcionalitu WebGephi.}
 	Grafy slouží jako abstrakce mnoha různých problémů. Často se jedná o zjednodušený model nějaké skutečné 
 	sítě (například dopravní), který zdůrazňuje topologické vlastnosti objektů (vrcholů) a zanedbává geometrické vlastnosti, například přesnou polohu.\cite{wiki:graf}}
 		
-	Graf tedy můžeme chápat jako zjednodušený obraz nejaké skutečnosti -
+	Graf tedy můžeme chápat jako zjednodušený obraz nějaké skutečnosti -
 	seznam lidí a vztahů mezi nimi, množina webových stránek a hypertextových odkazů, cokoli, co lze znázornit jako množinu uzlů a hran (vztahů mezi nimi).
 	
-	Gephi\cite{gephi} je desktopová platforma sloužící k analýze grafů. Umožňuje interaktivně měnit rozložení grafů na základě jejich struktury, vypočítávat metriky (pagerank, shlukovací koeficient, \ldots), 
-	filtovat uzly podle jejich vlastností a mnoho dalšího. To vše slouží k tomu, aby uživatel byl schopný v grafu najít skryté závislosti a mohl lépe pochopit (a vizualizovat) strukturu grafu.
+	Gephi\cite{gephi} je desktopová platforma sloužící k analýze grafů. Umožňuje interaktivně měnit rozložení grafů na základě jejich struktury, vypočítávat metriky (PageRank, shlukovací koeficient, \ldots), 
+	filtrovat uzly podle jejich vlastností a mnoho dalšího. To vše slouží k tomu, aby uživatel byl schopný v grafu najít skryté závislosti a mohl lépe pochopit (a vizualizovat) strukturu grafu.
 	
-	Jednou z hlavních výhod Gephi je jeho rozšiřitelnost. Kdokoli může vytvořit svou vlastní funkci k manipulaci s grafem a ve formě pluginu ji přidat do aplikace.
+	Jednou z hlavních výhod \textit{Gephi} je jeho rozšiřitelnost. Kdokoli může vytvořit svou vlastní funkci k manipulaci s grafem a ve formě pluginu ji přidat do aplikace.
 	
-	Aplikace WebGephi by měla zachovat tyto vlastnosti a navíc přidat výhody plynoucí ze standardizovaného rozhraní webové aplikace.  
+	Aplikace \textit{WebGephi} by měla zachovat tyto vlastnosti a navíc přidat výhody plynoucí ze standardizovaného rozhraní webové aplikace.  
 \end{introduction}
 
 \chapter{Cíl práce}
-Cílem této práce je vytvořit webovou aplikaci poskytující funkcionalitu Gephi. Hlavní rozhranní této aplikace bude založeno na architektuře REST.
+Cílem této práce je vytvořit webovou aplikaci poskytující funkcionalitu \textit{Gephi}. Hlavní rozhraní této aplikace bude založeno na architektuře REST.
 
-\begin{definice}
+
+\textit{\uv{
 REST (Representational State Transfer) – je architektura rozhraní, navržená pro distribuované prostředí. REST navrhnul a popsal v roce 2000 Roy 
 Fielding (jeden ze spoluautorů protokolu http) v rámci disertační práce Architectural Styles and the Design of Network-based Software Architectures. 
 V kontextu práce je nejzajímavější kapitola 5, ve které Fielding odvozuje principy RESTu na základě známých přístupů k architektuře. 
 Rozhraní REST je použitelné pro jednotný a snadný přístup ke zdrojům (resources). Zdrojem mohou být data, stejně jako stavy aplikace 
 (pokud je lze popsat konkrétními daty). REST je tedy na rozdíl od známějších XML-RPC či SOAP, orientován datově, nikoli procedurálně. 
-Všechny zdroje mají vlastní identifikátor URI a REST definuje čtyři základní metody pro přístup k nim.\cite{wiki:rest}
-\end{definice}
+Všechny zdroje mají vlastní identifikátor URI a REST definuje čtyři základní metody pro přístup k nim.}}\cite{wiki:rest}
 
-WebGephi bude sloužit jen jako poskytovatel služeb pro jiné (klientské) aplikace. Tyto aplikace budou pomocí webových služeb přistupovat k WebGephi (nahrávat grafy, aplikovat na ně funkce, exportovat výsledky, \ldots)
-a komunitovat s koncovým uživatelem přes vlastní grafické rozhraní. Klienské aplikace mohou být webové, desktopové i mobilní aplikace. Přístup klienských aplikací samořejmě bude také třeba řídit. 
-WebGephi tedy kromě REST rozhranní bude poskytovat také grafické rozhranní pro registraci a správu uživatelů a klientských aplikací.
+\textit{WebGephi} bude sloužit jen jako poskytovatel služeb pro jiné (klientské) aplikace. Tyto aplikace budou pomocí webových služeb přistupovat k \textit{WebGephi} (nahrávat grafy, aplikovat na ně funkce, exportovat výsledky, \ldots)
+a komunikovat s koncovým uživatelem přes vlastní grafické rozhraní. Klientské aplikace mohou být webové, desktopové i mobilní aplikace. Přístup klientských aplikací samozřejmě bude také třeba řídit. 
+\textit{WebGephi} tedy kromě REST rozhraní bude poskytovat také grafické rozhraní pro registraci a správu uživatelů a klientských aplikací.
 
-Hlavní výhody WebGephi budou jednoduché, standardizované, deklarativní rozhranní. Gephi sice poskytuje knihovnu pro práci s grafy, \uv{Gephi Toolkit}\cite{gephi:toolkit}, ta je však dosti složitá na použití. 
-Klientské aplikace budou moci jednoduše přistupovat k tomuto rozhraní pomocí HTTP protokolu, na kterém je v naprosté většině založena REST archtektura. To umožní jak
-jednoduché prozkoumávání rozhraní (např. pomocí webového prohlížeče), tak strojové zpracování koncovými klienskými aplikacemi.
+Hlavní výhody \textit{WebGephi} budou jednoduché, standardizované, deklarativní rozhraní. \textit{Gephi} sice poskytuje knihovnu pro práci s grafy, \textit{Gephi Toolkit}\cite{gephi:toolkit}, ta je však dosti složitá na použití. 
+Klientské aplikace budou moci jednoduše přistupovat k tomuto rozhraní pomocí HTTP protokolu, na kterém je v naprosté většině založena REST architektura. To umožní jak
+jednoduché prozkoumávání rozhraní (např. pomocí webového prohlížeče), tak strojové zpracování koncovými klientskými aplikacemi.
 
-Pro koncového uživatele je hlavní výhodou možnost použití bez nutnosti instalace (ve spolupráci s klienskými aplikacemi), použití jako centrálního úložistě grafů a možnost sdílení s jinými uživateli.
+Pro koncového uživatele je hlavní výhodou možnost použití bez nutnosti instalace (ve spolupráci s klientskými aplikacemi), použití jako centrálního úložiště grafů a možnost sdílení s jinými uživateli.
 
-WebGephi bude postaveno nad již zmíněnou knihovnou \uv{Gephi Toolkit}. Ta obsahuje základní moduly Gephi (bez GUI\footnote{Graphic User Interface - grafické uživatelské rozhranní} fukcionality) ve formě jednoduché Java knihovny.
-V prvním kroku bude třeba určit, jaká funcionalita bude implementována ve WebGephi. Následně bude třeba analyzovat strukturu knihovnu \uv{Gephi Toolkit} a s její pomocí tuto funkcionalitu implementovat.
+\textit{WebGephi} bude postaveno nad již zmíněnou knihovnou \textit{Gephi Toolkit}. Ta obsahuje základní moduly \textit{Gephi} (bez GUI\footnote{Graphical User Interface - grafické uživatelské rozhraní} funkcionality) ve formě jednoduché Java knihovny.
+V prvním kroku bude třeba určit, jaká funkcionalita bude implementována ve \textit{WebGephi}. Následně bude třeba analyzovat strukturu knihovnu \textit{Gephi Toolkit} a s její pomocí tuto funkcionalitu implementovat.
 Dále bude potřeba navrhnout a implementovat strukturu REST rozhraní a způsob autentizace uživatelů.
 
-Součástí práce je i implementace ukázkové klientské aplikace. Ta bude využívat naprostou většinu funkcionality WebGehi a demonstrovat její funčnost.
+Součástí práce je i implementace ukázkové klientské aplikace. Ta bude využívat naprostou většinu funkcionality WebGephi a demonstrovat její funkčnost.
+
 
 \chapter{Analýza}
-\section{Gephi}
+Cílem této kapitoly je hlubší náhled do problematiky a analýza dostupných nástrojů. Na konci kapitoly bychom měli mít jasno v tom, zda a jak je tento úkol řešitelný.
 
-\section{Určení komponent relevatních pro WebGephi}
+Nejdříve si představíme aplikaci \textit{Gephi} a její možnosti. Určíme, jakou funkcionalitu bude možné a vhodné přenést do \textit{WebGephi}. Dále představíme strukturu knihovny \textit{Gephi Toolkit}
+a nastíníme, zda a jakým způsobem bude možné požadovanou funkcionalitu implementovat. Aplikace bude také muset řešit autentizaci a autorizaci přístupu. V poslední části si tedy také představíme
+standardní řešení tohoto problému.
+
+\section{Gephi}
+\textit{\uv{Gephi je platforma pro vizualizaci a prozkoumávání všech druhů sítí a
+komplexních systémů, dynamických a hierarchických grafů. Je dostupný pro Windows, Linux a Mac OS x. \textit{Gephi} je open-source a zdarma.}}\footnote{Volný překlad z oficiálních stránek \textit{Gephi}\cite{gephi}. Orig.: \uv{Gephi is an interactive visualization and exploration platform for all kinds of networks and complex systems, dynamic and hierarchical graphs.
+Runs on Windows, Linux and Mac OS X. \textit{Gephi} is open-source and free.}}
+
+Jedná se tedy o volně dostupný, bezplatný nástroj pro práci s grafy. První veřejně dostupná verze měla číslo 0.6alpha1 a vyšla v roce 2008.
+Původně se jednalo o studentskou práci francouzských studentů\footnote{The
+University of Technology of Compiègne (Université de Technologie de Compiègne or
+UTC)}. V současnosti se o jeho vývoj stará \uv{Gephi Consortium}\cite{gephi:consortium}.
+
+Přesto, že i současná verze (0.8.2-beta) je stále betaverze, jedná se o široce
+používaný software s rozsáhlou funkcionalitou. Budoucí verze číslo 0.9 by měla být výrazným krokem v evoluci \textit{Gephi}, bude obsahovat změny v samotném jádru aplikace.
+Jedná se o velmi živý projekt, který je v neustálém vývoji.
+
+\textit{Gephi} je napsáno v programovacím jazyku Java. Je založeno na \textit{NetBeans}\footnote{https://\textit{NetBeans}.org/} platformě, grafické rozhraní využívá framework Swing.  
+
+\subsection{Struktura aplikace}
+Zde si představíme strukturu aplikace \textit{Gephi} a její uživatelské rozhraní.
+
+Základní jednotkou při práci s \textit{Gephi} je \uv{Projekt}. Aplikace může pracovat vždy jen s jedním projektem. Projekt je nejvyšší jednotkou v \textit{Gephi}, může být ukládán a 
+načítán z disku a může obsahovat jeden nebo více \uv{Pracovních prostorů} (Workspace). V aplikaci je vždy aktivní jen jeden Workspace. Workspace představuje 
+pracovní plochu, na které se mohou vytvářet a editovat grafy.
+ 
+Uživatelské rozhraní se skládá ze tří záložek - Přehled, Laboratoř dat a Náhled.
+
+\subsubsection{Záložka Přehled}
+Jedná se o nejdůležitější záložku (obr. \ref{fig:gephi-overview}). Na středu je vidět náhled grafu a po stranách jsou dostupné funkce, které lze na graf aplikovat. Po
+aplikaci funkce je graf okamžitě překreslen. S grafem lze manipulovat i ručně pomocí nástrojů na svislé liště na levé straně náhledu grafu.
+
+\begin{figure}\centering
+ 	\includegraphics[width=1\textwidth]{images/gephi/gephi_overview_final}
+ 	\caption[Záložka \uv{Přehled}]{Záložka \uv{Přehled}}\label{fig:gephi-overview}
+\end{figure}
+
+\subsubsection{Záložka Laboratoř dat}
+Tato záložka (obr. \ref{fig:gephi-lab}) slouží k úpravě zdrojových dat grafu. Uzly a hrany lze vkládat ručně nebo importovat z různých zdrojů (soubor, databáze, \ldots). Na středu je vidět
+seznam uzlů a hran aktuálního grafu. S daty lze provádět po sloupcích (atributech) i hromadné operace.
+
+\begin{figure}\centering
+ 	\includegraphics[width=1\textwidth]{images/gephi/gephi_lab_final}
+ 	\caption[Záložka \uv{Laboratoř dat}]{Záložka \uv{Laboratoř dat}}\label{fig:gephi-lab}
+\end{figure}
+
+\subsubsection{Záložka Náhled}
+Poslední záložka (obr. \ref{fig:gephi-exp}) slouží k vizuální úpravě grafu. Typicky se používá před exportem výsledku do obrázku. Lze nastavovat velikost hran, uzlů, nastavení popisků, průhlednost, \ldots
+Výsledný graf lze exportovat ve formátu png, svg a pdf.
+
+\begin{figure}\centering
+ 	\includegraphics[width=1\textwidth]{images/gephi/gephi_exp_final}
+ 	\caption[Záložka \uv{Náhled}]{Záložka \uv{Náhled}}\label{fig:gephi-exp}
+\end{figure}
+
+\subsection{Funkcionalita}
+Zde podrobně popíšeme funkcionalitu \textit{Gephi}.
+
+\subsubsection{Import a export}
+\textit{Gephi} ukládá projekty do svého interního formátu \texttt{gephi}. Ten kromě samotného grafu ukládá i strukturu projektu a jeho nastavení. Pro výměnu dat mezi
+aplikacemi jsou důležitější standardizované formáty. \textit{Gephi} umí načítat téměř jakýkoli formát vhodný pro ukládání grafu, včetně \texttt{csv}, \texttt{graphML} a
+\texttt{gexf}. Do těchto formátů umí samozřejmě grafy i exportovat.
+
+Nejvhodnější z těchto formátů je jednoznačně formát \texttt{gexf}\cite{gexf}. Ten je schopen uložit všechny důležité informace včetně hierarchických a dynamických grafů a je
+prakticky standardem to tomto oboru. Jedná se o xml formát s relativně jednoduchou strukturou\footnote{Přesná struktura je definována standardně pomocí xml schématu: http://www.gexf.net/1.2draft/gexf.xsd}. Základem je seznam uzlů a hran (včetně jejich atributů).
+
+V příloze \ref{fig:gephi-formats-comparation} můžete vidět porovnání dostupných formátů.
+
+\textit{Gephi} je schopno načítat grafy také SQL databáze (stačí specifikovat potřebný SQL dotaz). 
+
+Kromě datového exportu je dostupný taká export vizuální reprezentace grafu. Dostupné jsou formáty \texttt{pdf}, \texttt{svg} a \texttt{png}.
+
+\subsubsection{Grafové funkce}
+Hlavní silou \textit{Gephi} je manipulace s grafem jako s celkem. \textit{Gephi} už v základu obsahuje množství takovýchto funkcí a je možné je dále rozšířit pomocí pluginů.
+Funkce jsou podle zaměření rozděleny do několika skupin.
+
+\paragraph{Rozložení}
+Funkce pro změnu rozložení slouží k systematickému přeskupení uzlů. Může se jednat o velmi jednoduché funkce, např. \texttt{Otočení podle směru hodinových ručiček}, která jen otočí graf o
+definovaný úhel, ale i o velmi specifikované funkce, jako je \texttt{Force Atlas}, který přeskupuje uzly podle jejich vazeb k okolí. Obecně se jedná o jakékoli funkce,
+které mění poziční atributy uzlů.
+
+Některé funkce podporují interaktivní režim, kdy se funkce spustí v nekonečné smyčce, takže okamžitě vidíme, jaký vliv na rozložení grafu má změna atributů. Když jsme s rozložením spokojeni,
+stačí funkci zastavit. Ukázku změny rozložení můžete vidět na obr. \ref{fig:gephi-layout}.
+
+\begin{figure}\centering
+ 	\includegraphics[width=1\textwidth]{images/gephi/layout_before-after}
+ 	\caption[Změna rozložení podle funkce \texttt{Foce Atlas 2}]{Změna rozložení podle funkce \texttt{Foce Atlas 2}.}\label{fig:gephi-layout}
+\end{figure}
+
+\paragraph{Statistiky a metriky}
+Tako kategorie funkcí je určená k výpočtu metrik nad grafem. Výstupem funkce je přidání jednoho nebo více atributů k uzlům nebo hranám. Navíc je zobrazena
+shrnující zpráva (obr. \ref{fig:gephi-pagerank}), která typicky prezentuje rozložení hodnot atributů v grafu. Jako příklad statistické funkce lze uvést např. \texttt{Hodnost stránky} (PageRank\footnote{Algoritmus
+pro ohodnocení důležitosti webových stránek na základě struktury hypertextových odkazů.}).
+
+\begin{figure}\centering
+ 	\includegraphics[width=0.5\textwidth]{images/gephi/statistics-pagerank}
+ 	\caption[Report po aplikaci funkce \texttt{PageRank}]{Report po aplikaci funkce \texttt{PageRank}PageRank}\label{fig:gephi-pagerank}
+\end{figure}
+
+\paragraph{Hodnocení}
+Hodnocení slouží k lepší vizuální reprezentaci hodnot atributů (vypočtených např. pomocí již zmíněných statistických funkcí). Podle hodnoty atributu lze 
+měnit barvu nebo velikost uzlů a hran. Aplikaci \uv{hodnocení} můžeme vidět na obr. \ref{fig:gephi-ranking}.
+
+\begin{figure}\centering
+ 	\includegraphics[width=1\textwidth]{images/gephi/ranking_before-after}
+ 	\caption[Hodnocení barvou a velikostí podle funkce \texttt{PageRank}]{Hodnocení barvou a velikostí podle funkce \texttt{PageRank}.}\label{fig:gephi-ranking}
+\end{figure}
+
+\paragraph{Rozdělení na oddíly}
+Rozdělení na oddíly má podobnou funkci jako \uv{hodnocení}. V tomto případě se obarvují uzly se stejnou hodnotou atributu na stejnou barvu (lze použít jen na celočíselné
+atributy). Tyto uzly lze také seskupit do jednoho uzlu, jehož velikost je závislá na počtu uzlů, které obsahuje. Ukázku můžete vidět na obr. \ref{fig:gephi-grouping}.
+
+\begin{figure}\centering
+ 	\includegraphics[width=1\textwidth]{images/gephi/grouping_before-after}
+ 	\caption[Rozdělení na oddíly podle hodnoty atributu \texttt{Modularity Class}]{Rozdělení na oddíly podle hodnoty atributu \texttt{Modularity Class}.}\label{fig:gephi-grouping}
+\end{figure}
+
+\paragraph{Filtry}
+Ve velkých grafech je pro uživatele těžké se orientovat, je zahlcen velkým množstvím uzlů a hran. Pro tento účel obsahuje \textit{Gephi} filtry. Na základě nejrůznějších podmínek, většinou 
+závislých na hodnotě atributů, lze uzly filtrovat (odstranit) z grafu. Jednoduché filtry lze navíc řetězit pomocí logických operátorů do složitějších výrazů.
+
+Příklad aplikace jednoduchého filtru můžete vidět na obr. \ref{fig:gephi-filter}.
+
+\begin{figure}\centering
+ 	\includegraphics[width=1\textwidth]{images/gephi/filter_before-after}
+ 	\caption[Aplikace filtru \texttt{Rozsah} na základě hodnoty funkce \texttt{PageRank}]{Aplikace filtru \texttt{Rozsah} na základě hodnoty funkce \texttt{PageRank}.}\label{fig:gephi-filter}
+\end{figure}
+
+\paragraph{Generování grafu}
+Pokud nemáme žádný vhodný graf (např. pro testování vyvíjeného pluginu), \textit{Gephi} poskytuje možnost vygenerování grafu. V základu je možnost generování jen náhodného grafu, kde můžeme
+nastavit pouze požadovaný počet hran a uzlů. Existují však pluginy, které možnosti \textit{Gephi} v tomto směru dále rozšiřují.
+
+\subsubsection{Dynamické grafy}
+\textit{Gephi} podporuje také dynamické grafy. Jedná se o běžný graf, kde každý uzel a hrana má nastavený interval platnosti. Většinou se jedná o časový rozsah.
+Tímto způsobem lze zachytit vývoj skutečnosti, kterou graf představuje, v čase.
+
+\textit{Gephi}, kromě běžných operací, umí pomocí časové osy takovýto graf přehrát. Jedná se vlastně o specifický filtr na základě hodnoty intervalu.
+
+\subsubsection{Manuální editace}
+\textit{Gephi} poskytuje také možnosti manuální editace, a to jak grafického znázornění grafu, tak datového modelu. V okně \uv{Graf} je v levém svislém panelu množství funkcí, které 
+umožňují ruční, interaktivní editaci grafu - změnu velikosti uzlu, barvy, pozice, popisku, \ldots V \uv{Laboratoři dat} je zase kromě importu a exportu také možné ručně přidávat a odebírat
+uzly a hrany, nastavovat ručně hodnoty atributů a popisků.
+
+\subsubsection{Instalace pluginů}\label{part:instalace-pluginu}
+Jak už bylo několikrát zmíněno, \textit{Gephi} poskytuje možnost snadného rozšíření funkcionality pomocí pluginů. Využívá přitom možností platformy \textit{NetBeans},
+která je od základu přizpůsobena modulární architektuře. \textit{Gephi} plugin je \textit{NetBeans} plugin\footnote{Jedná se o zip archive obsahující deskriptor modulu a jednu 
+nebo více Java knihoven, které implementují vlastní funkcionalitu.} využívající API \textit{Gephi}. \textit{Gephi} při startu automaticky načte všechny pluginy a tím rozšíří 
+svou funkcionalitu. Využívá k tomu \textit{NetBeans} specifické řešení, tzv. \textit{Lookup API}\footnote{API pro volnou vazbu mezi moduly (pluginy). 
+Modul deklaruje veřejné rozhraní SPI (\textit{Service Provider Interface}). Jiné pluginy pak mohou toto rozhraní implementovat
+a deklarovat jako \textit{Service Provider} a tím rozšířit funkcionalitu. Implementace \textit{Lookup API} poté dokáže tyto implementace nalézt i během runtime a použít.}.  
+Přesný způsob implementace není pro tuto práci podstatný, stačí vědět, že pouhou implementací nějakého rozhraní lze rozšířit funkcionalitu \textit{Gephi}. 
+ 
+\section{Komponenty relevantní pro WebGephi}
+\textit{Gephi} poskytuje opravdu rozsáhlé možnosti práce s grafy, od manuální editace až po aplikaci komplexních funkcí a práci s dynamickými grafy.
+Ne všechna funkcionalita je však vhodná pro \textit{WebGephi}. Zde si určíme, jakou funkcionalitu je vhodné (a možné) implementovat ve \textit{WebGephi}.
+
+\subsection{Cílový uživatel}
+Nejdříve si musíme shrnout, jak vlastně bude vypadat cílový uživatel, k jakému účelu bude \textit{WebGephi} primárně používáno.
+
+\subsubsection{Student, vývojář aplikací}
+Jedním z typických uživatelů bude pravděpodobně student vysoké školy, který v rámci nějakého projektu (např. semestrální práce) bude 
+mít za úkol analýzu grafu. Většinou to nebude jediný smysl aplikace, pouze jedna z jejích částí. Místo vlastní implementace pomocí \textit{Gephi Toolkit}
+využije API \textit{WebGephi}. Nebude se tedy muset zabývat strukturou knihovny ani způsobem implementace. Navíc není omezen
+cílovou platformou (např. není nucen psát aplikaci v jazyku Java).
+
+Nemusí se samozřejmě jednat pouze o studenty. Stejně tak se může jednat o jakéhokoli vývojáře, který chce v rámci své aplikace
+využít možností \textit{Gephi}. \textit{WebGephi} ho odstíní od detailů implementace \textit{Gephi Toolkit} a poskytne platformovou nezávislost.
+
+\subsubsection{Tvůrce pluginů}
+Dalším typickým uživatelem bude tvůrce algoritmů pro práci s grafy. \textit{Gephi} poskytuje možnost snadného rozšíření pomocí pluginů.
+Pokud někdo takovýto plugin vytvoří, pomocí \textit{WebGephi} (a její klientské aplikace) může vytvořit demo pro prezentaci jeho funkcionality. Případní 
+uživatelé pluginu tak nebudou nuceni instalovat plugin jen pro jeho vyzkoušení.
+
+\subsection{Požadovaná funkcionalita WebGephi}
+Je tedy vidět, že pro \textit{WebGephi} není nutné ani vhodné pokrýt celou funkcionalitu \textit{Gephi}.
+\textit{WebGephi} bude zaměřeno na práci s již existujícími grafy, není nutné řešit manuální editaci grafu. Stejně tak není nutné
+podporovat všechny formáty pro import a export. Naopak je nutné zachovat většinu grafových funkcí. Klíčovou
+vlastností \textit{Gephi} je jeho rozšiřitelnost, je nezbytné aby \textit{WebGephi} tuto rozšiřitelnost zachovalo.
+
+\subsubsection{Import a export}
+\textit{WebGephi} bude podporovat import grafu ve formátu \texttt{gexf}. Tento formát je ve svém oboru standard a z dostupných formátů
+má největší možnosti (viz srovnání \ref{fig:gephi-formats-comparation}). Jedná se relativně jednoduchý formát založený na \texttt{xml}, je 
+tedy snadno strojově zpracovatelný a díky definici ve formátu \texttt{xsd} je jednoznačný. Ve stejném formátu bude dostupný také export grafu.
+
+Vizualizace grafu bude zodpovědností především klientských aplikací. Přesto je vhodné, aby i \textit{WebGephi} obsahovalo základní export v grafickém formátu.
+Nejvhodnější z podporovaných formátů\footnote{\texttt{png}, \texttt{pdf} a \texttt{svg}} je \texttt{svg}. Jedná se o vektorový formát založený na \texttt{xml}, který je pro tento účel
+vhodnější než rastrový formát \texttt{png}. A oproti \texttt{pdf} je možná jeho další editace. Formát \texttt{svg} je podporován většinou grafických editorů a všechny
+hlavní webové prohlížeče obsahují nativní podporu pro jeho vizualizaci.
+
+\subsubsection{Grafové funkce}
+Grafové funkce budou nejdůležitější částí aplikace. WebGephi se nebude zabývat tvorbou grafu ve většině případů ani jeho vizualizací. Typické workflow 
+bude \textit{načtení grafu} - \textit{aplikace funkcí} - \textit{export ve formátu gexf}.
+
+Nejdůležitější bude podpora pro funkce \uv{Rozložení} a \uv{Statistiky}, které jsou nejpoužívanější. Pro lepší vizualizaci výsledků
+je také potřeba podpora pro funkce \uv{Hodnocení}. Podpora pro \uv{Filtry}, \uv{Generování grafů} a \uv{Rozdělení na oddíly} nemusí být
+součástí této práce, jedná se o méně využívané funkce. Struktura \textit{WebGephi} však musí umožnit snadné doplnění této funkcionality v budoucnu.
 
 \section{Gephi Toolkit}
+\textit{Gephi} je aplikace určená pro koncového uživatele. Kromě modulů obsahujících logiku pro práci s grafy obsahuje také moduly související s uživatelským
+rozhraním, nápovědou\ldots Není tedy vhodné pro další použití v jiných aplikacích. Naštěstí \textit{Gephi} pro tyto účely poskytuje knihovnu \textit{Gephi Toolkit}.
+Tato knihovna obsahuje jádro aplikace ve formátu jedné Java knihovny.
 
-\section{Možnosti autorizace}
+\textit{\uv{Gephi Toolkit obsahuje základní moduly (Graf, Rozložení, Filtry, IO\ldots) ve formě standardní Java knihovny, kterou může jakýkoli projekt použít pro své potřeby.
+Toolkit je jeden JAR, který může kdokoli znovupoužít v jiné Java aplikaci a například z příkazové řádky dosáhnout automatizovaně toho samého jako v Gephi. Možnost využít takto schopností 
+Gephi v jiných Java aplikací rozšiřuje jeho možnosti a zdá se být velmi užitečné.}}\footnote{Volný překlad z oficiálních stránek \textit{Gephi Toolkit}\cite{gephi:toolkit}. Orig.:
+\uv{The Gephi Toolkit project package essential 
+modules (Graph, Layout, Filters, IO\ldots) in a standard Java library, which any Java project can use for getting things done. 
+The toolkit is just a single JAR that anyone could reuse in new Java applications and achieve tasks that can be 
+done in Gephi automatically, from a command-line program for instance. The ability to use Gephi features like this in other 
+Java applications boost possibilities and promise to be very useful.}}
+
+\textit{Gephi Toolkit} je součástí \textit{Gephi} a je distribuováno pod stejnou licencí - duální licencí CDDL 1.0 a GNU General Public License v3.
+Může tedy být použit bezplatně i v rámci komerčního software.
+
+\subsection{Struktura}
+Gephi je založeno na platformě \textit{NetBeans} a tudíž využívá jeho techniky pro práci s modulárním software. Ta je založena na 
+\texttt{Lookup API}. Veřejné API poskytuje přístup pouze k rozhraním a jeho implementace může být získána pomocí třídy \texttt{Lookup}.
+
+\lstinputlisting[caption=Ukázka použití Lookup API, firstline=19, lastline=19]{source_code_examples/LookupApiExample.java}
+
+Práce s Gephi je prováděna s pomocí kontrolerů. Pro každou oblast funkcionality (modul) existuje kontroler, což je 
+singleton poskytující příslušné metody. Základní kontrolery jsou:
+
+\begin{description}
+  \item[ProjectController] \hfill \\
+  Vytváření a správa projektů a workspace.
+  \item[ImportController] \hfill \\
+  Import grafu ze souboru, databáze, \ldots
+  \item[ExportController] \hfill \\
+  Export grafu do obrázku, v \texttt{gexf} formátu, \texttt{pdf}
+  \item[GraphController] \hfill \\
+  Manipulace s grafem, vytváření uzlů a hran.
+ \item[AttributeController] \hfill \\
+  Přidávání, mazání a editace atributů u uzlů a hran.
+  \item[LayoutController, StatisticsController, RankingController, \ldots] \hfill \\
+  Práce s příslušnými grafovými funkcemi.
+\end{description}
+
+Klíčovým požadavkem pro implementaci \textit{WebGephi} bude možnost vylistování všech dostupných funkcí.
+To bohužel není možné udělat standardní cestou, jak je to řešeno v \textit{NetBeans} platformě\footnote{Pomocí \texttt{Service Provider Interface} a \texttt{Service Provider}, viz \ref{part:instalace-pluginu}}. 
+\textit{Gephi Toolkit} je už jen standardní knihovna bez deskriptorů, které jsou nezbytné pro \textit{NetBeans} moduly.
+
+Nejdříve analyzujeme strukturu potřebných grafových funkcí a poté popíšeme, zda a jak bude možné řešit nutnost výčtu dostupných funkcí.
+
+\subsubsection{Rozložení}
+Základní třídou pro výpočet \uv{Rozložení} je třída \texttt{LayoutBuilder} (strukturu tříd je znázorněna na obr. \ref{fig:uml-layout}). Ta poskytuje přístup ke jménu funkce, grafické komponentě pro zadání parametrů a
+třídě \texttt{Layout}, která již provádí samotný výpočet nad grafem. Parametry rozložení jsou přístupné ve formě pole objektů \texttt{LayoutProperty},
+což umožňuje jejich snadné vylistování a nastavení. Objekt \texttt{LayoutProperty} obaluje instanční proměnné a přistupuje k nim promocí reflexe\footnote{Možnost 
+za běhu programu získat od objektu kompletní informace o jeho typu a dále s nimi pracovat.}.
+
+\begin{figure}\centering
+ 	\includegraphics[width=1\textwidth]{images/class-diagram/layout}
+ 	\caption[Struktura tříd pro výpočet funkcí \uv{Rozložení}]{Struktura tříd pro výpočet funkcí \uv{Rozložení}.}\label{fig:uml-layout}
+\end{figure}
+
+\lstinputlisting[caption=Aplikace funkce rozložení \texttt{YifanHu}, firstline=20, lastline=29]{source_code_examples/LayoutExample.java}
+
+\subsubsection{Statistiku a metriky}
+Struktura tříd (viz obr. \ref{fig:uml-statistics}) je obdobná jako u \uv{Rozložení}. V tomto případě ale třída \texttt{Statistics} neobsahuje 
+žádný seznam možných parametrů. Ty jsou nastavovány přímo z uživatelského rozhraní (implementace rozhraní \texttt{StatisticsUI}) pomocí getterů a settrů.
+Seznam parametrů bude tedy nutné získat na základě metod třídy za běhu programu pomocí reflexe.
+
+Výstupem \uv{Statistik} je kromě pozměněného grafu také html zpráva obsahující souhrnné informace o rozložení metrik. Ta je dostupná po
+aplikaci metriky pomocí metody \texttt{Statistics::getReport()}.
+
+\begin{figure}\centering
+ 	\includegraphics[width=1\textwidth]{images/class-diagram/statistics}
+ 	\caption[Struktura tříd pro výpočet \uv{Statistik a metrik}]{Struktura tříd pro výpočet \uv{Statistik a metrik}.}\label{fig:uml-statistics}
+\end{figure}
+
+\lstinputlisting[caption=Aplikace statistické funkce \texttt{GraphDistance}, firstline=29, lastline=41]{source_code_examples/StatisticsExample.java}
+
+\subsubsection{Hodnocení}
+K aplikaci hodnocení slouží třída \texttt{RankingController} a její metoda \texttt{transform(Ranking, Transformer)}. Stačí jen specifikovat podle čeho hodnotit
+a co bude výstupem. K tomu slouží implementace rozhraní \texttt{Ranking} (na základě čeho hodnotit) a \texttt{Transformer}. Jejich implementace můžete vidět na 
+obr. \ref{fig:uml-ranking}. Hodnotit lze na základě jakéhokoli atributu uzlu nebo hrany (případně podle stupně uzlu). Výstupem hodnocení může být změna barvy (uzlu, hrany, popisku) 
+nebo velikosti (uzlu, hrany).
+
+\begin{figure}\centering
+ 	\includegraphics[width=1\textwidth]{images/class-diagram/ranking}
+ 	\caption[Struktura tříd pro výpočet \uv{Hodnocení}]{Struktura tříd pro výpočet \uv{Hodnocení}.}\label{fig:uml-ranking}
+\end{figure}
+
+\lstinputlisting[caption=Změna velikosti uzlu podle hodnoty atributu \uv{betweenesscentrality}, firstline=31, lastline=41]{source_code_examples/RankingExample.java}
+
+\subsection{Seznam dostupných funkcí}
+Jak už jsme zmínili, klíčovým požadavkem pro \textit{WebGephi} je schopnost najít všechny dostupné grafové funkce, tzn. všechny implementace
+rozhraní \texttt{LayoutBuilder} a \texttt{StatisticsBuilder}. Tento list nemůže být statický. Musíme totiž zároveň zachovat rozšiřitelnost, 
+pokud k aplikaci přidáme plugin obsahující např. funkci pro výpočet \uv{Rozložení}, aplikace ho musí sama přidat do svého (REST) rozhraní.
+
+Jelikož nemůžeme využít možností \textit{NetBeans} platformy, musíme využít možností samotného jazyku Java. Pomocí reflexe nalezneme všechny
+implementace daných rozhraní (\texttt{LayoutBuilder} a \texttt{StatisticsBuilder}) a s jejich pomocí už máme dostupnou potřebnou funkcionalitu.
+Takto nalezneme všechny implementace dostupné na classpath aplikace, je tím tedy zajištěna požadovaná rozšiřitelnost. Z bezpečnostních důvodů
+nebude možné přidávat pluginy za běhu aplikace, proces nalezení všech dostupných funkcí tedy bude stačit provést pouze jednou po startu aplikace.
+
+V případě \uv{Hodnocení} se nepočítá s dalším rozšiřováním, tudíž není třeba zjišťovat dostupné možnosti dynamicky. Bude stačit implementovat několik základních možností.
+ 
+\subsection{Víceuživatelský přístup}
+Architektura \textit{Gephi} je od počátku navrhována pro potřeby desktopové aplikace. Je z velké části založena na návrhovém vzoru Singleton\footnote{\textit{\uv{Singleton 
+(česky jedináček nebo také unikát) je název pro návrhový vzor, používaný při programování. Využijeme ho při řešení problému, kdy je potřeba, aby v celém programu
+ běžela pouze jedna instance třídy. Tento návrhový vzor zabezpečí, že třída bude mít jedinou instanci a poskytne k ní globální přístupový bod.}}\cite{wiki:singleton}}. 
+ Např. všechny kontrolery jsou singletony. To není v zásadě problém, protože kontrolery nejsou stavové. Problémy nastávají v momentě, kdy chceme pracovat s více Workspace 
+ najednou (ve vícevláknovém prostředí). Tento problém je ostatně zmíněn (ne příliš výrazně) i na stránkách s příklady použití \textit{Gephi Toolkit}.
+ 
+ \textit{\uv{(\ldots) many modules just do their job on this current workspace and doesn't allow to specify which workspace to work on from the API. 
+ Therefore it is often required to set current workspace, as showed in export here.}\cite{gephi:toolkit}}
+ 
+ Architektura \textit{Gephi} je totiž navržena tak, že vždy právě jeden Projekt a Workspace je aktivní. A přestože některé moduly (třídy, metody) se tváří tak,
+ že umí pracovat s Workspace předaným v parametru, v těle metody se používá \uv{current Workspace}. Tento problém ilustruji na příkladu \ref{sourcecode:bug1} třídy \texttt{DefaultProcessor}, která se
+ využívá při importu grafu.
+ 
+ \lstinputlisting[caption=Import grafu do Workspace, který není nastavený jako \uv{currentWorkspace}, firstline=31, lastline=37, label=sourcecode:bug1]{source_code_examples/ConcurrencyBugExample.java}
+ 
+ Vše vypadá na první pohled v pořádku, graf se zdánlivě načte do Workspace \texttt{notCurrentWorkspace}. Pokud se však podíváme do implementace třídy \texttt{DefaultProcessor} (viz ukázka kódu \ref{sourcecode:bug2}) zjistíme, že 
+ se ze skutečnosti používá Workspace nastavený v Singletonu \texttt{ProjectController} jako \uv{currentWorkspace}.
+
+\lstinputlisting[caption=Výřez z implementace třídy \texttt{DefaultProcessor} , firstline=39, lastline=52, label=sourcecode:bug2]{source_code_examples/ConcurrencyBugExample.java}
+  
+ Tento problém lze vyřešit (jak ostatně zní doporučení v dokumentaci \textit{Gephi Toolkit}) tím, že vždy nastavíme jeden workspace jako \uv{current} a pracujeme pouze s ním.
+ To může fungovat u desktopové aplikace, v serverovém prostředí se však pohybujeme ve vícevláknovém prostředí. Museli bychom prakticky veškerou práci s \textit{Gephi Toolkit}
+ provádět serializovaně, (v \texttt{synchronized} bloku nebo nějakou pokročilejší technikou zajišťující, že k danému úseku kódu přistupuje vždy jen jedno vlákno). To
+ by samozřejmě způsobovalo úzké hrdlo aplikace a výrazně degradovalo výkon. Prakticky by mohl být v jednu chvíli zpracováván vždy jen jeden požadavek.
+ V kombinaci s tím, že operace nad grafy mohou trvat relativně dlouho, by se aplikace stala naprosto nepoužitelnou už pro relativně malý počet uživatelů.
+ 
+ Druhé možné řešení je odstranění těchto chyb tím, že upravíme původní třídy tak, abychom místo s \uv{currentWorkspace} pracovali s konkrétním Workspace předaným komponentě.
+ Jedná se o relativně malé množství komponent, tudíž bude toto řešení vhodnější. Tyto třídy budou součástí \textit{WebGephi}, nebude se jednat o úpravy samotné knihovny.
+ 
+\section{Možnosti autentizace a autorizace}
+\textit{WebGephi} bude multiuživatelská aplikace. Kdokoli se bude moci založit svůj účet, nahrávat a upravovat své grafy.
+Z toho přirozeně plyne nutnost autentizace (ověření identity uživatele) a autorizace (určení, zda má uživatel práva pro danou operaci).
+
+\textit{WebGephi} však bude poskytovat pouze REST rozhraní, které málokdo bude využívat přímo. Místo toho autorizuje nějakou klientskou aplikaci, aby
+mohla přistupovat k jeho účtu. Tato aplikace pak skrze vhodné grafické rozhraní umožní uživateli pracovat s jeho grafy.
+
+Zde si představíme standardizovaná řešení této problematiky.
+
+\subsection{Basic autentizace\cite{wiki:basic}}
+Basic autentizace je jednou z nejstarších metod autentizace. Princip, jak už název napovídá, je velmi jednoduchý. Klient (většinou webový prohlížeč) zašle
+v hlavičce HTTP požadavku své jméno a heslo\footnote{ve formě \texttt{uživatelskéJméno:heslo}, zakódováno pomocí base64}. Server ověří správnost údajů a na jejich základě poskytne nebo
+odmítne poskytnout požadovaný obsah.
+
+Pokud požadované přihlašovací údaje chybí, vrátí server odpověď s požadavkem na Basic autentizaci.
+
+\begin{figure}\centering
+ 	\includegraphics[width=1\textwidth]{images/diagram/auth_basic}
+ 	\caption[Průběh Basic autorizace]{Průběh Basic autorizace.}\label{fig:auth-basic}
+\end{figure}
+
+Výhodou této metody je její jednoduchost. Snad každý HTTP klient obsahuje podporu pro Basic autentizaci. Všechny rozšířené webové prohlížeče si navíc pamatují 
+zadané přihlašovací údaje a není tedy nutné je zadávat vždy znovu.
+
+Nevýhodou je, že je nutné zasílat přímo přihlašovací údaje, navíc v nezašifrované podobě a tudíž kdokoli může údaje po cestě odposlechnout. Při použití HTTPS protokolu se však
+jedná o bezpečnou metodu autentizace.
+
+\subsubsection{Použití pro WebGephi}
+Jedná se o vhodnou metodu pro přímé procházení a prozkoumávání REST rozhraní. Není však vhodné pro poskytování přístupu aplikacím třetích stran (klientské aplikace).
+V tomto případě by bylo nutné předat klientské aplikaci přímo své uživatelské jméno a heslo. Tím by uživatel poskytl plný přístup ke svému účtu a nevěrohodná klientská
+aplikace by toho mohla zneužít (v krajním případě změnit heslo a tím \uv{ukrást} uživatelův účet). Uživatel by navíc nemohl odebrat aplikaci již jednou udělené oprávnění. 
+Pro tento účel by jedině musel změnit své heslo.
+
+Tento způsob autentizace je tedy vhodný jedině pro přímé prozkoumávání REST rozhraní aplikace. Mohl by být použit také v případě,
+kdy klientská aplikace využívá jen svůj vlastní účet (může případně řešit správu uživatelů na své straně). 
+
+\subsection{Digest autentizace\cite{wiki:digest}}
+Jedná se o mírnou evoluci Basic autentizace. Princip je úplně stejný, v tomto případě se však neposílá heslo přímo, ale jeho hash\footnote{Používá se \texttt{MD5} hash kombinace hesla, cílové uri, metody (GET, POST, \ldots), nonce (serverem 
+poskytnutý náhodný řetězec, cnonce (klientův náhodný řetězec) a pořadí požadavku. Více viz \cite{wiki:digest})}.
+Z hlediska bezpečnosti se jedná o mírné zlepšení. Při odposlechnutí požadavku nelze (pokud je autentizace správně implementována) požadavek zopakovat.
+Nevýhodou je složitější implementace jak na straně serveru, tak na straně klienta.
+
+\subsubsection{Použití pro WebGephi}
+Tato metoda, za předpokladu že použijeme HTTPS, nepřináší prakticky žádné výhody oproti Basic autorizaci. Naopak je složitější na implementaci.
+
+\subsection{OAuth v1.0a}
+\textit{\uv{Protokol OAuth umožňuje webovým stránkám nebo aplikacím (\textit{Konzumentům}) přistupovat k chráněným zdrojům webových služeb (\textit{Poskytovatele služeb}) skrz API bez nutnosti, aby uživatel
+prozradil své přihlašovací údaje k \textit{Poskytovateli služeb} \textit{Konzumentům}. Obecněji, OAuth vytváří volně implementovatelnou a obecnou metodiku pro autentizaci k API}}
+\footnote{Volný překlad. Orig.: \textit{\uv{The OAuth protocol enables websites or applications (Consumers) to access Protected Resources from a web service (Service Provider) via an API,
+ without requiring Users to disclose their Service Provider credentials to the Consumers. More generally, 
+ OAuth creates a freely-implementable and generic methodology for API authentication.}}\cite{oauth:v1}}
+ 
+ OAuth je standardizovaný způsob, jak uživatel může poskytnout přístup ke svému účtu (chráněným zdrojům) u nějaké aplikace (\textit{Poskytovatel služeb}) jiné aplikaci (\textit{Konzument}). A
+ to bez toho, aby této aplikaci (\textit{Konzumentovi}) musel prozradit své přihlašovací údaje. Ukázkový příklad pro využití OAuth protokolu je znázorněn na obr. \ref{fig:auth_oauth_example}.
+
+\begin{figure}\centering
+ 	\includegraphics[width=1\textwidth]{images/diagram/auth_oauth_example}
+ 	\caption[Ukázkový příklad využití OAuth protokolu]{Ukázkový příklad využití OAuth protokolu.}\label{fig:auth_oauth_example}
+\end{figure}
+
+\textit{Konzument} musí být zaregistrován u \textit{Poskytovatele služeb} a má svůj jednoznačný identifikátor (\texttt{consumer key}) a heslo (\texttt{consumer secret}).
+Pokud požaduje přístup k uživatelovým datům u \textit{Poskytovatele služeb}, zažádá nejdříve o \texttt{Request token}. Ten specifikuje, k jakým zdrojům požaduje aplikace
+přístup. Poté přesměruje uživatele na stránky \textit{Poskytovatele služeb}. Uživatel se zde přihlásí a autorizuje požadavek \textit{Konzumenta}, následně je přesměrován 
+zpět na stránky \textit{Konzumenta}. Odpověď obsahuje \texttt{verifier}, který \textit{Konzument} použije k výměně \texttt{Request tokenu} za \texttt{Access token}. \texttt{Access token}
+už může být použit přímo k přístupu k požadovaným zdrojům. Podrobný popis průběhu OAuth autorizace je znázorněn na obr. \ref{fig:auth-oauth1}.
+
+\begin{figure}\centering
+ 	\includegraphics[width=1\textwidth]{images/diagram/auth_oauth1}
+ 	\caption[Průběh OAuth autorizace]{Průběh OAuth autorizace. Převzato z \cite{oauth:v1}}\label{fig:auth-oauth1}
+\end{figure}
+
+Autentizace a autorizace pomocí OAuth v1.0a protokolu je velmi bezpečná. Veškerá komunikace s API \textit{Poskytovatele služeb} je podepisována pomocí informací z 
+\texttt{Access tokenu}. Navíc všechny citlivé informace jsou při přenosu šifrovány. To umožňuje jeho bezpečné použití i bez použití SSL. Na druhou stranu je kvůli tomu OAuth náročný na implementaci 
+jak na straně serveru, tak na straně klienta. Při použití HTTPS je navíc šifrování v podstatě duplikátní. Na druhou stranu díky přesné specifikaci existují hotové knihovny pro jeho použití.
+
+Hlavní výhodou OAuth protokolu je, že nemusíme aplikacím třetích stran vyzradit své přihlašovací údaje jen kvůli tomu, abychom jim poskytli přístup k části svých chráněných zdrojů. Toto povolení můžeme navíc
+kdykoliv odebrat. Protokol také umožňuje poskytnout přístup pouze k části zdrojů (tzv. \texttt{scopes}).
+
+\subsubsection{Použití pro WebGephi}
+OAuth je ideální protokol pro \textit{WebGephi}. Jeho součástí je částečně i způsob registrace klientských aplikací. Umožňuje uživatelům udělovat oprávnění klientským aplikacím (\textit{Konzumentům}), aby mohli 
+přistupovat k jejich účtům na \textit{WebGephi} (\textit{Poskytovatel služeb}). A to bez toho, aby museli prozradit své přihlašovací údaje. Navíc nemusí udělovat plný přístup
+ke svému účtu, některé aplikace mohou např. požadovat pouze práva pro čtení. Typicky žádná aplikace nebude mít práva pro úpravu uživatelova profilu (jména, hesla).
+
+Jedinou nevýhodou je složitější implementace protokolu na straně serveru i klienta.
+
+\subsection{OAuth v2.0\cite{oauth:v2}}
+Jedná se o novou verzi, která vyšla v říjnu 2012 (RFC 6749). Již dlouho předtím však byla ve stadiu návrhu. Její cílem bylo zjednodušení protokolu
+a větší použitelnost pro jiné než webové aplikace (desktopové, mobilní, \ldots). Hlavní změnou je, že komunikace již není šifrována, plně se spoléhá na SSL šifrování
+(nutnost použití společně s HTTPS). Zavádí také více různých způsobů autorizace (kromě klasického \uv{three-legged} OAuth), které jsou vhodné např. pro mobilní aplikace.
+
+Jedná se o volnější specifikaci než je OAuth 1.0a. Jednotlivé implementace se výrazně liší a většinou nejsou spolu kompatibilní.
+
+\subsubsection{Použití pro WebGephi}
+OAuth v2.0 nepřináší oproti první verzi z pohledu \textit{WebGephi} žádné výrazné výhody. Volnější specifikace a nekompatibilita jednotlivých implementací ztěžuje 
+jeho použití různými \textit{Konzumenty}. Výhodou by byla lepší podpora desktopových a mobilních klientů. 
 
 \chapter{Návrh}
 
-\section{REST rozhranní}
+\section{REST rozhraní}
 
 \section{Autorizace}
 
@@ -116,7 +576,7 @@ Součástí práce je i implementace ukázkové klientské aplikace. Ta bude vyu
 
 \section{Struktura aplikace}
 \subsection{Server}
-\subsection{Klient (java konektor)}
+\subsection{Klient (Java konektor)}
 \subsection{Klientská aplikace}
 
 \section{GUI}
@@ -124,16 +584,16 @@ Součástí práce je i implementace ukázkové klientské aplikace. Ta bude vyu
 \chapter{Realizace}
 
 \section{Požité technologie}
-\subsection{Wildlfy 8}
+\subsection{Wildfly 8}
 \subsection{RestEasy}
 \subsection{Enterprise Java Beans}
 \subsection{JPA}
 \subsection{Errai a GWT}
 \subsection{Vaadin}
 
-\section{Server TODO popis struktury a zajimavých částí}
-\section{Klient (konektor) TODO popis struktury a zajimavých částí}
-\section{Klientská aplikace (konektor) TODO popis struktury a zajimavých částí}
+\section{Server TODO popis struktury a zajímavých částí}
+\section{Klient (konektor) TODO popis struktury a zajímavých částí}
+\section{Klientská aplikace (konektor) TODO popis struktury a zajímavých částí}
 
 \begin{conclusion}
 	%sem napište závěr Vaší práce
@@ -143,6 +603,12 @@ Součástí práce je i implementace ukázkové klientské aplikace. Ta bude vyu
 \bibliography{mybibliographyfile}
 
 \appendix
+\chapter{Gephi}
+\begin{figure}\centering
+ 	\includegraphics[width=1\textwidth]{images/gephi/graph-format-table-comparison}
+ 	\caption[Porovnání formátů vhodných pro ukládání grafů]{Porovnání formátů vhodných pro ukládání grafů. Převzato z \cite{gephi}}.\label{fig:gephi-formats-comparation}
+\end{figure}
+
 
 
 \chapter{Seznam použitých zkratek}

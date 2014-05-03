@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="-295.5" y="2.0">org.gephi.statistics.spi.StatisticsBuilder</node>
+    <node x="-197.0" y="140.0">org.gephi.statistics.plugin.builder.ClusteringCoefficientBuilder</node>
+    <node x="376.0" y="0.0">org.gephi.statistics.spi.Statistics</node>
+    <node x="-394.0" y="140.0">org.gephi.statistics.plugin.builder.PageRankBuilder</node>
+    <node x="0.0" y="118.0">org.gephi.statistics.plugin.ClusteringCoefficient</node>
+    <node x="555.0" y="138.0">org.gephi.statistics.plugin.PageRank</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="org.gephi.statistics.plugin.ClusteringCoefficient" target="org.gephi.statistics.spi.Statistics">
+      <point x="0.0" y="-164.0" />
+      <point x="267.5" y="93.0" />
+      <point x="446.0" y="93.0" />
+      <point x="-70.0" y="34.0" />
+    </edge>
+    <edge source="org.gephi.statistics.plugin.builder.ClusteringCoefficientBuilder" target="org.gephi.statistics.spi.StatisticsBuilder">
+      <point x="0.0" y="-44.0" />
+      <point x="-108.5" y="115.0" />
+      <point x="-162.75" y="115.0" />
+      <point x="44.25" y="44.0" />
+    </edge>
+    <edge source="org.gephi.statistics.plugin.builder.PageRankBuilder" target="org.gephi.statistics.spi.StatisticsBuilder">
+      <point x="0.0" y="-44.0" />
+      <point x="-305.5" y="115.0" />
+      <point x="-251.25" y="115.0" />
+      <point x="-44.25" y="44.0" />
+    </edge>
+    <edge source="org.gephi.statistics.plugin.PageRank" target="org.gephi.statistics.spi.Statistics">
+      <point x="0.0" y="-144.0" />
+      <point x="764.5" y="93.0" />
+      <point x="586.0" y="93.0" />
+      <point x="70.0" y="34.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="218.0" y="238.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

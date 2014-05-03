@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="-430.0" y="-29.0">org.gephi.layout.spi.LayoutBuilder</node>
+    <node x="539.0" y="-41.0">org.openide.nodes.Node.Property</node>
+    <node x="205.0" y="-36.0">org.gephi.layout.spi.LayoutProperty</node>
+    <node x="-98.0" y="-32.0">org.gephi.layout.spi.Layout</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="org.gephi.layout.spi.LayoutProperty" target="org.openide.nodes.Node.Property">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="241.0" y="204.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>public</VISIBILITY>
+</Diagram>
+

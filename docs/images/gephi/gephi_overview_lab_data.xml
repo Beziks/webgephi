@@ -1,0 +1,204 @@
+﻿<!--Document-->
+<Document FileVersion="1.0">
+    <ExportImageSettings FileName="gephi_overview_lab_final.PNG" JpegQuality="95" ResizeMode="KeepOriginalSize" ImageZoomFactor="100" ImageResizeWidth="2004" ImageResizeHeight="1036" ImageType="IMG_BMP"/>
+    <ImageOptions IsNegative="False" IsGrayscale="False" IsSepia="False" Rotation="0">
+        <BrightnessContrast Brightness="0" Contrast="0"/>
+        <HueSaturation Hue="0" Saturation="0" Lightness="0"/>
+        <Canvas>
+            <Box Left="0" Top="0" Width="0" Height="0"/>
+            <BackColor Alpha="255" R="255" G="255" B="255"/>
+        </Canvas>
+        <Flip HorizontalFlip="False" VerticalFlip="False"/>
+    </ImageOptions>
+    <Layers>
+        <Layer Name="Layer1" Visible="True" LockedShapesIndex="">
+            <Shapes>
+                <Shape Type="Rectangle">
+                    <Settings>
+                        <MiscSettings GroupRendering="Unknown"/>
+                        <Font Name="Arial" Size="32" Style="Bold">
+                            <Color Alpha="255" R="234" G="22" B="30"/>
+                        </Font>
+                        <Line Width="7" Dash="Solid" Join="Round" OutlineType="Color">
+                            <Color Alpha="255" R="234" G="22" B="30"/>
+                            <StartArrowHead Type="None" HeightFactor="1" WidthFactor="2"/>
+                            <EndArrowHead Type="None" HeightFactor="1" WidthFactor="2"/>
+                        </Line>
+                        <Fill FillType="Color">
+                            <Color Alpha="30" R="234" G="22" B="30"/>
+                            <GradientSettings Type="Linear" Angle="0" HorizontalOffset="0" VerticalOffset="0">
+                                <StartingColor Alpha="255" R="0" G="0" B="0"/>
+                                <EndingColor Alpha="255" R="255" G="255" B="255"/>
+                                <Blend/>
+                            </GradientSettings>
+                            <EmbeddedImage Align="Center" ImageFillType="Stretch" Alpha="255" FileName="">
+                                <StretchSettings Type="KeepOriginalSize" Align="Center" ZoomFactor="100">
+                                    <Offset X="0" Y="0"/>
+                                </StretchSettings>
+                                <TileSettings WrapMode="Tile">
+                                    <Offset X="0" Y="0"/>
+                                </TileSettings>
+                                <ImageData><![CDATA[]]></ImageData>
+                            </EmbeddedImage>
+                        </Fill>
+                        <TextEffect UseTextEffect="False"/>
+                        <EffectSettings>
+                            <Shadow UseShadow="False" Angle="45" Offset="5" Size="100" BlurLevel="0">
+                                <Color Alpha="255" R="0" G="0" B="0"/>
+                            </Shadow>
+                            <Glow UseGlow="False" BlurLevel="20" Thickness="8">
+                                <Color Alpha="255" R="29" G="199" B="244"/>
+                            </Glow>
+                        </EffectSettings>
+                    </Settings>
+                    <BlockText Align="Center" VerticalAlign="Middle" RightToLeft="No">
+                        <Text>Import/export</Text>
+                        <Margin Left="0" Top="0" Right="0" Bottom="0"/>
+                    </BlockText>
+                    <Data IsRoundCorner="True" RoundCornerRadius="0.3" Rotation="0">
+                        <Extent X="672.135925292969" Y="72.208610534668" Width="310.879333496094" Height="87.3256530761719"/>
+                    </Data>
+                </Shape>
+                <Shape Type="Rectangle">
+                    <Settings>
+                        <MiscSettings GroupRendering="Unknown"/>
+                        <Font Name="Arial" Size="32" Style="Bold">
+                            <Color Alpha="255" R="234" G="22" B="30"/>
+                        </Font>
+                        <Line Width="7" Dash="Solid" Join="Round" OutlineType="Color">
+                            <Color Alpha="255" R="234" G="22" B="30"/>
+                            <StartArrowHead Type="None" HeightFactor="1" WidthFactor="2"/>
+                            <EndArrowHead Type="None" HeightFactor="1" WidthFactor="2"/>
+                        </Line>
+                        <Fill FillType="Color">
+                            <Color Alpha="30" R="234" G="22" B="30"/>
+                            <GradientSettings Type="Linear" Angle="0" HorizontalOffset="0" VerticalOffset="0">
+                                <StartingColor Alpha="255" R="0" G="0" B="0"/>
+                                <EndingColor Alpha="255" R="255" G="255" B="255"/>
+                                <Blend/>
+                            </GradientSettings>
+                            <EmbeddedImage Align="Center" ImageFillType="Stretch" Alpha="255" FileName="">
+                                <StretchSettings Type="KeepOriginalSize" Align="Center" ZoomFactor="100">
+                                    <Offset X="0" Y="0"/>
+                                </StretchSettings>
+                                <TileSettings WrapMode="Tile">
+                                    <Offset X="0" Y="0"/>
+                                </TileSettings>
+                                <ImageData><![CDATA[]]></ImageData>
+                            </EmbeddedImage>
+                        </Fill>
+                        <TextEffect UseTextEffect="False"/>
+                        <EffectSettings>
+                            <Shadow UseShadow="False" Angle="45" Offset="5" Size="100" BlurLevel="0">
+                                <Color Alpha="255" R="0" G="0" B="0"/>
+                            </Shadow>
+                            <Glow UseGlow="False" BlurLevel="20" Thickness="8">
+                                <Color Alpha="255" R="29" G="199" B="244"/>
+                            </Glow>
+                        </EffectSettings>
+                    </Settings>
+                    <BlockText Align="Center" VerticalAlign="Middle" RightToLeft="No">
+                        <Text>Tvorba uzlů/hran</Text>
+                        <Margin Left="0" Top="0" Right="0" Bottom="0"/>
+                    </BlockText>
+                    <Data IsRoundCorner="True" RoundCornerRadius="0.3" Rotation="0">
+                        <Extent X="70.0158081054688" Y="72.868408203125" Width="310.879333496094" Height="87.3256530761719"/>
+                    </Data>
+                </Shape>
+                <Shape Type="Rectangle">
+                    <Settings>
+                        <MiscSettings GroupRendering="Unknown"/>
+                        <Font Name="Arial" Size="32" Style="Bold">
+                            <Color Alpha="255" R="234" G="22" B="30"/>
+                        </Font>
+                        <Line Width="7" Dash="Solid" Join="Round" OutlineType="Color">
+                            <Color Alpha="255" R="234" G="22" B="30"/>
+                            <StartArrowHead Type="None" HeightFactor="1" WidthFactor="2"/>
+                            <EndArrowHead Type="None" HeightFactor="1" WidthFactor="2"/>
+                        </Line>
+                        <Fill FillType="Color">
+                            <Color Alpha="30" R="234" G="22" B="30"/>
+                            <GradientSettings Type="Linear" Angle="0" HorizontalOffset="0" VerticalOffset="0">
+                                <StartingColor Alpha="255" R="0" G="0" B="0"/>
+                                <EndingColor Alpha="255" R="255" G="255" B="255"/>
+                                <Blend/>
+                            </GradientSettings>
+                            <EmbeddedImage Align="Center" ImageFillType="Stretch" Alpha="255" FileName="">
+                                <StretchSettings Type="KeepOriginalSize" Align="Center" ZoomFactor="100">
+                                    <Offset X="0" Y="0"/>
+                                </StretchSettings>
+                                <TileSettings WrapMode="Tile">
+                                    <Offset X="0" Y="0"/>
+                                </TileSettings>
+                                <ImageData><![CDATA[]]></ImageData>
+                            </EmbeddedImage>
+                        </Fill>
+                        <TextEffect UseTextEffect="False"/>
+                        <EffectSettings>
+                            <Shadow UseShadow="False" Angle="45" Offset="5" Size="100" BlurLevel="0">
+                                <Color Alpha="255" R="0" G="0" B="0"/>
+                            </Shadow>
+                            <Glow UseGlow="False" BlurLevel="20" Thickness="8">
+                                <Color Alpha="255" R="29" G="199" B="244"/>
+                            </Glow>
+                        </EffectSettings>
+                    </Settings>
+                    <BlockText Align="Center" VerticalAlign="Middle" RightToLeft="No">
+                        <Text>Hromadné operace</Text>
+                        <Margin Left="0" Top="0" Right="0" Bottom="0"/>
+                    </BlockText>
+                    <Data IsRoundCorner="True" RoundCornerRadius="0.3" Rotation="0">
+                        <Extent X="48.8004760742188" Y="930.302001953125" Width="310.879333496094" Height="87.3256530761719"/>
+                    </Data>
+                </Shape>
+                <Shape Type="Rectangle">
+                    <Settings>
+                        <MiscSettings GroupRendering="Unknown"/>
+                        <Font Name="Arial" Size="32" Style="Bold">
+                            <Color Alpha="255" R="234" G="22" B="30"/>
+                        </Font>
+                        <Line Width="7" Dash="Solid" Join="Round" OutlineType="Color">
+                            <Color Alpha="255" R="234" G="22" B="30"/>
+                            <StartArrowHead Type="None" HeightFactor="1" WidthFactor="2"/>
+                            <EndArrowHead Type="None" HeightFactor="1" WidthFactor="2"/>
+                        </Line>
+                        <Fill FillType="Color">
+                            <Color Alpha="30" R="234" G="22" B="30"/>
+                            <GradientSettings Type="Linear" Angle="0" HorizontalOffset="0" VerticalOffset="0">
+                                <StartingColor Alpha="255" R="0" G="0" B="0"/>
+                                <EndingColor Alpha="255" R="255" G="255" B="255"/>
+                                <Blend/>
+                            </GradientSettings>
+                            <EmbeddedImage Align="Center" ImageFillType="Stretch" Alpha="255" FileName="">
+                                <StretchSettings Type="KeepOriginalSize" Align="Center" ZoomFactor="100">
+                                    <Offset X="0" Y="0"/>
+                                </StretchSettings>
+                                <TileSettings WrapMode="Tile">
+                                    <Offset X="0" Y="0"/>
+                                </TileSettings>
+                                <ImageData><![CDATA[]]></ImageData>
+                            </EmbeddedImage>
+                        </Fill>
+                        <TextEffect UseTextEffect="False"/>
+                        <EffectSettings>
+                            <Shadow UseShadow="False" Angle="45" Offset="5" Size="100" BlurLevel="0">
+                                <Color Alpha="255" R="0" G="0" B="0"/>
+                            </Shadow>
+                            <Glow UseGlow="False" BlurLevel="20" Thickness="8">
+                                <Color Alpha="255" R="29" G="199" B="244"/>
+                            </Glow>
+                        </EffectSettings>
+                    </Settings>
+                    <BlockText Align="Center" VerticalAlign="Middle" RightToLeft="No">
+                        <Text>Data grafu</Text>
+                        <Margin Left="0" Top="0" Right="0" Bottom="0"/>
+                    </BlockText>
+                    <Data IsRoundCorner="True" RoundCornerRadius="0.3" Rotation="0">
+                        <Extent X="770.122436523438" Y="392.591888427734" Width="310.879333496094" Height="87.3256530761719"/>
+                    </Data>
+                </Shape>
+            </Shapes>
+        </Layer>
+    </Layers>
+    <Snapshots/>
+</Document>

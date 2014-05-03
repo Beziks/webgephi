@@ -59,6 +59,14 @@
     </dependencyManagement>
 
     <dependencies>
+        <!-- GEPHI Plugins START -->
+        <dependency>
+            <groupId>cz.cvut.fit.gephi</groupId>
+            <artifactId>layeredlayout</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <!-- GePHI Plugins END -->
+
         <dependency>
             <groupId>cz.cokrtvac.webgephi</groupId>
             <artifactId>webgephi-api</artifactId>
@@ -444,7 +452,9 @@
                 </executions>
                 <configuration>
 
-                    <extraJvmArgs>-Xmx2048m -XX:CompileThreshold=7000 -XX:MaxPermSize=1024M -Derrai.jboss.home=${errai.jboss.home} -Derrai.dev.context=${errai.dev.context} -Derrai.jboss.javaagent.path=${settings.localRepository}/org/jboss/errai/errai-client-local-class-hider/${errai.version}/errai-client-local-class-hider-${errai.version}.jar</extraJvmArgs>
+                    <extraJvmArgs>-Xmx2048m -XX:CompileThreshold=7000 -XX:MaxPermSize=1024M -Derrai.jboss.home=${errai.jboss.home} -Derrai.dev.context=${errai.dev.context}
+                        -Derrai.jboss.javaagent.path=${settings.localRepository}/org/jboss/errai/errai-client-local-class-hider/${errai.version}/errai-client-local-class-hider-${errai.version}.jar
+                    </extraJvmArgs>
                     <logLevel>INFO</logLevel>
                     <noServer>false</noServer>
                     <server>org.jboss.errai.cdi.server.gwt.JBossLauncher</server>

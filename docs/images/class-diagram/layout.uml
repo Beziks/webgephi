@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="147.0" y="0.0">org.gephi.layout.spi.LayoutBuilder</node>
+    <node x="327.0" y="218.0">org.gephi.layout.plugin.rotate.CounterClockwiseRotate</node>
+    <node x="-2.0" y="218.0">org.gephi.layout.plugin.forceAtlas.ForceAtlas</node>
+    <node x="556.0" y="76.0">org.gephi.layout.plugin.forceAtlas.ForceAtlasLayout</node>
+    <node x="694.0" y="76.0">org.gephi.layout.plugin.force.yifanHu.YifanHuLayout</node>
+    <node x="712.5" y="-2.0">org.gephi.layout.spi.Layout</node>
+    <node x="818.0" y="76.0">org.gephi.layout.plugin.rotate.RotateLayout</node>
+    <node x="194.0" y="218.0">org.gephi.layout.plugin.rotate.ClockwiseRotate</node>
+    <node x="103.0" y="218.0">org.gephi.layout.plugin.force.yifanHu.YifanHu</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="org.gephi.layout.plugin.forceAtlas.ForceAtlas" target="org.gephi.layout.spi.LayoutBuilder">
+      <point x="0.0" y="-14.0" />
+      <point x="42.5" y="48.0" />
+      <point x="159.375" y="48.0" />
+      <point x="-37.125" y="14.0" />
+    </edge>
+    <edge source="org.gephi.layout.plugin.force.yifanHu.YifanHuLayout" target="org.gephi.layout.spi.Layout">
+      <point x="0.0" y="-14.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="org.gephi.layout.plugin.rotate.ClockwiseRotate" target="org.gephi.layout.spi.LayoutBuilder">
+      <point x="0.0" y="-14.0" />
+      <point x="250.5" y="198.0" />
+      <point x="206.875" y="198.0" />
+      <point x="12.375" y="14.0" />
+    </edge>
+    <edge source="org.gephi.layout.plugin.rotate.CounterClockwiseRotate" target="org.gephi.layout.spi.LayoutBuilder">
+      <point x="0.0" y="-14.0" />
+      <point x="405.0" y="48.0" />
+      <point x="233.625" y="48.0" />
+      <point x="37.125" y="14.0" />
+    </edge>
+    <edge source="org.gephi.layout.plugin.forceAtlas.ForceAtlasLayout" target="org.gephi.layout.spi.Layout">
+      <point x="0.0" y="-14.0" />
+      <point x="615.0" y="51.0" />
+      <point x="723.6666666666666" y="51.0" />
+      <point x="-22.333333333333343" y="14.0" />
+    </edge>
+    <edge source="org.gephi.layout.plugin.rotate.RotateLayout" target="org.gephi.layout.spi.Layout">
+      <point x="0.0" y="-14.0" />
+      <point x="868.0" y="51.0" />
+      <point x="768.3333333333333" y="51.0" />
+      <point x="22.333333333333314" y="14.0" />
+    </edge>
+    <edge source="org.gephi.layout.plugin.force.yifanHu.YifanHu" target="org.gephi.layout.spi.LayoutBuilder">
+      <point x="0.0" y="-14.0" />
+      <point x="138.5" y="198.0" />
+      <point x="182.125" y="198.0" />
+      <point x="-12.375" y="14.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="241.0" y="304.5" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>public</VISIBILITY>
+</Diagram>
+

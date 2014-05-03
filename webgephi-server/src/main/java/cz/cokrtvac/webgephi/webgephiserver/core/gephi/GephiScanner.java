@@ -21,7 +21,7 @@ public class GephiScanner {
     @Inject
     private Logger log;
 
-    private Reflections reflections = new Reflections("org.gephi");
+    private Reflections reflections = new Reflections("");
 
     public List<Layout> getAvailableLayouts() {
         List<Layout> out = new ArrayList<Layout>();
@@ -32,7 +32,7 @@ public class GephiScanner {
             try {
                 if (LayoutBuilder.class.isAssignableFrom(c)) {
                     LayoutBuilder builder = (LayoutBuilder) c.newInstance();
-                    if(builder.getName().equalsIgnoreCase("test")){
+                    if (builder.getName().equalsIgnoreCase("test")) {
                         // Skip test layout
                         continue;
                     }
