@@ -13,7 +13,17 @@ import javax.xml.bind.annotation.*;
 
 @XmlRootElement(name = "user")
 @XmlAccessorType(XmlAccessType.NONE)
+@XmlType(propOrder = {"restServiceDiscovery", "username", "firstName", "lastName", "email", "password"})
 public class UserXml {
+    @Id
+    private String username;
+    private String password;
+    private String email;
+    private String firstName;
+    private String lastName;
+
+    private RESTServiceDiscovery restServiceDiscovery;
+
     public UserXml() {
     }
 
@@ -24,13 +34,6 @@ public class UserXml {
         this.firstName = firstName;
         this.lastName = lastName;
     }
-
-    @Id
-    private String username;
-    private String password;
-    private String email;
-    private String firstName;
-    private String lastName;
 
     @XmlAttribute(required = true)
     public String getUsername() {
@@ -89,5 +92,11 @@ public class UserXml {
     }
 
     @XmlElementRef
-    private RESTServiceDiscovery restServiceDiscovery;
+    public RESTServiceDiscovery getRestServiceDiscovery() {
+        return restServiceDiscovery;
+    }
+
+    public void setRestServiceDiscovery(RESTServiceDiscovery restServiceDiscovery) {
+        this.restServiceDiscovery = restServiceDiscovery;
+    }
 }

@@ -56,8 +56,8 @@
     <xs:complexType name="propertyXml">
         <xs:sequence>
             <xs:element maxOccurs="unbounded" minOccurs="0" ref="ns1:link"/>
-            <xs:element name="description" type="xs:string"/>
             <xs:element name="name" type="xs:string"/>
+            <xs:element minOccurs="0" name="description" type="xs:string"/>
             <xs:element name="value" type="tns:valueWrapper"/>
         </xs:sequence>
         <xs:attribute name="id" type="xs:ID" use="required"/>
@@ -286,9 +286,9 @@
     <xs:complexType name="userXml">
         <xs:sequence>
             <xs:element maxOccurs="unbounded" minOccurs="0" ref="ns1:link"/>
-            <xs:element minOccurs="0" name="email" type="xs:string"/>
             <xs:element minOccurs="0" name="firstName" type="xs:string"/>
             <xs:element minOccurs="0" name="lastName" type="xs:string"/>
+            <xs:element minOccurs="0" name="email" type="xs:string"/>
             <xs:element minOccurs="0" name="password" type="xs:string"/>
         </xs:sequence>
         <xs:attribute name="username" type="xs:string" use="required"/>

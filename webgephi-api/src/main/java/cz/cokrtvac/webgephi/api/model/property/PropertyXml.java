@@ -17,11 +17,14 @@ import javax.xml.bind.annotation.*;
  */
 
 @XmlAccessorType(XmlAccessType.NONE)
+@XmlType(propOrder = {"restServiceDiscovery", "id", "name", "description", "valueWrapper"})
 public class PropertyXml<T extends PropertyValue> {
     private String id;
     private String name;
     private String description;
     private ValueWrapper<T> value;
+
+    private RESTServiceDiscovery restServiceDiscovery;
 
     public PropertyXml() {
     }
@@ -53,7 +56,7 @@ public class PropertyXml<T extends PropertyValue> {
         this.name = name;
     }
 
-    @XmlElement(required = true)
+    @XmlElement(required = false)
     public String getDescription() {
         return description;
     }
@@ -88,7 +91,13 @@ public class PropertyXml<T extends PropertyValue> {
     }
 
     @XmlElementRef
-    private RESTServiceDiscovery restServiceDiscovery;
+    public RESTServiceDiscovery getRestServiceDiscovery() {
+        return restServiceDiscovery;
+    }
+
+    public void setRestServiceDiscovery(RESTServiceDiscovery restServiceDiscovery) {
+        this.restServiceDiscovery = restServiceDiscovery;
+    }
 
     // Value wrapper ========================================================================================
     public static class ValueWrapper<T extends PropertyValue> {
