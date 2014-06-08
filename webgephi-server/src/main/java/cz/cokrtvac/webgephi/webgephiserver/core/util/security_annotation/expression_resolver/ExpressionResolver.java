@@ -25,7 +25,7 @@ public class ExpressionResolver {
     private ELContext context;
 
     public ExpressionResolver() {
-        //create the context
+        //createXml the context
         ELResolver demoELResolver = new DemoELResolver(userMap);
 
         compositeELResolver = new CompositeELResolver();

@@ -1,6 +1,6 @@
 package cz.cokrtvac.webgephi.clientapp.ui.functions;
 
-import cz.cokrtvac.webgephi.api.model.AbstractFunction;
+import cz.cokrtvac.webgephi.api.model.AbstractFunctionXml;
 import cz.cokrtvac.webgephi.clientapp.model.UserSession;
 
 /**
@@ -9,7 +9,7 @@ import cz.cokrtvac.webgephi.clientapp.model.UserSession;
  * Time: 0:01
  */
 public class StatisticSettingWidget extends FunctionSettingWidget {
-    public StatisticSettingWidget(AbstractFunction function, UserSession userSession) {
+    public StatisticSettingWidget(AbstractFunctionXml function, UserSession userSession) {
         super(function, userSession);
     }
 

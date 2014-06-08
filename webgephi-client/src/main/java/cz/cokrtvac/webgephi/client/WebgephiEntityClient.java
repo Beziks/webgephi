@@ -1,6 +1,8 @@
 package cz.cokrtvac.webgephi.client;
 
 import cz.cokrtvac.webgephi.api.model.GraphFunctionXml;
+import cz.cokrtvac.webgephi.api.model.filter.FilterXml;
+import cz.cokrtvac.webgephi.api.model.filter.FiltersXml;
 import cz.cokrtvac.webgephi.api.model.graph.GraphDetailXml;
 import cz.cokrtvac.webgephi.api.model.graph.GraphsXml;
 import cz.cokrtvac.webgephi.api.model.layout.LayoutXml;
@@ -10,7 +12,6 @@ import cz.cokrtvac.webgephi.api.model.ranking.RankingsXml;
 import cz.cokrtvac.webgephi.api.model.statistic.StatisticXml;
 import cz.cokrtvac.webgephi.api.model.statistic.StatisticsXml;
 import cz.cokrtvac.webgephi.api.model.user.UserXml;
-import org.w3c.dom.Document;
 
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -42,9 +43,19 @@ public interface WebgephiEntityClient extends WebgephiClient {
     GraphsXml getGraphs(long page, int pageSize, boolean desc) throws ErrorHttpResponseException, WebgephiClientException;
 
     // POST Graph ------------------------------------
-    GraphDetailXml addGraph(String username, String graphName, Document graphGexf) throws ErrorHttpResponseException, WebgephiClientException;
 
-    GraphDetailXml addGraph(String graphName, Document graphGexf) throws ErrorHttpResponseException, WebgephiClientException;
+    /**
+     * @param username
+     * @param graphName
+     * @param format    - Format of input data. If null, content will be resolved from content (works for gexf, dl, gdf, gml, graphml, net, vna, dot, tlp, csv). All formats supported by Gephi are supported.
+     * @param content   - Graph content. Supported: gexf, dl, gdf, gml, graphml, net, vna, dot, tlp, csv.
+     * @return
+     * @throws ErrorHttpResponseException
+     * @throws WebgephiClientException
+     */
+    GraphDetailXml addGraph(String username, String graphName, String format, String content) throws ErrorHttpResponseException, WebgephiClientException;
+
+    GraphDetailXml addGraph(String graphName, String format, String content) throws ErrorHttpResponseException, WebgephiClientException;
 
     // APPLY function ------------------------------------
     GraphDetailXml applyFunction(String username, Long graphId, GraphFunctionXml function, String newName) throws ErrorHttpResponseException, WebgephiClientException;
@@ -62,6 +73,10 @@ public interface WebgephiEntityClient extends WebgephiClient {
     GraphDetailXml applyRankingFunction(String username, Long graphId, RankingXml rankingXml, String newName) throws ErrorHttpResponseException, WebgephiClientException;
 
     GraphDetailXml applyRankingFunction(Long graphId, RankingXml rankingXml, String newName) throws ErrorHttpResponseException, WebgephiClientException;
+
+    public GraphDetailXml applyFilterFunction(String username, Long graphId, FilterXml filterXml, String newName) throws ErrorHttpResponseException, WebgephiClientException;
+
+    public GraphDetailXml applyFilterFunction(Long graphId, FilterXml filterXml, String newName) throws ErrorHttpResponseException, WebgephiClientException;
 
     // Graph formats ------------------------------------
     String getGraphInFormat(String username, Long graphId, String format) throws ErrorHttpResponseException, WebgephiClientException;
@@ -95,6 +110,10 @@ public interface WebgephiEntityClient extends WebgephiClient {
     RankingsXml getRankings() throws ErrorHttpResponseException, WebgephiClientException;
 
     RankingXml getRanking(String rankingId) throws ErrorHttpResponseException, WebgephiClientException;
+
+    FiltersXml getFilters() throws ErrorHttpResponseException, WebgephiClientException;
+
+    FilterXml getFilter(String filterId) throws ErrorHttpResponseException, WebgephiClientException;
 
     // Wrapped methods ======================================================================
     @Override

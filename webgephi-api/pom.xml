@@ -32,7 +32,13 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <scope>provided</scope>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <scope>runtime</scope>
         </dependency>
 
         <dependency>
@@ -49,6 +55,11 @@
             <groupId>org.jboss.resteasy</groupId>
             <artifactId>resteasy-atom-provider</artifactId>
             <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>xalan</groupId>
+            <artifactId>xalan</artifactId>
         </dependency>
 
         <dependency>

@@ -1,5 +1,6 @@
 package cz.cokrtvac.webgephi.webgephiserver.core.util;
 
+import cz.cokrtvac.webgephi.api.util.IOUtil;
 import org.apache.commons.codec.binary.Base64;
 
 import java.io.File;
@@ -13,7 +14,7 @@ public class ImageUtils {
      */
     public static String encodePngToBase64(File file) {
         try {
-            byte[] imageByte = IOUtils.read(file);
+            byte[] imageByte = IOUtil.read(file);
 
             String base64 = Base64.encodeBase64String(imageByte);
             return base64;

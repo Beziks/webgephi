@@ -3,7 +3,8 @@ package cz.cokrtvac.webgephi.clientapp.ui.functions.input;
 import com.vaadin.data.util.converter.StringToIntegerConverter;
 import com.vaadin.ui.AbstractField;
 import com.vaadin.ui.TextField;
-import cz.cokrtvac.webgephi.api.model.PropertyXml;
+import cz.cokrtvac.webgephi.api.model.property.PropertyXml;
+import cz.cokrtvac.webgephi.api.model.property.basic.IntegerPropertyValue;
 import cz.cokrtvac.webgephi.clientapp.ui.functions.FunctionSettingWidget;
 
 /**
@@ -11,9 +12,9 @@ import cz.cokrtvac.webgephi.clientapp.ui.functions.FunctionSettingWidget;
  * Date: 5. 4. 2014
  * Time: 23:24
  */
-public class IntegerPropertyInput extends AbstractPropertyInput<Integer> {
+public class IntegerPropertyInput extends AbstractPropertyInput<IntegerPropertyValue> {
 
-    public IntegerPropertyInput(PropertyXml<Integer> property, FunctionSettingWidget owner) {
+    public IntegerPropertyInput(PropertyXml<IntegerPropertyValue> property, FunctionSettingWidget owner) {
         super(property, owner);
     }
 
@@ -26,13 +27,14 @@ public class IntegerPropertyInput extends AbstractPropertyInput<Integer> {
     }
 
     @Override
-    public Integer getValue() {
-        return (Integer) input.getConvertedValue();
+    public IntegerPropertyValue getValue() {
+        property.getValue().setValue((Integer) input.getConvertedValue());
+        return property.getValue();
     }
 
     @Override
-    public void setValue(Integer value) {
-        input.setConvertedValue(value);
+    public void setValue(IntegerPropertyValue value) {
+        input.setConvertedValue(value.getValue());
     }
 
 

@@ -35,4 +35,15 @@ public class StringUtil {
         Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
         return pattern.matcher(s).replaceAll("");
     }
+
+    public static String splitCamelCase(String s) {
+        StringBuilder sb = new StringBuilder();
+        for (Character c : s.toCharArray()) {
+            if (Character.isUpperCase(c)) {
+                sb.append(" ");
+            }
+            sb.append(c);
+        }
+        return sb.toString().trim();
+    }
 }

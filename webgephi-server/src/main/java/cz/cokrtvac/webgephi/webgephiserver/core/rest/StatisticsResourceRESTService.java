@@ -1,9 +1,9 @@
 package cz.cokrtvac.webgephi.webgephiserver.core.rest;
 
-import cz.cokrtvac.webgephi.webgephiserver.core.gephi.statistics.StatisticsPool;
 import cz.cokrtvac.webgephi.api.model.WebgephiWebException;
 import cz.cokrtvac.webgephi.api.model.statistic.StatisticXml;
 import cz.cokrtvac.webgephi.api.model.statistic.StatisticsXml;
+import cz.cokrtvac.webgephi.webgephiserver.core.gephi.function.statistics.StatisticsPool;
 import cz.cokrtvac.webgephi.webgephiserver.core.rest.interceptor.WebException;
 import org.jboss.resteasy.links.AddLinks;
 import org.jboss.resteasy.links.LinkResource;
@@ -34,7 +34,7 @@ public class StatisticsResourceRESTService {
     @LinkResource
     @GET
     public StatisticsXml listAllStatistics(@Context HttpServletRequest req) {
-        StatisticsXml statisticsXml = statisticsPool.getAvailableStatistics();
+        StatisticsXml statisticsXml = statisticsPool.getAll();
         return statisticsXml;
     }
 
@@ -43,7 +43,7 @@ public class StatisticsResourceRESTService {
     @GET
     @Path("/{id}")
     public StatisticXml getStatistic(@Context HttpServletRequest req, @PathParam("id") String id) {
-        for (StatisticXml s : statisticsPool.getAvailableStatistics().getStatistics()) {
+        for (StatisticXml s : statisticsPool.getAll().getFunctions()) {
             if (s.getId().equals(id)) {
                 return s;
             }

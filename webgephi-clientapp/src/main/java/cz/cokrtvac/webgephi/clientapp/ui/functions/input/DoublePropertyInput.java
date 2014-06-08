@@ -3,7 +3,8 @@ package cz.cokrtvac.webgephi.clientapp.ui.functions.input;
 import com.vaadin.data.util.converter.StringToDoubleConverter;
 import com.vaadin.ui.AbstractField;
 import com.vaadin.ui.TextField;
-import cz.cokrtvac.webgephi.api.model.PropertyXml;
+import cz.cokrtvac.webgephi.api.model.property.PropertyXml;
+import cz.cokrtvac.webgephi.api.model.property.basic.DoublePropertyValue;
 import cz.cokrtvac.webgephi.clientapp.ui.functions.FunctionSettingWidget;
 
 /**
@@ -11,9 +12,8 @@ import cz.cokrtvac.webgephi.clientapp.ui.functions.FunctionSettingWidget;
  * Date: 5. 4. 2014
  * Time: 23:24
  */
-public class DoublePropertyInput extends AbstractPropertyInput<Double> {
-
-    public DoublePropertyInput(PropertyXml<Double> property, FunctionSettingWidget owner) {
+public class DoublePropertyInput extends AbstractPropertyInput<DoublePropertyValue> {
+    public DoublePropertyInput(PropertyXml<DoublePropertyValue> property, FunctionSettingWidget owner) {
         super(property, owner);
     }
 
@@ -26,13 +26,14 @@ public class DoublePropertyInput extends AbstractPropertyInput<Double> {
     }
 
     @Override
-    public Double getValue() {
-        return (Double) input.getConvertedValue();
+    public DoublePropertyValue getValue() {
+        property.getValue().setValue((Double) input.getConvertedValue());
+        return property.getValue();
     }
 
     @Override
-    public void setValue(Double value) {
-        input.setConvertedValue(value);
+    public void setValue(DoublePropertyValue value) {
+        input.setConvertedValue(value.getValue());
     }
 
 

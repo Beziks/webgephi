@@ -3,7 +3,7 @@ package cz.cokrtvac.webgephi.webgephiserver.core.rest;
 import cz.cokrtvac.webgephi.api.model.WebgephiWebException;
 import cz.cokrtvac.webgephi.api.model.ranking.RankingXml;
 import cz.cokrtvac.webgephi.api.model.ranking.RankingsXml;
-import cz.cokrtvac.webgephi.webgephiserver.core.gephi.ranking.RankingsPool;
+import cz.cokrtvac.webgephi.webgephiserver.core.gephi.function.ranking.RankingsPool;
 import cz.cokrtvac.webgephi.webgephiserver.core.rest.interceptor.WebException;
 import org.jboss.resteasy.links.AddLinks;
 import org.jboss.resteasy.links.LinkResource;
@@ -34,7 +34,7 @@ public class RankingResourceRESTService {
     @LinkResource
     @GET
     public RankingsXml listAllLayouts(@Context HttpServletRequest req) {
-        RankingsXml rankingsXml = rankingsPool.getAvailableRankings();
+        RankingsXml rankingsXml = rankingsPool.getAll();
         return rankingsXml;
     }
 
@@ -43,7 +43,7 @@ public class RankingResourceRESTService {
     @GET
     @Path("/{id}")
     public RankingXml getLayout(@Context HttpServletRequest req, @PathParam("id") String id) {
-        for (RankingXml r : rankingsPool.getAvailableRankings().getRankings()) {
+        for (RankingXml r : rankingsPool.getAll().getFunctions()) {
             if (r.getId().equals(id)) {
                 return r;
             }

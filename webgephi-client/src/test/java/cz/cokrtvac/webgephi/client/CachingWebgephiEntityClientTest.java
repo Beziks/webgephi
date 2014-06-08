@@ -25,8 +25,8 @@ public class CachingWebgephiEntityClientTest {
     @BeforeClass
     public void init() throws WebgephiClientException, ErrorHttpResponseException {
         // Access token to testuser account (all scopes)
-        client = new CachingWebgephiEntityClient(new WebgephiEntityClientImpl(new WebgephiOAuthClient("https://webgephi.local:8443/rest", TestsUtil.getTestAccessToken())));
-        firstGraphId  = client.getGraphs(1, 1, false).getGraphs().get(0).getId();
+        client = new CachingWebgephiEntityClient(new WebgephiEntityClientImpl(new WebgephiOAuthClient("https://webgephi.local:8443/rest/v1", TestsUtil.getTestAccessToken())));
+        firstGraphId = client.getGraphs(1, 1, false).getGraphs().get(0).getId();
     }
 
     @Test
@@ -67,8 +67,8 @@ public class CachingWebgephiEntityClientTest {
 
     @Test
     public void testFunctionsList() throws Exception {
-        log.info("First layout: " + client.getLayout(client.getLayouts().getLayouts().get(0).getId()));
-        log.info("First stat: " + client.getStatistic(client.getStatistics().getStatistics().get(0).getId()));
+        log.info("First layout: " + client.getLayout(client.getLayouts().getFunctions().get(0).getId()));
+        log.info("First stat: " + client.getStatistic(client.getStatistics().getFunctions().get(0).getId()));
 
         LayoutsXml layoutsXml = client.getLayouts();
         StatisticsXml statisticsXml = client.getStatistics();
@@ -76,10 +76,10 @@ public class CachingWebgephiEntityClientTest {
         Assert.assertTrue(layoutsXml == client.getLayouts());
         Assert.assertTrue(statisticsXml == client.getStatistics());
 
-        String layoutId = layoutsXml.getLayouts().get(1).getId();
+        String layoutId = layoutsXml.getFunctions().get(1).getId();
         Assert.assertTrue(client.getLayout(layoutId) == client.getLayout(layoutId));
 
-        String statId = statisticsXml.getStatistics().get(1).getId();
+        String statId = statisticsXml.getFunctions().get(1).getId();
         Assert.assertTrue(client.getStatistic(statId) == client.getStatistic(statId));
 
 

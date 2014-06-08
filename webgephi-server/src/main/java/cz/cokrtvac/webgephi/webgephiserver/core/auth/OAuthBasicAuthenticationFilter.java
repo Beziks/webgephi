@@ -27,7 +27,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@WebFilter("/rest/users/*")
+@WebFilter("/rest/v1/users/*")
 public class OAuthBasicAuthenticationFilter extends OAuthFilter {
 
     @Inject

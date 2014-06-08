@@ -1,17 +1,21 @@
 package cz.cokrtvac.webgephi.client;
 
 import cz.cokrtvac.webgephi.api.model.GraphFunctionXml;
-import cz.cokrtvac.webgephi.api.model.PropertyXml;
+import cz.cokrtvac.webgephi.api.model.filter.FilterXml;
 import cz.cokrtvac.webgephi.api.model.graph.GraphDetailXml;
 import cz.cokrtvac.webgephi.api.model.graph.GraphsXml;
 import cz.cokrtvac.webgephi.api.model.layout.LayoutXml;
 import cz.cokrtvac.webgephi.api.model.layout.LayoutsXml;
+import cz.cokrtvac.webgephi.api.model.property.PropertyXml;
+import cz.cokrtvac.webgephi.api.model.property.attribute.AttributePropertyValue;
+import cz.cokrtvac.webgephi.api.model.property.basic.DoublePropertyValue;
+import cz.cokrtvac.webgephi.api.model.property.basic.FloatPropertyValue;
+import cz.cokrtvac.webgephi.api.model.property.basic.StringPropertyValue;
 import cz.cokrtvac.webgephi.api.model.ranking.RankingXml;
 import cz.cokrtvac.webgephi.api.model.ranking.RankingsXml;
 import cz.cokrtvac.webgephi.api.model.statistic.StatisticXml;
 import cz.cokrtvac.webgephi.api.model.statistic.StatisticsXml;
 import cz.cokrtvac.webgephi.api.model.user.UserXml;
-import cz.cokrtvac.webgephi.api.util.XmlFastUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
@@ -34,7 +38,7 @@ public class WebgephiEntityClientTest {
     @BeforeClass
     public void init() throws WebgephiClientException {
         // Access token to testuser account (all scopes)
-        client = new WebgephiEntityClientImpl(new WebgephiOAuthClient("https://webgephi.local:8443/rest", TestsUtil.getTestAccessToken()));
+        client = new WebgephiEntityClientImpl(new WebgephiOAuthClient("https://webgephi.local:8443/rest/v1", TestsUtil.getTestAccessToken()));
         firstGraphId = client.get("users/testuser/graphs").readEntity(GraphsXml.class).getGraphs().get(0).getId();
     }
 
@@ -110,23 +114,23 @@ public class WebgephiEntityClientTest {
         RankingsXml rankingsXml = client.getRankings();
         log.info("Response: " + rankingsXml);
 
-        RankingXml rankingXml = client.getRanking(RankingXml.SIZE_RANKING_ID);
+        RankingXml rankingXml = client.getRanking("nodeSize");
         log.info("Response: " + rankingXml);
-        Assert.assertEquals(Float.class, rankingXml.getProperty(RankingXml.SIZE_RANKING_PROPERTY_SIZE2).getValue().getClass());
+        Assert.assertEquals(FloatPropertyValue.class, rankingXml.getProperty("endSize").getValue().getClass());
     }
 
     @Test
     public void testModifyGraph() throws Exception {
         // Create graph
-        GraphDetailXml g = client.addGraph("testGraph", XmlFastUtil.lsDeSerializeDom(TestsUtil.getMisserablesGEXF()));
+        GraphDetailXml g = client.addGraph("testGraph", null, TestsUtil.getMisserablesGEXF());
         Assert.assertEquals(g.getName(), "testGraph");
         log.info("Response: " + g);
 
         // Apply layout
         LayoutXml layout = client.getLayout("clockwise-rotate");
 
-        PropertyXml<Double> angle = (PropertyXml<Double>) layout.getProperty("clockwise.angle.name");
-        angle.setValue(3.14);
+        PropertyXml<DoublePropertyValue> angle = (PropertyXml<DoublePropertyValue>) layout.getProperty("clockwise.angle.name");
+        angle.getValue().setValue(3.14);
 
         GraphFunctionXml f = new GraphFunctionXml();
         f.setFunction(layout);
@@ -163,10 +167,16 @@ public class WebgephiEntityClientTest {
         log.info("Statistic report: " + html);
 
         // Apply ranking
-        RankingXml rank = client.getRanking(RankingXml.COLOR_RANKING_ID);
-        ((PropertyXml<String>) rank.getProperty(RankingXml.RANKING_ATTRIBUTE_ID)).setValue("pageranks");
+        RankingXml rank = client.getRanking("nodeColor");
+        ((AttributePropertyValue) rank.getProperty("nodeAttribute").getValue()).setAttributeId("pageranks");
         GraphDetailXml g4 = client.applyRankingFunction(g3.getId(), rank, "afterRanking");
         log.info("Graph after ranking " + g4);
+
+        // Apply filter
+        FilterXml filter = client.getFilter("ego-network");
+        ((StringPropertyValue) filter.getProperty("pattern").getValue()).setValue("Valjean");
+        GraphDetailXml g5 = client.applyRankingFunction(g3.getId(), rank, "afterFilter");
+        log.info("Graph after ranking " + g5);
     }
 
     @Test(expectedExceptions = ErrorHttpResponseException.class)

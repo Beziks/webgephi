@@ -71,7 +71,7 @@ public class UserSession implements Serializable {
 
     private void afterLogin(Token accessToken) {
         Token t = accessToken;
-        webgephiClient = new CachingWebgephiEntityClient(new WebgephiEntityClientImpl(new WebgephiOAuthClient(getServerUrl() + "/rest", t)));
+        webgephiClient = new CachingWebgephiEntityClient(new WebgephiEntityClientImpl(new WebgephiOAuthClient(getServerUrl() + "/rest/v1", t)));
 
         BeanQueryFactory<GraphsQuery> queryFactory = new BeanQueryFactory<GraphsQuery>(GraphsQuery.class);
 

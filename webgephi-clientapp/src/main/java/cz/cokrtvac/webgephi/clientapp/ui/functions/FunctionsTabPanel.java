@@ -4,6 +4,8 @@ import com.vaadin.cdi.UIScoped;
 import com.vaadin.ui.Accordion;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.TabSheet;
+import cz.cokrtvac.webgephi.api.model.filter.FilterXml;
+import cz.cokrtvac.webgephi.api.model.filter.FiltersXml;
 import cz.cokrtvac.webgephi.api.model.graph.GraphDetailXml;
 import cz.cokrtvac.webgephi.api.model.layout.LayoutXml;
 import cz.cokrtvac.webgephi.api.model.layout.LayoutsXml;
@@ -63,9 +65,9 @@ public class FunctionsTabPanel extends CustomComponent {
         tabSheet.addTab(layAccordion, "Layouts");
         layAccordion.setHeight(100.0f, Unit.PERCENTAGE);
 
-        for (LayoutXml l : layoutsXml.getLayouts()) {
+        for (LayoutXml l : layoutsXml.getFunctions()) {
             FunctionSettingWidget s = new LayoutSettingWidget(l, userSession);
-            layAccordion.addTab(s, l.getName());
+            TabSheet.Tab tab = layAccordion.addTab(s, l.getName());
             allFunctions.add(s);
         }
 
@@ -76,9 +78,9 @@ public class FunctionsTabPanel extends CustomComponent {
         tabSheet.addTab(statAccordion, "Statistics");
         statAccordion.setHeight(100.0f, Unit.PERCENTAGE);
 
-        for (StatisticXml st : statisticsXml.getStatistics()) {
+        for (StatisticXml st : statisticsXml.getFunctions()) {
             FunctionSettingWidget s = new StatisticSettingWidget(st, userSession);
-            statAccordion.addTab(s, st.getName());
+            TabSheet.Tab tab = statAccordion.addTab(s, st.getName());
             allFunctions.add(s);
         }
 
@@ -89,9 +91,22 @@ public class FunctionsTabPanel extends CustomComponent {
         tabSheet.addTab(rankingsAccordion, "Rankings");
         rankingsAccordion.setHeight(100.0f, Unit.PERCENTAGE);
 
-        for (RankingXml st : rankingsXml.getRankings()) {
-            RankingSettingWidget s = new RankingSettingWidget(st, userSession);
-            rankingsAccordion.addTab(s, st.getName());
+        for (RankingXml rank : rankingsXml.getFunctions()) {
+            RankingSettingWidget s = new RankingSettingWidget(rank, userSession);
+            TabSheet.Tab tab = rankingsAccordion.addTab(s, rank.getName());
+            allFunctions.add(s);
+        }
+
+        // Filters
+        FiltersXml filtersXml = userSession.getWebgephiClient().getFilters();
+
+        Accordion filtersAccordion = new Accordion();
+        tabSheet.addTab(filtersAccordion, "Filters");
+        filtersAccordion.setHeight(100.0f, Unit.PERCENTAGE);
+
+        for (FilterXml filt : filtersXml.getFunctions()) {
+            RankingSettingWidget s = new RankingSettingWidget(filt, userSession);
+            TabSheet.Tab tab = filtersAccordion.addTab(s, filt.getName());
             allFunctions.add(s);
         }
     }

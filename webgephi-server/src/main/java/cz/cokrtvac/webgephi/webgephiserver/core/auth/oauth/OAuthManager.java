@@ -198,12 +198,12 @@ public class OAuthManager {
 
     /**
      * If exactly the same token already exists (same consumer, user, scopes), return that.
-     * Otherwise create a new one.
+     * Otherwise createXml a new one.
      */
     private OAuthAccessTokenEntity getOrCreateAccessToken(OAuthConsumerEntity consumerEntity, UserEntity userEntity, Set<String> scopes) {
-        for(OAuthAccessTokenEntity accessTokenEntity : userEntity.getAccessTokens()){
-            if(accessTokenEntity.getConsumer().getKey().equals(consumerEntity.getKey())){
-                if(accessTokenEntity.getScopes().equals(scopes)){
+        for (OAuthAccessTokenEntity accessTokenEntity : userEntity.getAccessTokens()) {
+            if (accessTokenEntity.getConsumer().getKey().equals(consumerEntity.getKey())) {
+                if (accessTokenEntity.getScopes().equals(scopes)) {
                     log.debug("Same access token exists, reusing that one");
                     return accessTokenEntity;
                 }

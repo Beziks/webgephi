@@ -3,19 +3,20 @@ package cz.cokrtvac.webgephi.clientapp.ui.functions;
 import com.vaadin.cdi.UIScoped;
 import com.vaadin.ui.*;
 import cz.cokrtvac.webgephi.api.model.graph.GraphDetailXml;
-import cz.cokrtvac.webgephi.api.util.XmlFastUtil;
 import cz.cokrtvac.webgephi.client.ErrorHttpResponseException;
 import cz.cokrtvac.webgephi.client.WebgephiClientException;
 import cz.cokrtvac.webgephi.clientapp.model.UserSession;
 import cz.cokrtvac.webgephi.clientapp.ui.Selected;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.w3c.dom.Document;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
+import java.util.Arrays;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 /**
  * User: Vaclav Cokrt, beziks@gmail.com
@@ -25,6 +26,9 @@ import java.io.OutputStream;
 @UIScoped
 public class UploadGraphWidget extends CustomComponent {
     protected Logger log = LoggerFactory.getLogger(getClass());
+    private final String AUTO_RESOLVE = "Auto-resolve";
+    private final Set<String> FORMATS = new LinkedHashSet(Arrays.asList(
+            new String[]{AUTO_RESOLVE, ".gexf", ".dl", ".gdf", ".gml", ".graphml", ".net", ".vna", ".dot", ".tlp", ".csv"}));
 
     @Inject
     private UserSession userSession;
@@ -32,6 +36,8 @@ public class UploadGraphWidget extends CustomComponent {
     @Inject
     @Selected
     private javax.enterprise.event.Event<GraphDetailXml> graphSelectedEvent;
+
+    private ComboBox extensionCombo;
 
     @PostConstruct
     public void init() {
@@ -63,14 +69,34 @@ public class UploadGraphWidget extends CustomComponent {
         uploadInfoWindow.setStyleName("right-bottom");
 
         final TextField nameField = new TextField("Graph name");
-        nameField.setWidth(100, Unit.PERCENTAGE);
         nameField.setRequired(true);
+        nameField.setWidth(100, Unit.PERCENTAGE);
+
+        extensionCombo = new ComboBox("Format", FORMATS);
+        extensionCombo.setTextInputAllowed(true);
+        extensionCombo.setNewItemsAllowed(true);
+        extensionCombo.setNullSelectionItemId(AUTO_RESOLVE);
+        extensionCombo.setImmediate(true);
+        extensionCombo.setPageLength(20);
+        extensionCombo.setNewItemHandler(new AbstractSelect.NewItemHandler() {
+            @Override
+            public void addNewItem(String newItemCaption) {
+                setExtensionValue(newItemCaption);
+            }
+        });
+        extensionCombo.setWidth(100, Unit.PIXELS);
+        extensionCombo.setDescription("Select or enter input file format. Or you can let WebGephi auto-resolve format from file content.");
+
+        HorizontalLayout nameAndExtensionLayout = new HorizontalLayout(nameField, extensionCombo);
+        nameAndExtensionLayout.setSpacing(true);
+        nameAndExtensionLayout.setWidth(100, Unit.PERCENTAGE);
+        nameAndExtensionLayout.setExpandRatio(nameField, 1f);
 
         final TextArea textArea = new TextArea();
         textArea.setMaxLength(-1);
         textArea.setSizeFull();
         textArea.setRequired(true);
-        textArea.setRequiredError("Value is required. Upload file of copy paste graph in *.gexf format directly.");
+        textArea.setRequiredError("Value is required. Upload file of copy paste graph directly.");
 
         upload.addFinishedListener(new Upload.FinishedListener() {
             @Override
@@ -78,12 +104,21 @@ public class UploadGraphWidget extends CustomComponent {
                 uploadInfoWindow.setClosable(true);
                 try {
                     String s = uploadReceiver.getStream().toString();
-                    log.info(s);
-                    Document doc = XmlFastUtil.lsDeSerializeDom(uploadReceiver.getStream().toByteArray());
-                    String data = XmlFastUtil.lsSerializeDomPretty(doc);
-                    log.info("Uploaded :" + data);
-                    textArea.setValue(data);
-                    nameField.setValue(event.getFilename());
+                    log.info("Uploaded :" + s);
+                    textArea.setValue(s);
+
+                    int index = event.getFilename().lastIndexOf(".");
+                    String name = event.getFilename();
+                    String ext = null;
+                    if (index > 0) {
+                        name = name.substring(0, index);
+                        ext = event.getFilename().substring(index);
+                    }
+
+                    nameField.setValue(name);
+                    if (ext != null) {
+                        setExtensionValue(ext);
+                    }
                 } catch (Exception e) {
                     log.error("Invalid format " + e.getMessage(), e);
                     Notification.show("Invalid format", e.getMessage(), Notification.Type.ERROR_MESSAGE);
@@ -97,7 +132,7 @@ public class UploadGraphWidget extends CustomComponent {
 
         //--------------
 
-        vl.addComponent(nameField);
+        vl.addComponent(nameAndExtensionLayout);
         vl.addComponent(textArea);
         vl.setExpandRatio(textArea, 1);
 
@@ -109,17 +144,14 @@ public class UploadGraphWidget extends CustomComponent {
                     return;
                 }
 
-                Document doc = null;
                 try {
-                    doc = XmlFastUtil.lsDeSerializeDom(textArea.getValue());
-                } catch (Exception e) {
-                    log.error("Invalid format " + e.getMessage(), e);
-                    Notification.show("Input in textarea is not a valid xml.", e.getMessage(), Notification.Type.WARNING_MESSAGE);
-                    return;
-                }
+                    String ext = (String) extensionCombo.getValue();
+                    if (ext == null || ext.equals(AUTO_RESOLVE)) {
+                        ext = null;
+                    }
 
-                try {
-                    GraphDetailXml xml = userSession.getWebgephiClient().addGraph(nameField.getValue(), doc);
+                    GraphDetailXml xml = userSession.getWebgephiClient().addGraph(nameField.getValue(), ext, textArea.getValue());
+                    userSession.refreshGraphList();
                     graphSelectedEvent.fire(xml);
                     nameField.setValue("");
                     textArea.setValue("");
@@ -132,6 +164,17 @@ public class UploadGraphWidget extends CustomComponent {
                 }
             }
         }));
+    }
+
+    private void setExtensionValue(String newItemCaption) {
+        extensionCombo.removeAllItems();
+        for (String s : FORMATS) {
+            extensionCombo.addItem(s);
+        }
+        if (!FORMATS.contains(newItemCaption)) {
+            extensionCombo.addItem(newItemCaption);
+        }
+        extensionCombo.setValue(newItemCaption);
     }
 
     private static class UploadInfoWindow extends Window implements Upload.StartedListener, Upload.ProgressListener, Upload.FailedListener, Upload.SucceededListener, Upload.FinishedListener {

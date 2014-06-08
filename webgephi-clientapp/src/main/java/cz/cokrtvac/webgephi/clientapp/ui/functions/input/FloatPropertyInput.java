@@ -3,7 +3,8 @@ package cz.cokrtvac.webgephi.clientapp.ui.functions.input;
 import com.vaadin.data.util.converter.StringToFloatConverter;
 import com.vaadin.ui.AbstractField;
 import com.vaadin.ui.TextField;
-import cz.cokrtvac.webgephi.api.model.PropertyXml;
+import cz.cokrtvac.webgephi.api.model.property.PropertyXml;
+import cz.cokrtvac.webgephi.api.model.property.basic.FloatPropertyValue;
 import cz.cokrtvac.webgephi.clientapp.ui.functions.FunctionSettingWidget;
 
 /**
@@ -11,9 +12,9 @@ import cz.cokrtvac.webgephi.clientapp.ui.functions.FunctionSettingWidget;
  * Date: 5. 4. 2014
  * Time: 23:24
  */
-public class FloatPropertyInput extends AbstractPropertyInput<Float> {
+public class FloatPropertyInput extends AbstractPropertyInput<FloatPropertyValue> {
 
-    public FloatPropertyInput(PropertyXml<Float> property, FunctionSettingWidget owner) {
+    public FloatPropertyInput(PropertyXml<FloatPropertyValue> property, FunctionSettingWidget owner) {
         super(property, owner);
     }
 
@@ -26,13 +27,14 @@ public class FloatPropertyInput extends AbstractPropertyInput<Float> {
     }
 
     @Override
-    public Float getValue() {
-        return (Float) input.getConvertedValue();
+    public FloatPropertyValue getValue() {
+        property.getValue().setValue((Float) input.getConvertedValue());
+        return property.getValue();
     }
 
     @Override
-    public void setValue(Float value) {
-        input.setConvertedValue(value);
+    public void setValue(FloatPropertyValue value) {
+        input.setConvertedValue(value.getValue());
     }
 
 

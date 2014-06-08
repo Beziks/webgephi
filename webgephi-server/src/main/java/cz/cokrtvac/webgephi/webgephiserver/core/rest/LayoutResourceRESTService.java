@@ -1,9 +1,9 @@
 package cz.cokrtvac.webgephi.webgephiserver.core.rest;
 
-import cz.cokrtvac.webgephi.webgephiserver.core.gephi.layout.LayoutsPool;
 import cz.cokrtvac.webgephi.api.model.WebgephiWebException;
 import cz.cokrtvac.webgephi.api.model.layout.LayoutXml;
 import cz.cokrtvac.webgephi.api.model.layout.LayoutsXml;
+import cz.cokrtvac.webgephi.webgephiserver.core.gephi.function.layout.LayoutsPool;
 import cz.cokrtvac.webgephi.webgephiserver.core.rest.interceptor.WebException;
 import org.jboss.resteasy.links.AddLinks;
 import org.jboss.resteasy.links.LinkResource;
@@ -34,7 +34,7 @@ public class LayoutResourceRESTService {
     @LinkResource
     @GET
     public LayoutsXml listAllLayouts(@Context HttpServletRequest req) {
-        LayoutsXml layoutsXml = layoutsPool.getAvailableLayouts();
+        LayoutsXml layoutsXml = layoutsPool.getAll();
         return layoutsXml;
     }
 
@@ -43,7 +43,7 @@ public class LayoutResourceRESTService {
     @GET
     @Path("/{id}")
     public LayoutXml getLayout(@Context HttpServletRequest req, @PathParam("id") String id) {
-        for (LayoutXml l : layoutsPool.getAvailableLayouts().getLayouts()) {
+        for (LayoutXml l : layoutsPool.getAll().getFunctions()) {
             if (l.getId().equals(id)) {
                 return l;
             }

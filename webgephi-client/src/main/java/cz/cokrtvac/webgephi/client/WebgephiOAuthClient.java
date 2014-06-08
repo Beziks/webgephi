@@ -28,7 +28,7 @@ public class WebgephiOAuthClient implements WebgephiClient {
     private String resourceBase;
 
     /**
-     * @param resourceBase - Base address of REST servises on server. E.g. https://webgephi.cz/rest
+     * @param resourceBase - Base address of REST servises on server. E.g. https://webgephi.cz/rest/v1
      * @param accessToken  - Access token obtained from user. If null, only public resources are available (functions)
      */
     public WebgephiOAuthClient(String resourceBase, Token accessToken) {
@@ -87,13 +87,13 @@ public class WebgephiOAuthClient implements WebgephiClient {
 
             WebTarget target = client.target(url);
 
-            if(bodyMediaType == null){
+            if (bodyMediaType == null) {
                 bodyMediaType = MediaType.APPLICATION_XML_TYPE;
             }
 
             log.info("Accessing " + method + " " + url);
             Response response = null;
-            if(body != null){
+            if (body != null) {
                 response = target.request().method(method, javax.ws.rs.client.Entity.entity(body, bodyMediaType));
             } else {
                 response = target.request().method(method);

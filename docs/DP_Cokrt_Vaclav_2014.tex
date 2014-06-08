@@ -17,6 +17,14 @@
 \usepackage{dirtree} %directory tree visualisation
 
 %-----------------------------------------------------
+\usepackage[T1]{fontenc}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{lipsum}
+
+
+
+
 \usepackage{listings}
 \usepackage{color}
 
@@ -85,8 +93,8 @@ aplikace - grafická nadstavba demonstrující funkcionalitu \textit{WebGephi}.}
 \abstractEN{TODO the same in english}
 \placeForDeclarationOfAuthenticity{V~Praze}
 \declarationOfAuthenticityOption{4} %volba Prohlášení (číslo 1-6)
-\keywordsCS{Gephi, Gephi Toolkit, graf, REST, webové služby, webová aplikace}
-\keywordsEN{Gephi, Gephi Toolkit, graph, REST, web services, web application}
+\keywordsCS{Gephi, Gephi Toolkit, graf, REST, RESTful, webové služby, webová aplikace}
+\keywordsEN{Gephi, Gephi Toolkit, graph, REST, RESTful, web services, web application}
 \newtheorem{definice}{Definice}
 
 
@@ -454,7 +462,7 @@ Architektura \textit{Gephi} je od počátku navrhována pro potřeby desktopové
  že umí pracovat s Workspace předaným v parametru, v těle metody se používá \uv{current Workspace}. Tento problém ilustruji na příkladu \ref{sourcecode:bug1} třídy \texttt{DefaultProcessor}, která se
  využívá při importu grafu.
  
- \lstinputlisting[caption=Import grafu do Workspace, který není nastavený jako \uv{currentWorkspace}, firstline=31, lastline=37, label=sourcecode:bug1]{source_code_examples/ConcurrencyBugExample.java}
+\lstinputlisting[caption=Import grafu do Workspace, který není nastavený jako \uv{currentWorkspace}, firstline=31, lastline=37, label=sourcecode:bug1]{source_code_examples/ConcurrencyBugExample.java}
  
  Vše vypadá na první pohled v pořádku, graf se zdánlivě načte do Workspace \texttt{notCurrentWorkspace}. Pokud se však podíváme do implementace třídy \texttt{DefaultProcessor} (viz ukázka kódu \ref{sourcecode:bug2}) zjistíme, že 
  se ze skutečnosti používá Workspace nastavený v Singletonu \texttt{ProjectController} jako \uv{currentWorkspace}.
@@ -564,13 +572,504 @@ Jedná se o volnější specifikaci než je OAuth 1.0a. Jednotlivé implementace
 
 \subsubsection{Použití pro WebGephi}
 OAuth v2.0 nepřináší oproti první verzi z pohledu \textit{WebGephi} žádné výrazné výhody. Volnější specifikace a nekompatibilita jednotlivých implementací ztěžuje 
-jeho použití různými \textit{Konzumenty}. Výhodou by byla lepší podpora desktopových a mobilních klientů. 
+jeho použití různými \textit{Konzumenty}. Výhodou by byla lepší podpora desktopových a mobilních klientů.
+
+\subsection{Výběr autentizace a autorizace pro WebGephi}
+Pro \textit{WebGephi} byla vybrána kombinace Basic autorizace a OAuth v1.0a. Preferována bude OAuth autorizace, která umožňuje bezpečnější a přesnější řízení přístupu.
+Basic autorizace se bude používat pouze pro prozkoumávání a vyzkoušení REST rozhraní a v případech, kdy klientská aplikace není (kvůli složitosti) schopná implememtovat OAuth klienta.
+To se může stát např. v případě čistě JavaScriptového klienta.
 
 \chapter{Návrh}
+V kéto kapitole se zaměříme na návrh struktury aplikace \textit{WebGephi}. Představíme si základní workflow aplikace a její datový model.
+Nejdůležitější částí kapitoly bude popis REST API. Protože výsledná aplikace nebude monolitická, popíšeme si zde také význam jednotlivých 
+modulů.
+
+\section{Procesní model}
+
+Na diagramu \ref{fig:webgephi-workflow} je znázorněno, jak bude řešeno základní workflow ve \textit{WebGephi}. Základem je úložiště uživatelových 
+grafů. Na tyto grafy může klient aplikovat dostupné grafové funkce (\texttt{Layout}, \texttt{Statistics}, \texttt{Ranking}). Po každé aplikaci funkce
+se výsledek uloží jako nový graf a uživateli se vrátí odkaz na něj. To mimo jiné umožní zobrazenit historii práce s každým grafem.
+
+Vytvořené grafy nebude možné mazat ani upravovat. To umožní snadnou kešovatelnost úložiště. 
+
+\begin{figure}\centering
+ 	\includegraphics[width=1\textwidth]{images/diagram/webgephi_workflow}
+ 	\caption[Sekvenční diagram práce s WebGephi]{Sekvenční diagram práce s WebGephi}\label{fig:webgephi-workflow}
+\end{figure}
+
+\section{Databázový model}
+Databázový model aplikace bude velmi jednoduchý (viz diagram \ref{fig:webgephi-dbmodel}). Zde si popíšeme jeho jednotlivé prvky.
+
+\begin{figure}\centering
+ 	\includegraphics[width=1\textwidth]{images/class-diagram/db_model}
+ 	\caption[Sekvenční diagram práce s WebGephi]{}\label{fig:webgephi-dbmodel}
+\end{figure}
+
+\subsection{User}
+Entita \texttt{User} představuje běžného uživatele aplikace (případně admina, struktura rolí není v modelu znázorněna). Každý
+uživatel má přístup ke svým grafům a může spravovat jednu klientskou aplikaci.
+
+\subsection{Graph}
+Entita graph představuje jeden graph, jeho struktura je uložena ve formátu \texttt{gexf}. Pokud byla na graf aplikována statistická funkce,
+v atributu \texttt{statisticsReport} je uložena shrnující zpráva (formát \texttt{html}). Kromě toho má každý graf své jméno a informaci 
+o datu vytvoření.
+
+\subsection{OAuth}
+Pro potřeby OAuth autorizace musí databázový model také obsahovat potřebné informace. Jedná se o entity \texttt{OAuthConsumer}, \texttt{OAuthAccessToken} a \texttt{OAuthRequestToken}.
+
+\subsubsection{OAuthConsumer}
+Tato entita představuje klientskou aplikaci (v OAuth termnologii se jedná o \textit{Konzumenta}). Pro její vytvoření a správu musí být přiřazena k uživateli, který je pak její správce (vlastník).
+\textit{Konzument} pak může od uživatelů požadovat přístup k jejich účtu.
+
+\subsubsection{OAuthRequestToken}
+Jedná se o dočasnou entitu potřebnou pro zažádání přístupu k cizímu účtu. Po autorizaci tokenu uživatele je \texttt{Request token} smazán a nahrazen \texttt{Access tokenem}.
+
+\subsubsection{OAuthAccessToken}
+Představuje udělené oprávnění pro \textit{Konzumenta} přistupovat k účtu jiných uživatelů. Kromě identifikátoru (atribut \texttt{token}) a tajného klíče (atribut \texttt{secret}) obsahuje také seznam
+oprávnění, které token poskytuje (atribut \texttt{scopes}).
+
+Uživatel může kdykoli smazat \texttt{Access token} a tím zrušit udělěné oprávnění.
 
 \section{REST rozhraní}
+Rozhraní aplikace \textit{WebGephi} bude vytvořeno jako RESTful\footnote{Webová služba splňující principy REST architektury} webová služba. REST architektura je 
+založena na \textit{zdrojích (resources)}. Každá URI představuje zdroj a webová služba poskutuje standardní metody pro práci s nimi. V případě použití protokolu HTTP (naprostá většina RESTful služeb) se 
+používají přímo metody tohoto protokolu.
 
-\section{Autorizace}
+\subsection{Metody RESTful webových služeb}
+\begin{description}
+  \item[GET] Zobrazení konkrétní rerezentace zdroje
+  \item[POST] Vytvoření nového objektu - zdroje. Data jsou odesílána v tělě požadavku. 
+  \item[PUT] Úprava existujícího zdroje na základě dat v těle požadavku.
+  \item[DELETE] Smazání existujícího zdroje.
+  \item[HEAD] Popis formátu zdroje.
+\end{description}
+ 
+
+\subsection{Struktura WebGephi REST rozhraní}
+Zde podrobně popíšeme struktury RESTful webové služby \textit{WebGephi}. Základní struktura je znázorněna diagramu \ref{fig:webgephi-restful}
+
+\begin{figure}
+	\dirtree{%
+		.1 \{api\_version\}.
+			.2 users:GET\DTcomment{Zobrazení seznamu všech uživatelů}.		  		
+				.3 \{username\}\DTcomment{Uživatel \uv{username}}.
+					.4 :GET\DTcomment{Zobrazení}.
+					.4 :POST\DTcomment{Přidání}.
+					.4 :PUT\DTcomment{Editace}.
+					.4 graphs:GET\DTcomment{Zobrazení všech grafů uživatele}.			
+						.5 \{graph\_id\}\DTcomment{Graf s id \uv{graph\_id} (id, jméno, datum)}.
+							.6 :GET\DTcomment{Zobrazení}.
+							.6 :POST\DTcomment{Přidání nového grafu}.
+							.6 :PUT\DTcomment{Aplikace funkce na graf}.
+							.6 gexf:GET\DTcomment{graf ve formátu gexf}.
+							.6 svg:GET\DTcomment{graf ve formátu svg}.
+							.6 statistics-report:GET\DTcomment{zpráva o výsledku statistické funkce (html)}.
+			.2 layouts:GET\DTcomment{Seznam všech dostupných funkcí pro výpočet rozložení}.
+				.3 \{layout\_id\}:GET\DTcomment{Detail funkce}.
+			.2 statistics:GET\DTcomment{Seznam všech dostupných statistických funkcí}.
+				.3 \{statistic\_id\}:GET\DTcomment{Detail funkce}.
+			.2 rankings:GET\DTcomment{Seznam všech dostupných funkcí pro hodnocení}.
+				.3 \{ranking\_id\}:GET\DTcomment{Detail funkce}.
+	}
+	\caption[Struktura zdrojů RESTful služby \textit{WebGephi}]{}\label{fig:webgephi-restful}
+\end{figure}
+
+U každého zdroje je popsán popis možných parametrů a obsah těla požadavku a odpovědi. Pokud během zpracování požadavku
+dojede k nějaké nestandardní situaci (data požadavku jsou nevalidní, interní chyba systému, \ldots), místo standarní 
+odpovědi s kódem 200 (OK) je vrácena odpověď s příslušným HTTP kódem a popisem problému (viz \ref{rest:error-xml}).
+
+\begin{lstlisting}[caption=XML a HTML chybová odpověď, label=rest:error-xml, language=xml]
+<error>
+    <code number="409">Conflict</code>
+    <message>User is invalid</message>
+    <detail>Username test is already taken.</detail>
+</error>
+
+<html>
+<head>
+    <title>Error 404 (Not Found)</title>
+</head>
+<body>
+    <h1>404 (Not Found)</h1>
+    <ul>
+        <li>Message: This graph has no statistics</li>
+        <li>Detail: Statistics are set only if some statistic function was applied previously</li>
+    </ul>
+</body>
+</html>
+\end{lstlisting}
+
+
+\subsubsection{Seznam dostupných funkcí pro výpočet rozložení}
+\begin{description}
+  \item[URI]\footnote{Všechny URI jsou relativní k \{server\_url\}/rest/v1/} /layouts
+  \item[Metoda] GET
+  \item[Potřebné oprávnění]\footnote{viz sekce \ref{roles}} Žádné
+  \item[Tělo požadku] Prázdné
+  \item[Tělo odpovědi] Seznam \uv{Layout} funkcí dostupných v systému (ukázka \ref{rest:resp:layouts}).
+\end{description}
+
+\begin{lstlisting}[caption=Tělo odpovědi zdroje /layouts (GET), label=rest:resp:layouts, language=xml]
+<layouts>
+   <layout id="clockwise-rotate">
+      ...
+   </layouts>
+   ...
+</layouts>
+\end{lstlisting}  
+
+\subsubsection{Detail funkce pro výpočet rozložení}
+\begin{description}
+  \item[URI] /layouts/\{layout\_id\}
+  \item[Metoda] GET
+  \item[Potřebné oprávnění] Žádné
+  \item[Tělo požadku] Prázdné
+  \item[Tělo odpovědi] Popis konkrétní fukce (jméno, parametry, \ldots) (ukázka \ref{rest:resp:layout}).
+\end{description}
+
+\begin{lstlisting}[caption=Tělo odpovědi zdroje /layouts/\{layout\_id\} (GET), label=rest:resp:layout, language=xml]
+<layout id="clockwise-rotate">
+    <name>Clockwise Rotate</name>
+    <properties>
+        <property id="clockwise.angle.name">
+            <description>Clockwise rotation angle in degrees</description>
+            <name>Angle</name>            
+            <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:double">90.0</value>
+        </property>
+    </properties>   
+</layout>
+\end{lstlisting}    
+
+\subsubsection{Seznam dostupných statistických funkcí}
+\begin{description}
+  \item[URI] /statistics
+  \item[Metoda] GET
+  \item[Potřebné oprávnění] Žádné
+  \item[Tělo požadku] Prázdné
+  \item[Tělo odpovědi] Seznam statistických funkcí dostupných v systému (ukázka \ref{rest:resp:statistics}).
+\end{description}
+
+\begin{lstlisting}[caption=Tělo odpovědi zdroje /statistics (GET), label=rest:resp:statistics, language=xml]
+<statistics>
+   <statistic id="clustering-coefficient">
+      ...
+   </statistic>
+   ...
+</statistics>
+\end{lstlisting}  
+
+\subsubsection{Detail statistické funkce}
+\begin{description}
+  \item[URI] /statistics/\{statistic\_id\}
+  \item[Metoda] GET
+  \item[Potřebné oprávnění] Žádné
+  \item[Tělo požadku] Prázdné
+  \item[Tělo odpovědi] Popis konkrétní fukce (jméno, parametry, \ldots) (ukázka \ref{rest:resp:statistic}).
+\end{description}
+
+\begin{lstlisting}[caption=Tělo odpovědi zdroje /statistics/\{statistic\_id\} (GET), label=rest:resp:statistic, language=xml]
+<statistic id="clustering-coefficient">
+   <name>Clustering Coefficient</name>
+   <properties>
+      <property id="Directed">
+         <name>Directed</name>
+         <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:boolean">false</value>
+      </property>
+   </properties>
+</statistic>
+\end{lstlisting}  
+
+\subsubsection{Seznam dostupných funkcí pro hodnocení}
+\begin{description}
+  \item[URI] /rankings
+  \item[Metoda] GET
+  \item[Potřebné oprávnění] Žádné
+  \item[Tělo požadku] Prázdné
+  \item[Tělo odpovědi] Seznam funkcí pro hodnocení (ukázka \ref{rest:resp:rankings}).
+\end{description}
+
+\begin{lstlisting}[caption=Tělo odpovědi zdroje /rankings (GET), label=rest:resp:rankings, language=xml]
+<rankings>
+   <ranking id="color-ranking">
+      ...
+   </ranking>
+   ...
+</rankings>
+\end{lstlisting}  
+
+\subsubsection{Detail funkce hodnocení}
+\begin{description}
+  \item[URI] /rankings/\{ranking\_id\}
+  \item[Metoda] GET
+  \item[Potřebné oprávnění] Žádné
+  \item[Tělo požadku] Prázdné
+  \item[Tělo odpovědi] Popis konkrétní fukce (jméno, parametry, \ldots) (ukázka \ref{rest:resp:ranking}).
+\end{description}
+
+\begin{lstlisting}[caption=Tělo odpovědi zdroje /rankings/\{ranking\_id\} (GET), label=rest:resp:ranking, language=xml]
+<ranking id="color-ranking">
+   <name>Node color ranking</name>
+   <properties>
+      <property id="attribute-id">
+         <description>
+           Id of attribute which will be used to ranking. It has to be one of already calculated node attributes (see GEXF format)
+         </description>
+         <name>Attribute id</name>
+            <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">degree</value>
+      </property>
+      <property id="start-color">
+         <description>
+            Color of node with lowest value. In hexadecimal format: RRGGBB, e.g. FEF0D9
+         </description>
+         <name>Start color</name>
+         <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">FEF0D9</value>
+      </property>
+      <property id="end-color">
+         <description>
+           Color of node with highest value. In hexadecimal format: RRGGBB, e.g. B30000
+         </description>
+         <name>End color</name>
+         <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">B30000</value>
+      </property>
+   </properties>
+</ranking>>
+\end{lstlisting}  
+
+\subsubsection{Seznam uživatelů}
+Zobrazí seznam všech uživatelů. Tento resource je dostupný pouze pro správce.
+\begin{description}
+  \item[URI] /users
+  \item[Metoda] GET
+  \item[Potřebné oprávnění] ADMIN
+  \item[Tělo požadku] Prázdné
+  \item[Tělo odpovědi] Seznam všech uživatelů v systému (ukázka \ref{rest:resp:users-get}).
+\end{description}
+
+\begin{lstlisting}[caption=Tělo odpovědi zdroje /users (GET), label=rest:resp:users-get, language=xml]
+<users>
+   <user username="admin">
+      ...
+   </user>
+   ...
+</users>
+\end{lstlisting}  
+
+\subsubsection{Přidání uživatele do systému}
+Přidá nového uživatele do aplikace. Vytvořený uživatel bude mít roli USER (bežný uživatel)
+\begin{description}
+  \item[URI] /users
+  \item[Metoda] POST
+  \item[Potřebné oprávnění] Žádné
+  \item[Tělo požadku] Údaje o uživateli (ukázka \ref{rest:req:users-post})
+  \item[Tělo odpovědi] Nově vytvořený uživatel (ukázka \ref{rest:resp:users-post}).
+\end{description}
+
+\begin{lstlisting}[caption=Tělo požadavku zdroje /users (POST), label=rest:req:users-post, language=xml]
+<user username="test">
+    <email>test@test.cz</email>
+    <firstName>John</firstName>
+    <lastName>Doe</lastName>
+    <password>password</password>
+</user>
+\end{lstlisting}  
+
+\begin{lstlisting}[caption=Tělo odpovědi zdroje /users (POST), label=rest:resp:users-post, language=xml]
+<user username="test">
+    <email>test@test.cz</email>
+    <firstName>John</firstName>
+    <lastName>Doe</lastName>
+</user>
+\end{lstlisting}
+
+\subsubsection{Detail uživatele}
+Zobrazí profil uživatele. Heslo se nikdy nezobrazuje.
+\begin{description}
+  \item[URI] /users/\{username\}
+  \item[Metoda] GET
+  \item[Potřebné oprávnění] PROFILE\_READ
+  \item[Tělo požadku] Prázdné
+  \item[Tělo odpovědi] Profil uživatele \texttt{username} (ukázka \ref{rest:resp:user-get}).
+\end{description}
+
+\begin{lstlisting}[caption=Tělo odpovědi zdroje /users/\{username\} (GET), label=rest:resp:user-get, language=xml]
+<user username="test">
+    <email>test@test.cz</email>
+    <firstName>John</firstName>
+    <lastName>Doe</lastName>
+</user>
+\end{lstlisting}  
+
+\subsubsection{Přihlášený uživatel}
+Zobrazí profil právě přihlášeného uživatele. Slouží klientským aplikacím, aby mohli zjistit, s jakým účtem právě pracují.
+\begin{description}
+  \item[URI] /users/logged
+  \item[Metoda] GET
+  \item[Potřebné oprávnění] PROFILE\_READ
+  \item[Tělo požadku] Prázdné
+  \item[Tělo odpovědi] Profil právě přihlášeného uživatele.
+\end{description}
+
+\subsubsection{Editace uživatele}
+Upraví profil uživatele podle zadaných informací.
+\begin{description}
+  \item[URI] /users/\{username\}
+  \item[Metoda] PUT
+  \item[Potřebné oprávnění] PROFILE\_WRITE
+  \item[Tělo požadku] Údaje ke změně \ref{rest:req:user-put})
+  \item[Tělo odpovědi] Uživatel po editaci (ukázka \ref{rest:resp:user-put}).
+\end{description}
+
+\begin{lstlisting}[caption=Tělo požadavku zdroje /users/\{username\} (PUT), label=rest:req:user-put, language=xml]
+<user username="test">
+    <email>changed@changed.cz</email>
+    <firstName>CHANGED John</firstName>
+    <lastName>CHANGED Doe</lastName>
+    <password>password2</password>
+</user>
+\end{lstlisting}  
+
+\begin{lstlisting}[caption=Tělo odpovědi zdroje /users/\{username\} (PUT), label=rest:resp:user-put, language=xml]
+<user username="test">   
+    <email>changed@changed.cz</email>
+    <firstName>CHANGED John</firstName>
+    <lastName>CHANGED Doe</lastName>
+</user>
+\end{lstlisting}
+
+\subsubsection{Seznam grafů uživatele}
+Zobrazí seznam všech grafů daného uživatele. Seznam je stránkovaný, stránkování lze řídit pomocí parametrů.
+\begin{description}
+  \item[URI] /users/\{username\}/graphs?[page=X]\&[pageSize=Y]\&[desc=B]
+  \begin{description}
+     \item[page] číslo stránky. Výchozí hodnota je 1.
+     \item[pageSize] velikost jedné stránky. Výchozí hodnota je 50. 1 <= Y <= 50.
+     \item[page] řazení seznamu. Výchozí je false (vzestupně, nejstarší první).
+  \end{description}	
+  \item[Metoda] GET
+  \item[Potřebné oprávnění] GRAPHS\_READ
+  \item[Tělo požadku] Prázdné
+  \item[Tělo odpovědi] Seznam grafů uživatele (ukázka \ref{rest:resp:graphs-get}).
+\end{description}
+
+\begin{lstlisting}[caption=Tělo odpovědi zdroje /users/\{username\}/graphs (GET), label=rest:resp:graphs-get, language=xml]
+<graphs>
+   <graph id="69">
+      ...
+   </graph>
+   ...
+</graphs>
+\end{lstlisting}  
+
+\subsubsection{Detail grafu}
+Zobrazí detail grafu s daným id. Graf může obsahovat odkaz na rodičovský graf, ze kterého vynikl. To umožňuje zobrazení historii editace grafu.
+\begin{description}
+  \item[URI] /users/\{username\}/graphs/\{graph\_id\}
+  \item[Metoda] GET
+  \item[Potřebné oprávnění] GRAPHS\_READ
+  \item[Tělo požadku] Prázdné
+  \item[Tělo odpovědi] Detail grafu (ukázka \ref{rest:resp:graph-get}).
+\end{description}
+
+\begin{lstlisting}[caption=Tělo odpovědi zdroje /users/\{username\}/graphs/\{graph\_id\} (GET), label=rest:resp:graph-get, language=xml]
+<graph>
+   <created>2014-04-19T19:09:20+02:00</created>
+   <name>
+      Missereables_clockwise-rotate_force-atlas_force-atlas_page-rank
+   </name>
+   <parent id="59">
+      <created>2014-04-19T19:09:05+02:00</created>
+      <name>
+         Missereables_clockwise-rotate_force-atlas_force-atlas
+      </name>
+   </parent>
+</graph>
+\end{lstlisting}  
+
+\subsubsection{Vytvoření nového grafu}
+Přidá nový graf do úložiště. Parametr name určuje jméno vytvořeného grafu.
+\begin{description}
+  \item[URI] /users/\{username\}/graphs[?name=\{graph\_name\}]
+  \item[Metoda] POST
+  \item[Potřebné oprávnění] GRAPHS\_WRITE
+  \item[Tělo požadku] Graf ve formátu \texttt{gexf} (ukázka \ref{rest:req:graph-post}).
+  \item[Tělo odpovědi] Detail vytvořeného grafu.
+\end{description}
+
+\begin{lstlisting}[caption=Tělo požadavku zdroje /users/\{username\}/graphs (POST), label=rest:req:graph-post, language=xml]
+<gexf version="1.2" xmlns="http://www.gexf.net/1.2draft" ...>
+   ...
+</gexf>
+\end{lstlisting} 
+
+\subsubsection{Graf ve formátu \texttt{gexf}}
+Zobrazí graf v datovém formátu \texttt{gexf}.
+\begin{description}
+  \item[URI] /users/\{username\}/graphs/\{graph\_id\}/gexf
+  \item[Metoda] GET
+  \item[Potřebné oprávnění] GRAPHS\_READ
+  \item[Tělo požadku] Prázdné
+  \item[Tělo odpovědi] Reprezentace grafu ve formátu texttt{gexf}.
+\end{description}
+
+\subsubsection{Graf ve formátu \texttt{svg}}
+Zobrazí graf v grafickém formátu \texttt{svg}.
+\begin{description}
+  \item[URI] /users/\{username\}/graphs/\{graph\_id\}/svg
+  \item[Metoda] GET
+  \item[Potřebné oprávnění] GRAPHS\_READ
+  \item[Tělo požadku] Prázdné
+  \item[Tělo odpovědi] Reprezentace grafu ve formátu texttt{svg} (ukázka \ref{rest:resp:graph-svg}). 
+\end{description}
+
+\begin{lstlisting}[caption=Tělo odpovědi zdroje /users/\{username\}/graphs/\{graph\_id\}/svg (GET), label=rest:resp:graph-svg, language=xml]
+<svg contentScriptType="text/ecmascript" width="1026px"
+     xmlns:xlink="http://www.w3.org/1999/xlink" zoomAndPan="magnify"
+     contentStyleType="text/css" viewBox="-537 -514 1269 1040" height="841px"
+     preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg"
+     version="1.1">
+     ...
+</svg>
+\end{lstlisting}  
+
+\subsubsection{Zpráva z výsledků statistické funkce}
+Zobrazí HTML zprávu, která je výsledkem aplikace statistické funkce. Dostupné pouze pokud poslední aplikovanou funkcí byla statistická funkce.
+\begin{description}
+  \item[URI] /users/\{username\}/graphs/\{graph\_id\}/statistics-report
+  \item[Metoda] GET
+  \item[Potřebné oprávnění] GRAPHS\_READ
+  \item[Tělo požadku] Prázdné
+  \item[Tělo odpovědi] HTML obsahující zprávu, většinou ve formě grafu rozložení hodnot. 
+\end{description}
+
+
+\subsubsection{Aplikace funkce na graf \texttt{svg}}
+Aplikuje funkci na graf (\texttt{Layout}, \texttt{Statistics} nebo \texttt{Ranking}). Výsledek je uložen jako nový graf a vrácen uživateli. 
+\begin{description}
+  \item[URI] /users/\{username\}/graphs/\{graph\_id\}
+  \item[Metoda] PUT
+  \item[Potřebné oprávnění] GRAPHS\_WRITE
+  \item[Tělo požadku] Definice funkce (ukázka \ref{rest:req:graph-apply-func}).
+  \item[Tělo odpovědi] Detail nově vytvořeného grafu. 
+\end{description}
+
+
+\begin{lstlisting}[caption=Tělo požadavku zdroje /users/\{username\}/graphs/\{graph\_id\} (PUT), label=rest:req:graph-apply-func, language=xml]
+<function xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <statistic id="clustering-coefficient">
+        <name>Clustering Coefficient</name>
+        <properties>
+            <property id="Directed">
+                <name>Directed</name>
+                <type>boolean</type>
+                <value xsi:type="xs:boolean">false</value>
+            </property>
+        </properties>
+    </statistic>
+</function>
+\end{lstlisting}  
+
+\section{Autorizace}\label{roles}
 
 \section{Správa uživatelů a klientských aplikací}
 

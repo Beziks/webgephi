@@ -1,10 +1,9 @@
 package cz.cokrtvac.webgephi.api.model.layout;
 
-import cz.cokrtvac.webgephi.api.util.CollectionsUtil;
+import cz.cokrtvac.webgephi.api.model.AbstractFunctionsXml;
 import org.jboss.resteasy.links.RESTServiceDiscovery;
 
 import javax.xml.bind.annotation.*;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,27 +11,19 @@ import java.util.List;
  * Date: 4.6.13
  * Time: 10:35
  */
-@XmlRootElement(name = LayoutsXml.PATH)
+@XmlRootElement(name = "layouts")
 @XmlAccessorType(XmlAccessType.NONE)
-public class LayoutsXml {
-    public static final String PATH = "layouts";
-    private List<LayoutXml> layouts;
+public class LayoutsXml extends AbstractFunctionsXml<LayoutXml> {
 
+    @Override
     @XmlElement(name = "layout")
-    public List<LayoutXml> getLayouts() {
-        if (layouts == null) {
-            layouts = new ArrayList<LayoutXml>();
-        }
-        return layouts;
-    }
-
-    public void setLayouts(List<LayoutXml> layouts) {
-        this.layouts = layouts;
+    public List<LayoutXml> getFunctions() {
+        return super.getFunctions();
     }
 
     @Override
-    public String toString() {
-        return "LayoutsXml " + CollectionsUtil.toString(getLayouts());
+    public void setFunctions(List<LayoutXml> functions) {
+        super.setFunctions(functions);
     }
 
     @XmlElementRef

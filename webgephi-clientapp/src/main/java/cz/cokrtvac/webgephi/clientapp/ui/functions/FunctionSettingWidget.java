@@ -1,14 +1,16 @@
 package cz.cokrtvac.webgephi.clientapp.ui.functions;
 
 import com.vaadin.ui.*;
-import cz.cokrtvac.webgephi.api.model.AbstractFunction;
+import cz.cokrtvac.webgephi.api.model.AbstractFunctionXml;
 import cz.cokrtvac.webgephi.api.model.GraphFunctionXml;
-import cz.cokrtvac.webgephi.api.model.PropertyXml;
 import cz.cokrtvac.webgephi.api.model.graph.GraphDetailXml;
+import cz.cokrtvac.webgephi.api.model.property.PropertyXml;
 import cz.cokrtvac.webgephi.client.ErrorHttpResponseException;
 import cz.cokrtvac.webgephi.client.WebgephiClientException;
 import cz.cokrtvac.webgephi.clientapp.model.UserSession;
 import cz.cokrtvac.webgephi.clientapp.ui.functions.input.AbstractPropertyInput;
+import cz.cokrtvac.webgephi.clientapp.ui.functions.input.PropertyInput;
+import cz.cokrtvac.webgephi.clientapp.ui.functions.input.PropertyInputFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,20 +26,20 @@ public abstract class FunctionSettingWidget extends CustomComponent {
     protected Logger log = LoggerFactory.getLogger(getClass());
 
     protected UserSession userSession;
-    protected AbstractFunction function;
+    protected AbstractFunctionXml function;
     protected GraphDetailXml currentGraph;
 
-    List<AbstractPropertyInput<?>> inputs = new ArrayList<AbstractPropertyInput<?>>();
+    List<PropertyInput<?>> inputs = new ArrayList<PropertyInput<?>>();
 
     protected TextField graphName;
     private Button executeButton;
 
-    public FunctionSettingWidget(final AbstractFunction function, final UserSession userSession) {
+    public FunctionSettingWidget(final AbstractFunctionXml function, final UserSession userSession) {
         this.userSession = userSession;
         this.function = function;
         VerticalLayout layout = new VerticalLayout();
         layout.setSpacing(true);
-        layout.setMargin(true);
+        layout.setMargin(false);
         setCompositionRoot(layout);
         setEnabled(false);
 
@@ -46,14 +48,18 @@ public abstract class FunctionSettingWidget extends CustomComponent {
             layout.addComponent(header);
         }
 
+        VerticalLayout propsLayout = new VerticalLayout();
+        propsLayout.setSpacing(true);
+        propsLayout.setMargin(true);
         for (PropertyXml<?> p : function.getProperties()) {
-            AbstractPropertyInput<?> input = AbstractPropertyInput.create(p, this);
+            PropertyInput<?> input = PropertyInputFactory.create(p, this);
             if (input != null) {
-                layout.addComponent(input);
+                propsLayout.addComponent(input);
                 inputs.add(input);
             }
-
         }
+        propsLayout.setStyleName("functionProperties");
+        layout.addComponent(propsLayout);
 
         executeButton = new Button("Execute", new Button.ClickListener() {
             @Override
@@ -74,7 +80,7 @@ public abstract class FunctionSettingWidget extends CustomComponent {
         });
 
         executeButton.setDescription("Apply function on current graph. New graph will be created with name specified in 'Graph name' input");
-        layout.addComponent(executeButton);
+        propsLayout.addComponent(executeButton);
         inputChanged(null);
     }
 
@@ -84,6 +90,12 @@ public abstract class FunctionSettingWidget extends CustomComponent {
 
     protected Layout createHeader() {
         CssLayout l = new CssLayout();
+        l.setStyleName("functionHeader");
+        if (function.getDescription() != null) {
+            Label desc = new Label(function.getDescription());
+            desc.setStyleName("functionDescription");
+            l.addComponent(desc);
+        }
         graphName = new TextField("Graph name", "Enter new graph name...");
         graphName.setWidth(100, Unit.PERCENTAGE);
         graphName.setMaxLength(200);
@@ -115,7 +127,7 @@ public abstract class FunctionSettingWidget extends CustomComponent {
 
         graphName.setValue(name);
 
-        for (AbstractPropertyInput<?> i : inputs) {
+        for (PropertyInput<?> i : inputs) {
             i.graphChanged(graph, userSession);
         }
 
@@ -125,7 +137,7 @@ public abstract class FunctionSettingWidget extends CustomComponent {
         if (executeButton == null) {
             return;
         }
-        for (AbstractPropertyInput<?> i : inputs) {
+        for (PropertyInput<?> i : inputs) {
             if (!i.isValid()) {
                 executeButton.setEnabled(false);
                 return;

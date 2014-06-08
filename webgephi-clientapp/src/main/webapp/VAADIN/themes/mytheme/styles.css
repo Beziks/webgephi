@@ -7079,3 +7079,14 @@ body .mytheme.v-app .v-app-loading {
     left: 400px !important;
     top: 100px !important;
 }
+
+.mytheme .functionDescription {
+    font-size: 0.8em;
+    color: #2c2d2e;
+    margin-bottom: 0.5em;
+}
+
+.mytheme .functionHeader {
+    background-color: #EEECFD;
+    padding: 1em;
+}

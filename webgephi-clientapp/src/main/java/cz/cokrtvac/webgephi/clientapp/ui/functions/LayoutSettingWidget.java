@@ -1,7 +1,7 @@
 package cz.cokrtvac.webgephi.clientapp.ui.functions;
 
 import com.vaadin.ui.Layout;
-import cz.cokrtvac.webgephi.api.model.AbstractFunction;
+import cz.cokrtvac.webgephi.api.model.AbstractFunctionXml;
 import cz.cokrtvac.webgephi.api.model.graph.GraphDetailXml;
 import cz.cokrtvac.webgephi.api.model.layout.LayoutXml;
 import cz.cokrtvac.webgephi.client.ErrorHttpResponseException;
@@ -17,7 +17,7 @@ import org.vaadin.risto.stepper.IntStepper;
 public class LayoutSettingWidget extends FunctionSettingWidget {
     protected IntStepper repeat;
 
-    public LayoutSettingWidget(AbstractFunction function, UserSession userSession) {
+    public LayoutSettingWidget(AbstractFunctionXml function, UserSession userSession) {
         super(function, userSession);
     }
 

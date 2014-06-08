@@ -3,9 +3,10 @@ package cz.cokrtvac.webgephi.clientapp.ui.functions.input;
 import com.vaadin.data.Property;
 import com.vaadin.ui.AbstractField;
 import com.vaadin.ui.CustomComponent;
-import com.vaadin.ui.HorizontalLayout;
-import cz.cokrtvac.webgephi.api.model.PropertyXml;
+import com.vaadin.ui.VerticalLayout;
 import cz.cokrtvac.webgephi.api.model.graph.GraphDetailXml;
+import cz.cokrtvac.webgephi.api.model.property.PropertyValue;
+import cz.cokrtvac.webgephi.api.model.property.PropertyXml;
 import cz.cokrtvac.webgephi.clientapp.model.UserSession;
 import cz.cokrtvac.webgephi.clientapp.ui.functions.FunctionSettingWidget;
 import org.slf4j.Logger;
@@ -16,58 +17,23 @@ import org.slf4j.LoggerFactory;
  * Date: 5. 4. 2014
  * Time: 22:04
  */
-public abstract class AbstractPropertyInput<T> extends CustomComponent {
+public abstract class AbstractPropertyInput<T extends PropertyValue> extends CustomComponent implements PropertyInput<T> {
     protected Logger log = LoggerFactory.getLogger(getClass());
-    protected static Logger LOG = LoggerFactory.getLogger(AbstractPropertyInput.class);
 
-    /**
-     * Factory method
-     *
-     * @param property
-     * @param <T>
-     * @return
-     */
-    public static <T> AbstractPropertyInput<T> create(PropertyXml<T> property, FunctionSettingWidget owner) {
-        if (property.getValue() instanceof Double) {
-            return (AbstractPropertyInput<T>) new DoublePropertyInput((PropertyXml<Double>) property, owner);
-        }
-        if (property.getValue() instanceof String) {
-            if (property.getId().contains("attribute")) {
-                return (AbstractPropertyInput<T>) new SelectAttributePropertyInput((PropertyXml<String>) property, owner);
-            }
-            if (property.getId().contains("color")) {
-                return (AbstractPropertyInput<T>) new ColorPropertyInput((PropertyXml<String>) property, owner);
-            }
-            return (AbstractPropertyInput<T>) new StringPropertyInput((PropertyXml<String>) property, owner);
-        }
-        if (property.getValue() instanceof Boolean) {
-            return (AbstractPropertyInput<T>) new BooleanPropertyInput((PropertyXml<Boolean>) property, owner);
-        }
-        if (property.getValue() instanceof Integer) {
-            return (AbstractPropertyInput<T>) new IntegerPropertyInput((PropertyXml<Integer>) property, owner);
-        }
-        if (property.getValue() instanceof Float) {
-            return (AbstractPropertyInput<T>) new FloatPropertyInput((PropertyXml<Float>) property, owner);
-        }
-
-        LOG.warn("No implementation of property for type " + property.getValue().getClass());
-        return null;
-    }
-
-    protected PropertyXml<?> property;
+    protected PropertyXml<T> property;
     protected AbstractField<?> input;
     protected FunctionSettingWidget owner;
-    protected HorizontalLayout layout;
+    protected VerticalLayout layout;
 
     public AbstractPropertyInput(final PropertyXml<T> property, final FunctionSettingWidget owner) {
-        layout = new HorizontalLayout();
+        layout = new VerticalLayout();
         layout.setSpacing(true);
         layout.setWidth(100, Unit.PERCENTAGE);
         setWidth(100, Unit.PERCENTAGE);
         this.owner = owner;
         this.property = property;
         input = createInput();
-        input.setCaption(property.getName() + " (" + property.getValue().getClass().getSimpleName() + ")");
+        input.setCaption(property.getName() + " (" + property.getValue().getType() + ")");
 
         input.addValueChangeListener(new Property.ValueChangeListener() {
             @Override
@@ -76,6 +42,7 @@ public abstract class AbstractPropertyInput<T> extends CustomComponent {
                     T newVal = getValue();
                     log.debug("Value changed to: " + newVal);
                     property.setValue(newVal);
+                    inputChanged(newVal);
                 }
                 owner.inputChanged(AbstractPropertyInput.this);
             }
@@ -89,10 +56,15 @@ public abstract class AbstractPropertyInput<T> extends CustomComponent {
 
         input.setDescription(property.getDescription());
 
-        setValue(property.getValue());
-
         layout.addComponent(input);
+        afterCreate(layout);
+
         setCompositionRoot(layout);
+
+        setValue(property.getValue());
+    }
+
+    protected void inputChanged(T newVal) {
     }
 
     public AbstractField<?> getInput() {
@@ -110,5 +82,8 @@ public abstract class AbstractPropertyInput<T> extends CustomComponent {
     }
 
     public void graphChanged(GraphDetailXml graph, UserSession userSession) {
+    }
+
+    protected void afterCreate(VerticalLayout layout) {
     }
 }

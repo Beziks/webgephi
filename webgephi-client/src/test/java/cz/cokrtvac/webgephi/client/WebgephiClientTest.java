@@ -25,7 +25,7 @@ public class WebgephiClientTest {
     @BeforeClass
     public void init() throws WebgephiClientException {
         // Access token to testuser account (all scopes)
-        client = new WebgephiOAuthClient("https://webgephi.local:8443/rest", TestsUtil.getTestAccessToken());
+        client = new WebgephiOAuthClient("https://webgephi.local:8443/rest/v1", TestsUtil.getTestAccessToken());
         firstGraphId = client.get("users/testuser/graphs").readEntity(GraphsXml.class).getGraphs().get(0).getId();
     }
 
@@ -40,13 +40,13 @@ public class WebgephiClientTest {
 
     @Test
     public void testGet() throws Exception {
-        testUrl("users", 403, "<error");
-        testUrl("users/testuser", 200, "<user");
+        testUrl("users", 403, "<wg:error");
+        testUrl("users/testuser", 200, "<wg:user");
         testUrl("users/testuser/graphs", 200, "Missereables");
-        testUrl("users/user", 403, "<error");
-        testUrl("users/user/graphs", 403, "<error");
-        testUrl("layouts", 200, "<layout");
-        testUrl("statistics", 200, "<statistic");
+        testUrl("users/user", 403, "<wg:error");
+        testUrl("users/user/graphs", 403, "<wg:error");
+        testUrl("layouts", 200, "<wg:layout");
+        testUrl("statistics", 200, "<wg:statistic");
     }
 
     @Test

@@ -53,7 +53,7 @@ public class UserResourceRESTService {
         UsersXml us = new UsersXml();
         for (User e : userDAO.getAll()) {
             e.setPassword(null);
-            us.getUsers().add(WebgephiXmlFactory.create(e));
+            us.getUsers().add(WebgephiXmlFactory.createXml(e));
         }
         return us;
     }
@@ -66,7 +66,7 @@ public class UserResourceRESTService {
     public UserXml getUser(@Context HttpServletRequest req, @PathParam("user") String user) {
         User u = getUser(user);
         u.setPassword(null);
-        return WebgephiXmlFactory.create(u);
+        return WebgephiXmlFactory.createXml(u);
     }
 
     /**
@@ -84,7 +84,7 @@ public class UserResourceRESTService {
         String loggedUser = req.getUserPrincipal().getName();
         User u = getUser(loggedUser);
         u.setPassword(null);
-        return WebgephiXmlFactory.create(u);
+        return WebgephiXmlFactory.createXml(u);
     }
 
     /**
@@ -118,7 +118,7 @@ public class UserResourceRESTService {
             new WebgephiWebException(Status.CONFLICT, "User could not be created", e);
         }
 
-        return WebgephiXmlFactory.create(getUser(user.getUsername()));
+        return WebgephiXmlFactory.createXml(getUser(user.getUsername()));
     }
 
     /**

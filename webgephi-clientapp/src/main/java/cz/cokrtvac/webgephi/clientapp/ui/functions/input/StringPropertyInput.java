@@ -2,7 +2,8 @@ package cz.cokrtvac.webgephi.clientapp.ui.functions.input;
 
 import com.vaadin.ui.AbstractField;
 import com.vaadin.ui.TextField;
-import cz.cokrtvac.webgephi.api.model.PropertyXml;
+import cz.cokrtvac.webgephi.api.model.property.PropertyXml;
+import cz.cokrtvac.webgephi.api.model.property.basic.StringPropertyValue;
 import cz.cokrtvac.webgephi.clientapp.ui.functions.FunctionSettingWidget;
 
 /**
@@ -10,9 +11,9 @@ import cz.cokrtvac.webgephi.clientapp.ui.functions.FunctionSettingWidget;
  * Date: 5. 4. 2014
  * Time: 23:24
  */
-public class StringPropertyInput extends AbstractPropertyInput<String> {
+public class StringPropertyInput extends AbstractPropertyInput<StringPropertyValue> {
 
-    public StringPropertyInput(PropertyXml<String> property, FunctionSettingWidget owner) {
+    public StringPropertyInput(PropertyXml<StringPropertyValue> property, FunctionSettingWidget owner) {
         super(property, owner);
     }
 
@@ -23,13 +24,14 @@ public class StringPropertyInput extends AbstractPropertyInput<String> {
     }
 
     @Override
-    public String getValue() {
-        return ((TextField) input).getValue();
+    public StringPropertyValue getValue() {
+        property.getValue().setValue(((TextField) input).getValue());
+        return property.getValue();
     }
 
     @Override
-    public void setValue(String value) {
-        ((TextField) input).setValue(value);
+    public void setValue(StringPropertyValue value) {
+        ((TextField) input).setValue(value.getValue());
     }
 
 

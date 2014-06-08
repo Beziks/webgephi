@@ -1,10 +1,9 @@
 package cz.cokrtvac.webgephi.api.model.statistic;
 
-import cz.cokrtvac.webgephi.api.util.CollectionsUtil;
+import cz.cokrtvac.webgephi.api.model.AbstractFunctionsXml;
 import org.jboss.resteasy.links.RESTServiceDiscovery;
 
 import javax.xml.bind.annotation.*;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,24 +13,16 @@ import java.util.List;
  */
 @XmlRootElement(name = "statistics")
 @XmlAccessorType(XmlAccessType.NONE)
-public class StatisticsXml {
-    private List<StatisticXml> statistics;
-
+public class StatisticsXml extends AbstractFunctionsXml<StatisticXml> {
+    @Override
     @XmlElement(name = "statistic")
-    public List<StatisticXml> getStatistics() {
-        if (statistics == null) {
-            statistics = new ArrayList<StatisticXml>();
-        }
-        return statistics;
-    }
-
-    public void setStatistics(List<StatisticXml> statistics) {
-        this.statistics = statistics;
+    public List<StatisticXml> getFunctions() {
+        return super.getFunctions();
     }
 
     @Override
-    public String toString() {
-        return "StatisticsXml " + CollectionsUtil.toString(getStatistics());
+    public void setFunctions(List<StatisticXml> functions) {
+        super.setFunctions(functions);
     }
 
     @XmlElementRef

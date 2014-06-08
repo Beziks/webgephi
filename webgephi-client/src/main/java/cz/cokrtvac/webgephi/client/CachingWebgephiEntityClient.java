@@ -4,6 +4,8 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import cz.cokrtvac.webgephi.api.model.GraphFunctionXml;
+import cz.cokrtvac.webgephi.api.model.filter.FilterXml;
+import cz.cokrtvac.webgephi.api.model.filter.FiltersXml;
 import cz.cokrtvac.webgephi.api.model.graph.GraphDetailXml;
 import cz.cokrtvac.webgephi.api.model.graph.GraphsXml;
 import cz.cokrtvac.webgephi.api.model.layout.LayoutXml;
@@ -15,7 +17,6 @@ import cz.cokrtvac.webgephi.api.model.statistic.StatisticsXml;
 import cz.cokrtvac.webgephi.api.model.user.UserXml;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.w3c.dom.Document;
 
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -34,9 +35,11 @@ public class CachingWebgephiEntityClient implements WebgephiEntityClient {
     private static final String LAYOUTS_KEY = DELIM + "layouts" + DELIM;
     private static final String STATISTICS_KEY = DELIM + "statistics" + DELIM;
     private static final String RANKINGS_KEY = DELIM + "rankings" + DELIM;
+    private static final String FILTERS_KEY = DELIM + "filters" + DELIM;
     private static final String LAYOUT_KEY_PREFIX = "layout" + DELIM;
     private static final String STATISTIC_KEY_PREFIX = "statistic" + DELIM;
     private static final String RANKING_KEY_PREFIX = "ranking" + DELIM;
+    private static final String FILTER_KEY_PREFIX = "filter" + DELIM;
 
 
     private WebgephiEntityClient wrapped;
@@ -88,6 +91,9 @@ public class CachingWebgephiEntityClient implements WebgephiEntityClient {
                             if (key.equals(RANKINGS_KEY)) {
                                 return wrapped.getRankings();
                             }
+                            if (key.equals(FILTERS_KEY)) {
+                                return wrapped.getFilters();
+                            }
                             if (key.startsWith(LAYOUT_KEY_PREFIX)) {
                                 return wrapped.getLayout(key.substring(LAYOUT_KEY_PREFIX.length()));
                             }
@@ -96,6 +102,9 @@ public class CachingWebgephiEntityClient implements WebgephiEntityClient {
                             }
                             if (key.startsWith(RANKING_KEY_PREFIX)) {
                                 return wrapped.getRanking(key.substring(RANKING_KEY_PREFIX.length()));
+                            }
+                            if (key.startsWith(FILTER_KEY_PREFIX)) {
+                                return wrapped.getFilter(key.substring(FILTER_KEY_PREFIX.length()));
                             }
                             throw new IllegalArgumentException("Unknown chache format " + key);
                         }
@@ -160,13 +169,13 @@ public class CachingWebgephiEntityClient implements WebgephiEntityClient {
     }
 
     @Override
-    public GraphDetailXml addGraph(String username, String graphName, Document graphGexf) throws ErrorHttpResponseException, WebgephiClientException {
-        return wrapped.addGraph(username, graphName, graphGexf);
+    public GraphDetailXml addGraph(String username, String graphName, String format, String content) throws ErrorHttpResponseException, WebgephiClientException {
+        return wrapped.addGraph(username, graphName, format, content);
     }
 
     @Override
-    public GraphDetailXml addGraph(String graphName, Document graphGexf) throws ErrorHttpResponseException, WebgephiClientException {
-        return addGraph(getLogged(), graphName, graphGexf);
+    public GraphDetailXml addGraph(String graphName, String format, String content) throws ErrorHttpResponseException, WebgephiClientException {
+        return addGraph(getLogged(), graphName, format, content);
     }
 
     @Override
@@ -207,6 +216,16 @@ public class CachingWebgephiEntityClient implements WebgephiEntityClient {
     @Override
     public GraphDetailXml applyRankingFunction(Long graphId, RankingXml rankingXml, String newName) throws ErrorHttpResponseException, WebgephiClientException {
         return wrapped.applyRankingFunction(graphId, rankingXml, newName);
+    }
+
+    @Override
+    public GraphDetailXml applyFilterFunction(String username, Long graphId, FilterXml filterXml, String newName) throws ErrorHttpResponseException, WebgephiClientException {
+        return wrapped.applyFilterFunction(username, graphId, filterXml, newName);
+    }
+
+    @Override
+    public GraphDetailXml applyFilterFunction(Long graphId, FilterXml filterXml, String newName) throws ErrorHttpResponseException, WebgephiClientException {
+        return wrapped.applyFilterFunction(graphId, filterXml, newName);
     }
 
     @Override
@@ -308,6 +327,26 @@ public class CachingWebgephiEntityClient implements WebgephiEntityClient {
     public RankingXml getRanking(String rankingId) throws ErrorHttpResponseException, WebgephiClientException {
         try {
             return (RankingXml) functionsCache.get(RANKING_KEY_PREFIX + rankingId);
+        } catch (ExecutionException e) {
+            rethrowError(e);
+            return null;
+        }
+    }
+
+    @Override
+    public FiltersXml getFilters() throws ErrorHttpResponseException, WebgephiClientException {
+        try {
+            return (FiltersXml) functionsCache.get(FILTERS_KEY);
+        } catch (ExecutionException e) {
+            rethrowError(e);
+            return null;
+        }
+    }
+
+    @Override
+    public FilterXml getFilter(String filterId) throws ErrorHttpResponseException, WebgephiClientException {
+        try {
+            return (FilterXml) functionsCache.get(FILTERS_KEY + filterId);
         } catch (ExecutionException e) {
             rethrowError(e);
             return null;

@@ -12,7 +12,7 @@ import javax.ws.rs.core.Application;
  * annotation.
  * </p>
  */
-@ApplicationPath("/rest")
+@ApplicationPath("/rest/v1")
 public class JaxRsActivator extends Application {
 
 }

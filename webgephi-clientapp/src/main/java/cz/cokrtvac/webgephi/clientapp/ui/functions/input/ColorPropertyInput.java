@@ -7,7 +7,8 @@ import com.vaadin.ui.ColorPicker;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.components.colorpicker.ColorChangeEvent;
 import com.vaadin.ui.components.colorpicker.ColorChangeListener;
-import cz.cokrtvac.webgephi.api.model.PropertyXml;
+import cz.cokrtvac.webgephi.api.model.property.ColorPropertyValue;
+import cz.cokrtvac.webgephi.api.model.property.PropertyXml;
 import cz.cokrtvac.webgephi.clientapp.ui.functions.FunctionSettingWidget;
 
 /**
@@ -15,19 +16,20 @@ import cz.cokrtvac.webgephi.clientapp.ui.functions.FunctionSettingWidget;
  * Date: 5. 4. 2014
  * Time: 23:24
  */
-public class ColorPropertyInput extends AbstractPropertyInput<String> {
+public class ColorPropertyInput extends AbstractPropertyInput<ColorPropertyValue> {
 
-    public ColorPropertyInput(PropertyXml<String> property, FunctionSettingWidget owner) {
+    public ColorPropertyInput(final PropertyXml<ColorPropertyValue> property, FunctionSettingWidget owner) {
         super(property, owner);
         ColorPicker picker = new ColorPicker();
         picker.addColorChangeListener(new ColorChangeListener() {
             @Override
             public void colorChanged(ColorChangeEvent colorChangeEvent) {
-                setValue(colorChangeEvent.getColor().getCSS().substring(1));
+                property.getValue().setValue(colorChangeEvent.getColor().getCSS().substring(1));
+                setValue(property.getValue());
             }
         });
         try {
-            picker.setColor(new Color(Integer.valueOf(getValue(), 16)));
+            picker.setColor(new Color(Integer.valueOf(getValue().getValue(), 16)));
         } catch (Exception e) {
             // Do nothing - white by default
         }
@@ -43,13 +45,14 @@ public class ColorPropertyInput extends AbstractPropertyInput<String> {
     }
 
     @Override
-    public String getValue() {
-        return ((TextField) input).getValue();
+    public ColorPropertyValue getValue() {
+        property.getValue().setValue(((TextField) input).getValue());
+        return property.getValue();
     }
 
     @Override
-    public void setValue(String value) {
-        ((TextField) input).setValue(value);
+    public void setValue(ColorPropertyValue value) {
+        ((TextField) input).setValue(value.getValue());
     }
 
 

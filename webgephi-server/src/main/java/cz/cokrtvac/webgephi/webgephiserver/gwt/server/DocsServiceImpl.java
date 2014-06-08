@@ -163,7 +163,7 @@ public class DocsServiceImpl implements DocsService {
 
     private String loadAndPrettify(String resource) {
         try {
-            String xml = IOUtil.readFile(getClass().getResourceAsStream(resource));
+            String xml = IOUtil.readAsString(getClass().getResourceAsStream(resource));
             xml = XmlUtil.prettifyXml(xml);
             return xml;
         } catch (Exception e) {

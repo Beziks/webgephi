@@ -3,6 +3,8 @@ package cz.cokrtvac.webgephi.client;
 import cz.cokrtvac.webgephi.api.model.GraphFunctionXml;
 import cz.cokrtvac.webgephi.api.model.error.Code;
 import cz.cokrtvac.webgephi.api.model.error.ErrorXml;
+import cz.cokrtvac.webgephi.api.model.filter.FilterXml;
+import cz.cokrtvac.webgephi.api.model.filter.FiltersXml;
 import cz.cokrtvac.webgephi.api.model.graph.GraphDetailXml;
 import cz.cokrtvac.webgephi.api.model.graph.GraphsXml;
 import cz.cokrtvac.webgephi.api.model.layout.LayoutXml;
@@ -79,13 +81,17 @@ public class WebgephiEntityClientImpl implements WebgephiEntityClient {
 
     // POST Graph ------------------------------------
     @Override
-    public GraphDetailXml addGraph(String username, String graphName, Document graphGexf) throws ErrorHttpResponseException, WebgephiClientException {
-        return post("users/" + username + "/graphs?name=" + UrlUtil.encode(graphName), GraphDetailXml.class, MediaType.APPLICATION_XML_TYPE, graphGexf);
+    public GraphDetailXml addGraph(String username, String graphName, String format, String content) throws ErrorHttpResponseException, WebgephiClientException {
+        String url = "users/" + username + "/graphs?name=" + UrlUtil.encode(graphName);
+        if (format != null) {
+            url += "&format=" + format;
+        }
+        return post(url, GraphDetailXml.class, MediaType.APPLICATION_XML_TYPE, content);
     }
 
     @Override
-    public GraphDetailXml addGraph(String graphName, Document graphGexf) throws ErrorHttpResponseException, WebgephiClientException {
-        return addGraph(getLogged(), graphName, graphGexf);
+    public GraphDetailXml addGraph(String graphName, String format, String content) throws ErrorHttpResponseException, WebgephiClientException {
+        return addGraph(getLogged(), graphName, format, content);
     }
 
     // APPLY function ------------------------------------
@@ -136,6 +142,16 @@ public class WebgephiEntityClientImpl implements WebgephiEntityClient {
     @Override
     public GraphDetailXml applyRankingFunction(Long graphId, RankingXml rankingXml, String newName) throws ErrorHttpResponseException, WebgephiClientException {
         return applyFunction(graphId, new GraphFunctionXml(rankingXml), newName);
+    }
+
+    @Override
+    public GraphDetailXml applyFilterFunction(String username, Long graphId, FilterXml filterXml, String newName) throws ErrorHttpResponseException, WebgephiClientException {
+        return applyFunction(username, graphId, new GraphFunctionXml(filterXml), newName);
+    }
+
+    @Override
+    public GraphDetailXml applyFilterFunction(Long graphId, FilterXml filterXml, String newName) throws ErrorHttpResponseException, WebgephiClientException {
+        return applyFunction(graphId, new GraphFunctionXml(filterXml), newName);
     }
 
     // Graph formats ------------------------------------
@@ -214,6 +230,16 @@ public class WebgephiEntityClientImpl implements WebgephiEntityClient {
         return get("rankings/" + rankingId, RankingXml.class);
     }
 
+    @Override
+    public FiltersXml getFilters() throws ErrorHttpResponseException, WebgephiClientException {
+        return get("filters", FiltersXml.class);
+    }
+
+    @Override
+    public FilterXml getFilter(String fiterId) throws ErrorHttpResponseException, WebgephiClientException {
+        return get("filters/" + fiterId, FilterXml.class);
+    }
+
     // Utils ==============================================================================
     protected <T> T get(String targetPath, Class<T> responseType) throws ErrorHttpResponseException, WebgephiClientException {
         Response response = get(targetPath);
@@ -258,7 +284,6 @@ public class WebgephiEntityClientImpl implements WebgephiEntityClient {
     }
 
     private ErrorXml parseError(Response response) {
-        System.out.println(response.getMediaType());
         if (MediaType.APPLICATION_XML_TYPE.isCompatible(response.getMediaType()) || MediaType.TEXT_XML_TYPE.isCompatible(response.getMediaType())) {
             ErrorXml err = response.readEntity(ErrorXml.class);
             return err;

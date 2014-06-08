@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<function xmlns="" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<function xmlns="http://www.webgephi.cz/v1/WebGephiSchema">
     <layout id="clockwise-rotate">
         <name>Clockwise Rotate</name>
         <properties>
             <property id="clockwise.angle.name">
                 <description>Clockwise rotation angle in degrees</description>
                 <name>Angle</name>
-                <type>java.lang.Double</type>
-                <value xsi:type="xs:double">90.0</value>
+                <value>
+                    <double value="90.0"/>
+                </value>
             </property>
         </properties>
     </layout>
