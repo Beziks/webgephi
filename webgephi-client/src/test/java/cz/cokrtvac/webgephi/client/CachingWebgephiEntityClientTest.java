@@ -25,7 +25,7 @@ public class CachingWebgephiEntityClientTest {
     @BeforeClass
     public void init() throws WebgephiClientException, ErrorHttpResponseException {
         // Access token to testuser account (all scopes)
-        client = new CachingWebgephiEntityClient(new WebgephiEntityClientImpl(new WebgephiOAuthClient("https://webgephi.local:8443/rest/v1", TestsUtil.getTestAccessToken())));
+
         firstGraphId = client.getGraphs(1, 1, false).getGraphs().get(0).getId();
     }
 

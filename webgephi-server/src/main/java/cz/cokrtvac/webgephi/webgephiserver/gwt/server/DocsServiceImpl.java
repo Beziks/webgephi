@@ -51,6 +51,42 @@ public class DocsServiceImpl implements DocsService {
                 "no",
                 "GET /statistics/clustering-coefficient",
                 loadAndPrettify("/restSampleData/statistic_get_response.xml")));
+        // Rankings ============================================================
+        all.add(new RestDescription(
+                "Ranking functions",
+                "List of all available ranking functions",
+                "GET",
+                "/rankings",
+                "no",
+                "GET /rankings",
+                loadAndPrettify("/restSampleData/rankings_get_response.xml")));
+
+        all.add(new RestDescription(
+                "Ranking function",
+                "Shows one selected ranking function",
+                "GET",
+                "/rankings/{ranking_id}",
+                "no",
+                "GET /rankings/edgeColor",
+                loadAndPrettify("/restSampleData/ranking_get_response.xml")));
+        // Filters ============================================================
+        all.add(new RestDescription(
+                "Filter functions",
+                "List of all available filter functions",
+                "GET",
+                "/filters",
+                "no",
+                "GET /filters",
+                loadAndPrettify("/restSampleData/filters_get_response.xml")));
+
+        all.add(new RestDescription(
+                "Filter function",
+                "Shows one selected filter function",
+                "GET",
+                "/filters/{filter_id}",
+                "no",
+                "GET /filters/attribute-non-null-filter",
+                loadAndPrettify("/restSampleData/filter_get_response.xml")));
         // Users ============================================================
         all.add(new RestDescription(
                 "List users",

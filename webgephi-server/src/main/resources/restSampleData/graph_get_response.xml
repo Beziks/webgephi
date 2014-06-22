@@ -1,16 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<graph id="68" xmlns:atom="http://www.w3.org/2005/Atom">
-    <atom:link
-        href="https://www.webgephi.cz/rest/users/test/graphs/68/svg"
-        rel="self" type="image/svg+xml"/>
-    <atom:link
-        href="https://www.webgephi.cz/rest/users/test/graphs/68/gexf"
-        rel="self" type="application/xml"/>
-    <atom:link href="https://www.webgephi.cz/rest/users/test/graphs/68"
-               rel="self" type="text/xml"/>
-    <atom:link href="https://www.webgephi.cz/rest/users/test/graphs/68"
-               rel="apply-function" type="text/xml"/>
-    <atom:link href="https://www.webgephi.cz/rest/users/test/graphs"
-               rel="add" type="text/xml"/>
-    <name>testGraphName</name>
-</graph>
+<wg:graph xmlns:wg="http://www.webgephi.cz/v1/WebGephiSchema" xmlns:atom="http://www.w3.org/2005/Atom" id="18">
+    <atom:link rel="add" href="https://webgephi.cz/rest/v1/users/admin/graphs" type="text/xml"/>
+    <atom:link rel="self" href="https://webgephi.cz/rest/v1/users/admin/graphs/18/svg" type="image/svg+xml"/>
+    <atom:link rel="self" href="https://webgephi.cz/rest/v1/users/admin/graphs/18/gexf" type="application/xml"/>
+    <atom:link rel="self" href="https://webgephi.cz/rest/v1/users/admin/graphs/18" type="text/xml"/>
+    <atom:link rel="apply-function" href="https://webgephi.cz/rest/v1/users/admin/graphs/18" type="text/xml"/>
+    <wg:created>2014-06-08T14:52:38+02:00</wg:created>
+    <wg:name>Missereables</wg:name>
+</wg:graph>

@@ -288,7 +288,9 @@
             <xs:element maxOccurs="unbounded" minOccurs="0" ref="ns1:link"/>
             <xs:element minOccurs="0" name="firstName" type="xs:string"/>
             <xs:element minOccurs="0" name="lastName" type="xs:string"/>
+            wg:
             <xs:element minOccurs="0" name="email" type="xs:string"/>
+            wg:
             <xs:element minOccurs="0" name="password" type="xs:string"/>
         </xs:sequence>
         <xs:attribute name="username" type="xs:string" use="required"/>

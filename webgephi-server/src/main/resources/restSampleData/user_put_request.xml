@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<user username="test">
-    <email>changed@changed.cz</email>
-    <firstName>CHANGED John</firstName>
-    <lastName>CHANGED Doe</lastName>
-    <password>password2</password>
-</user>
+<wg:user xmlns:wg="http://www.webgephi.cz/v1/WebGephiSchema" username="test">
+    <wg:firstName>CHANGED John</wg:firstName>
+    <wg:lastName>CHANGED Doe</wg:lastName>
+    <wg:email>changed@changed.cz</wg:email>
+    <wg:password>password2</wg:password>
+</wg:user>

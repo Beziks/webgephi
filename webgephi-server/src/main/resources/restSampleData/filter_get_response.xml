@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wg:filter xmlns:wg="http://www.webgephi.cz/v1/WebGephiSchema" xmlns:atom="http://www.w3.org/2005/Atom" id="attribute-non-null-filter">
+    <wg:description>
+        Category: Non-null-Attributes; Keep nodes/edges with non-null values for a particular column
+    </wg:description>
+    <wg:name>Attribute Non Null Filter</wg:name>
+    <wg:properties>
+        <wg:property id="attribute">
+            <wg:name>Attribute column</wg:name>
+            <wg:description>Select attribute to filter</wg:description>
+            <wg:value>
+                <wg:attribute attributeId="column"/>
+            </wg:value>
+        </wg:property>
+    </wg:properties>
+    <atom:link rel="self" href="https://webgephi.cz/rest/v1/filters/attribute-non-null-filter"/>
+</wg:filter>

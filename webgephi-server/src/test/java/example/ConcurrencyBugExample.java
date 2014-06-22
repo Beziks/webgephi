@@ -24,6 +24,8 @@ public class ConcurrencyBugExample {
         Workspace notCurrentWorkspace = null;
         ProjectController projectController = null;
         Container container = null;
+
+
 // 31-37 ================================================================================
 // Set current workspace to 'currentWorkspace'
         projectController.openWorkspace(currentWorkspace);
@@ -47,6 +49,8 @@ public class ConcurrencyBugExample {
             }
 // ...
         }
+
+
     }
 
     class AbstractProcessor {

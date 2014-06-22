@@ -23,6 +23,7 @@ public class StatisticsExample {
         GraphModel graphModel = Lookup.getDefault().lookup(GraphController.class).getModel();
         AttributeModel attributeModel = Lookup.getDefault().lookup(AttributeController.class).getModel();
 
+
 // 29 - 41 ================================================================================
 // Create statistics builder
         StatisticsBuilder builder = new GraphDistanceBuilder();

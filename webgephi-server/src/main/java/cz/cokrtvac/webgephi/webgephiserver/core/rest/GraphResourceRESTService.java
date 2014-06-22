@@ -303,6 +303,13 @@ public class GraphResourceRESTService {
             } else {
                 throw new IllegalArgumentException("Function not implemented.");
             }
+
+            if (log.isDebugEnabled()) {
+                StringWriter sw = new StringWriter();
+                JAXBContext.newInstance(GraphDetailXml.class).createMarshaller().marshal(xml, sw);
+                log.debug("Request body:\n" + sw.toString());
+                sw.close();
+            }
             return Response.status(Status.CREATED).entity(xml).build();
         } catch (WebgephiWebException we) {
             throw we;

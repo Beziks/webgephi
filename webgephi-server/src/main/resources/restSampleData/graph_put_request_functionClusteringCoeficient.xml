@@ -1,13 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<function xmlns="" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-    <statistic id="clustering-coefficient">
-        <name>Clustering Coefficient</name>
-        <properties>
-            <property id="Directed">
-                <name>Directed</name>
-                <type>boolean</type>
-                <value xsi:type="xs:boolean">false</value>
-            </property>
-        </properties>
-    </statistic>
-</function>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<wg:function xmlns:wg="http://www.webgephi.cz/v1/WebGephiSchema">
+    <wg:statistic id="clustering-coefficient">
+        <wg:name>Clustering Coefficient</wg:name>
+        <wg:properties>
+            <wg:property id="Directed">
+                <wg:name>Directed</wg:name>
+                <wg:value>
+                    <wg:boolean value="false"/>
+                </wg:value>
+            </wg:property>
+        </wg:properties>
+    </wg:statistic>
+</wg:function>

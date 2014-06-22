@@ -1,18 +1,32 @@
-<users xmlns:atom="http://www.w3.org/2005/Atom">
-    <atom:link rel="add" href="https://webgephi.cz/rest/users" type="text/xml"/>
-    <atom:link rel="self" href="https://webgephi.cz/rest/users" type="text/xml"/>
-    <user username="admin">
-        <atom:link rel="self" href="https://webgephi.cz/rest/users/admin" type="text/xml"/>
-        <atom:link rel="update" href="https://webgephi.cz/rest/users/admin" type="text/xml"/>
-        <email>admin@admin.cz</email>
-        <firstName>John</firstName>
-        <lastName>Admin</lastName>
-    </user>
-    <user username="user">
-        <atom:link rel="self" href="https://webgephi.cz/rest/users/user" type="text/xml"/>
-        <atom:link rel="update" href="https://webgephi.cz/rest/users/user" type="text/xml"/>
-        <email>user@user.cz</email>
-        <firstName>Pepa</firstName>
-        <lastName>User</lastName>
-    </user>
-</users>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<wg:users xmlns:wg="http://www.webgephi.cz/v1/WebGephiSchema" xmlns:atom="http://www.w3.org/2005/Atom">
+    <atom:link rel="self" href="https://webgephi.cz/rest/v1/users" type="text/xml"/>
+    <atom:link rel="add" href="https://webgephi.cz/rest/v1/users" type="text/xml"/>
+    <wg:user username="admin">
+        <atom:link rel="graphs" href="https://webgephi.cz/rest/v1/users/admin/graphs" type="text/xml"/>
+        <atom:link rel="self" href="https://webgephi.cz/rest/v1/users/logged" type="text/xml"/>
+        <atom:link rel="self" href="https://webgephi.cz/rest/v1/users/admin" type="text/xml"/>
+        <atom:link rel="update" href="https://webgephi.cz/rest/v1/users/admin" type="text/xml"/>
+        <wg:firstName>John</wg:firstName>
+        <wg:lastName>Admin</wg:lastName>
+        <wg:email>admin@admin.cz</wg:email>
+    </wg:user>
+    <wg:user username="testuser">
+        <atom:link rel="graphs" href="https://webgephi.cz/rest/v1/users/testuser/graphs" type="text/xml"/>
+        <atom:link rel="self" href="https://webgephi.cz/rest/v1/users/logged" type="text/xml"/>
+        <atom:link rel="self" href="https://webgephi.cz/rest/v1/users/testuser" type="text/xml"/>
+        <atom:link rel="update" href="https://webgephi.cz/rest/v1/users/testuser" type="text/xml"/>
+        <wg:firstName>Test</wg:firstName>
+        <wg:lastName>User</wg:lastName>
+        <wg:email>test@user.com</wg:email>
+    </wg:user>
+    <wg:user username="user">
+        <atom:link rel="graphs" href="https://webgephi.cz/rest/v1/users/user/graphs" type="text/xml"/>
+        <atom:link rel="self" href="https://webgephi.cz/rest/v1/users/logged" type="text/xml"/>
+        <atom:link rel="self" href="https://webgephi.cz/rest/v1/users/user" type="text/xml"/>
+        <atom:link rel="update" href="https://webgephi.cz/rest/v1/users/user" type="text/xml"/>
+        <wg:firstName>Pepa</wg:firstName>
+        <wg:lastName>User</wg:lastName>
+        <wg:email>user@user.cz</wg:email>
+    </wg:user>
+</wg:users>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wg:ranking xmlns:wg="http://www.webgephi.cz/v1/WebGephiSchema" xmlns:atom="http://www.w3.org/2005/Atom" id="edgeColor">
+    <wg:description>
+        Ranking according to edge attribute, changes edge color.
+    </wg:description>
+    <wg:name>Edge color ranking</wg:name>
+    <wg:properties>
+        <wg:property id="edgeAttribute">
+            <wg:name>Edge attribute</wg:name>
+            <wg:description>
+                Id of attribute which will be used for ranking. It has to be one of already calculated edge attributes (see GEXF format)
+            </wg:description>
+            <wg:value>
+                <wg:edgeAttribute attributeId="id-of-attribute-column"/>
+            </wg:value>
+        </wg:property>
+        <wg:property id="startColor">
+            <wg:name>Start color</wg:name>
+            <wg:description>
+                Color of node with lowest value. In hexadecimal format: RRGGBB, e.g. FEF0D9
+            </wg:description>
+            <wg:value>
+                <wg:color>FEF0D9</wg:color>
+            </wg:value>
+        </wg:property>
+        <wg:property id="endColor">
+            <wg:name>End color</wg:name>
+            <wg:description>
+                Color of node with highest value. In hexadecimal format: RRGGBB, e.g. B30000
+            </wg:description>
+            <wg:value>
+                <wg:color>B30000</wg:color>
+            </wg:value>
+        </wg:property>
+    </wg:properties>
+    <atom:link rel="self" href="https://webgephi.cz/rest/v1/rankings/edgeColor"/>
+</wg:ranking>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="245.0" y="-172.0">org.gephi.filters.plugin.graph.GiantComponentBuilder.GiantComponentFilter</node>
+    <node x="-442.0" y="-172.0">org.gephi.filters.plugin.attribute.AttributeRangeBuilder</node>
+    <node x="-140.5" y="-250.0">org.gephi.filters.spi.FilterBuilder</node>
+    <node x="-81.0" y="-172.0">org.gephi.filters.plugin.graph.GiantComponentBuilder</node>
+    <node x="-265.0" y="-172.0">org.gephi.filters.plugin.attribute.AttributeRangeBuilder.AttributeRangeFilterBuilder</node>
+    <node x="-427.5" y="-250.0">org.gephi.filters.spi.CategoryBuilder</node>
+    <node x="207.5" y="-250.0">org.gephi.filters.spi.Filter</node>
+    <node x="93.0" y="-172.0">org.gephi.filters.plugin.attribute.AttributeRangeBuilder.AttributeRangeFilter</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="org.gephi.filters.plugin.attribute.AttributeRangeBuilder" target="org.gephi.filters.spi.CategoryBuilder">
+      <point x="0.0" y="-14.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="org.gephi.filters.plugin.graph.GiantComponentBuilder" target="org.gephi.filters.spi.FilterBuilder">
+      <point x="0.0" y="-14.0" />
+      <point x="-8.0" y="-197.0" />
+      <point x="-73.0" y="-197.0" />
+      <point x="22.5" y="14.0" />
+    </edge>
+    <edge source="org.gephi.filters.plugin.attribute.AttributeRangeBuilder.AttributeRangeFilterBuilder" target="org.gephi.filters.spi.FilterBuilder">
+      <point x="0.0" y="-14.0" />
+      <point x="-183.0" y="-197.0" />
+      <point x="-118.0" y="-197.0" />
+      <point x="-22.5" y="14.0" />
+    </edge>
+    <edge source="org.gephi.filters.plugin.attribute.AttributeRangeBuilder.AttributeRangeFilter" target="org.gephi.filters.spi.Filter">
+      <point x="0.0" y="-14.0" />
+      <point x="159.0" y="-197.0" />
+      <point x="222.0" y="-197.0" />
+      <point x="-14.5" y="14.0" />
+    </edge>
+    <edge source="org.gephi.filters.plugin.graph.GiantComponentBuilder.GiantComponentFilter" target="org.gephi.filters.spi.Filter">
+      <point x="0.0" y="-14.0" />
+      <point x="314.0" y="-197.0" />
+      <point x="251.0" y="-197.0" />
+      <point x="14.5" y="14.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="51.0" y="0.0" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

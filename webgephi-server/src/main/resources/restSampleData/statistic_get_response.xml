@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<statistic id="clustering-coefficient" xmlns:atom="http://www.w3.org/2005/Atom">
-    <name>Clustering Coefficient</name>
-    <properties>
-        <property id="Directed">
-            <name>Directed</name>
-            <type>boolean</type>
-            <value xmlns:xs="http://www.w3.org/2001/XMLSchema"
-                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:boolean">false</value>
-        </property>
-    </properties>
-    <atom:link
-        href="https://www.webgephi.cz/rest/statistics/clustering-coefficient" rel="self"/>
-</statistic>
+<wg:statistic xmlns:wg="http://www.webgephi.cz/v1/WebGephiSchema" xmlns:atom="http://www.w3.org/2005/Atom" id="clustering-coefficient">
+    <wg:name>Clustering Coefficient</wg:name>
+    <wg:properties>
+        <wg:property id="Directed">
+            <wg:name>Directed</wg:name>
+            <wg:value>
+                <wg:boolean value="false"/>
+            </wg:value>
+        </wg:property>
+    </wg:properties>
+    <atom:link rel="self" href="https://webgephi.cz/rest/v1/statistics/clustering-coefficient"/>
+</wg:statistic>

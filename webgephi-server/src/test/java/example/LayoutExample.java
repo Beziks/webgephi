@@ -15,6 +15,7 @@ public class LayoutExample {
     public void example() throws InvocationTargetException, IllegalAccessException {
         GraphModel graphModel = null;
 
+
 // 20 - 29 ================================================================================
         YifanHu yifanHu = new YifanHu(); // Factory
         YifanHuLayout layout = yifanHu.buildLayout(); // Layout function

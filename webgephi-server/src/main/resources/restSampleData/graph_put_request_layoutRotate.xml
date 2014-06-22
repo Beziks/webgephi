@@ -1,14 +1,16 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<function xmlns="" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-    <layout id="clockwise-rotate">
-        <name>Clockwise Rotate</name>
-        <properties>
-            <property id="clockwise.angle.name">
-                <description>Clockwise rotation angle in degrees</description>
-                <name>Angle</name>
-                <type>java.lang.Double</type>
-                <value xsi:type="xs:double">90.0</value>
-            </property>
-        </properties>
-    </layout>
-</function>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<wg:function xmlns:wg="http://www.webgephi.cz/v1/WebGephiSchema" xmlns:atom="http://www.w3.org/2005/Atom">
+    <wg:layout id="clockwise-rotate">
+        <wg:name>Clockwise Rotate</wg:name>
+        <wg:properties>
+            <wg:property id="clockwise.angle.name">
+                <wg:name>Angle</wg:name>
+                <wg:description>Clockwise rotation angle in degrees</wg:description>
+                <wg:value>
+                    <wg:double value="90.0"/>
+                </wg:value>
+            </wg:property>
+        </wg:properties>
+        <atom:link rel="self" href="https://webgephi.cz/rest/v1/layouts/clockwise-rotate"/>
+    </wg:layout>
+</wg:function>

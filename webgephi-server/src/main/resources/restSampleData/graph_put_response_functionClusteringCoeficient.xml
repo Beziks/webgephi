@@ -1,36 +1,20 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<graph id="71" xmlns:atom="http://www.w3.org/2005/Atom">
-    <atom:link
-        href="https://www.webgephi.cz/rest/users/test/graphs/71/svg"
-        rel="self" type="image/svg+xml"/>
-    <atom:link
-        href="https://www.webgephi.cz/rest/users/test/graphs/71/gexf"
-        rel="self" type="application/xml"/>
-    <atom:link
-        href="https://www.webgephi.cz/rest/users/test/graphs/71/statistics-report"
-        rel="statistics-report" type="text/html"/>
-    <atom:link href="https://www.webgephi.cz/rest/users/test/graphs/71"
-               rel="self" type="text/xml"/>
-    <atom:link href="https://www.webgephi.cz/rest/users/test/graphs/71"
-               rel="apply-function" type="text/xml"/>
-    <atom:link href="https://www.webgephi.cz/rest/users/test/graphs"
-               rel="add" type="text/xml"/>
-    <name>testGraphName_clustering-coefficient</name>
-    <parent id="68">
-        <atom:link
-            href="https://www.webgephi.cz/rest/users/test/graphs/68/svg"
-            rel="self" type="image/svg+xml"/>
-        <atom:link
-            href="https://www.webgephi.cz/rest/users/test/graphs/68/gexf"
-            rel="self" type="application/xml"/>
-        <atom:link
-            href="https://www.webgephi.cz/rest/users/test/graphs/68"
-            rel="self" type="text/xml"/>
-        <atom:link
-            href="https://www.webgephi.cz/rest/users/test/graphs/68"
-            rel="apply-function" type="text/xml"/>
-        <atom:link href="https://www.webgephi.cz/rest/users/test/graphs"
-                   rel="add" type="text/xml"/>
-        <name>testGraphName</name>
-    </parent>
-</graph>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<wg:graph xmlns:wg="http://www.webgephi.cz/v1/WebGephiSchema" xmlns:atom="http://www.w3.org/2005/Atom" id="775">
+    <atom:link rel="add" href="https://webgephi.cz/rest/v1/users/admin/graphs" type="text/xml"/>
+    <atom:link rel="self" href="https://webgephi.cz/rest/v1/users/admin/graphs/775/svg" type="image/svg+xml"/>
+    <atom:link rel="self" href="https://webgephi.cz/rest/v1/users/admin/graphs/775/gexf" type="application/xml"/>
+    <atom:link rel="statistics-report" href="https://webgephi.cz/rest/v1/users/admin/graphs/775/statistics-report" type="text/html"/>
+    <atom:link rel="apply-function" href="https://webgephi.cz/rest/v1/users/admin/graphs/775" type="text/xml"/>
+    <atom:link rel="self" href="https://webgephi.cz/rest/v1/users/admin/graphs/775" type="text/xml"/>
+    <wg:created>2014-06-13T00:19:25.685+02:00</wg:created>
+    <wg:name>Missereables_clockwise-rotate_clockwise-rotate_clockwise-rotate_clustering-coefficient</wg:name>
+    <wg:parent id="68">
+        <atom:link rel="add" href="https://webgephi.cz/rest/v1/users/admin/graphs" type="text/xml"/>
+        <atom:link rel="self" href="https://webgephi.cz/rest/v1/users/admin/graphs/68/svg" type="image/svg+xml"/>
+        <atom:link rel="self" href="https://webgephi.cz/rest/v1/users/admin/graphs/68/gexf" type="application/xml"/>
+        <atom:link rel="apply-function" href="https://webgephi.cz/rest/v1/users/admin/graphs/68" type="text/xml"/>
+        <atom:link rel="self" href="https://webgephi.cz/rest/v1/users/admin/graphs/68" type="text/xml"/>
+        <wg:created>2014-04-16T01:07:10+02:00</wg:created>
+        <wg:name>Missereables_clockwise-rotate_clockwise-rotate_clockwise-rotate</wg:name>
+    </wg:parent>
+</wg:graph>

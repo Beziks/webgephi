@@ -116,7 +116,7 @@ public class WebgephiAuthenticator {
         }
 
         try {
-            String authorizationUrl = getAuthorizationUrl(requestToken);
+            String authorizationUrl = getAuthorizationURL(requestToken);
             return authorizationUrl;
         } catch (Exception e) {
             throw new WebgephiAuthenticatorException("Request token authorization url could not be created", e);
@@ -190,12 +190,6 @@ public class WebgephiAuthenticator {
     }
 
     // REQUEST TOKEN AUTHORIZATION ==============================================================================================================
-    private String getAuthorizationUrl(Token requestToken) throws Exception {
-        String authorizationUrl = getAuthorizationURL(requestToken);
-        log.info("Authorization URL: " + authorizationUrl);
-        return authorizationUrl;
-    }
-
     private String getAuthorizationURL(Token requestToken) throws Exception {
         List<OAuth.Parameter> parameters = new ArrayList<OAuth.Parameter>();
         parameters.add(new OAuth.Parameter(OAuth.OAUTH_TOKEN, requestToken.getToken()));
@@ -215,7 +209,7 @@ public class WebgephiAuthenticator {
                 throw new RuntimeException("Access token can not be obtained");
             }
             // check that we got all tokens
-           tokens = getTokens(response.readEntity(String.class));
+            tokens = getTokens(response.readEntity(String.class));
         } finally {
             response.close();
         }

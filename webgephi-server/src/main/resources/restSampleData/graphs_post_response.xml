@@ -1,16 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<graph id="63" xmlns:atom="http://www.w3.org/2005/Atom">
-    <atom:link
-        href="https://www.webgephi.cz/rest/users/test/graphs/63/svg"
-        rel="self" type="image/svg+xml"/>
-    <atom:link
-        href="https://www.webgephi.cz/rest/users/test/graphs/63/gexf"
-        rel="self" type="application/xml"/>
-    <atom:link href="https://www.webgephi.cz/rest/users/test/graphs/63"
-               rel="self" type="text/xml"/>
-    <atom:link href="https://www.webgephi.cz/rest/users/test/graphs/63"
-               rel="apply-function" type="text/xml"/>
-    <atom:link href="https://www.webgephi.cz/rest/users/test/graphs"
-               rel="add" type="text/xml"/>
-    <name>testGraphName</name>
-</graph>
+<wg:graph xmlns:wg="http://www.webgephi.cz/v1/WebGephiSchema" xmlns:atom="http://www.w3.org/2005/Atom" id="63">
+    <atom:link rel="add" href="https://webgephi.cz/rest/v1/users/admin/graphs" type="text/xml"/>
+    <atom:link rel="self" href="https://webgephi.cz/rest/v1/users/admin/graphs/63/svg" type="image/svg+xml"/>
+    <atom:link rel="self" href="https://webgephi.cz/rest/v1/users/admin/graphs/63/gexf" type="application/xml"/>
+    <atom:link rel="self" href="https://webgephi.cz/rest/v1/users/admin/graphs/63" type="text/xml"/>
+    <atom:link rel="apply-function" href="https://webgephi.cz/rest/v1/users/admin/graphs/63" type="text/xml"/>
+    <wg:created>2014-06-08T15:30:24+02:00</wg:created>
+    <wg:name>testGraphName</wg:name>
+</wg:graph>

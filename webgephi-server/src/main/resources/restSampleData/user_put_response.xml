@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<user xmlns:atom="http://www.w3.org/2005/Atom" username="test">
+<wg:user xmlns:wg="http://www.webgephi.cz/v1/WebGephiSchema" xmlns:atom="http://www.w3.org/2005/Atom" username="test">
     <atom:link rel="graphs" href="https://webgephi.cz/rest/users/test/graphs" type="text/xml"/>
     <atom:link rel="update" href="https://webgephi.cz/rest/users/test" type="text/xml"/>
     <atom:link rel="self" href="https://webgephi.cz/rest/users/test" type="text/xml"/>
-    <email>changed@changed.cz</email>
-    <firstName>CHANGED John</firstName>
-    <lastName>CHANGED Doe</lastName>
-</user>
+    <wg:firstName>CHANGED John</wg:firstName>
+    <wg:lastName>CHANGED Doe</wg:lastName>
+    <wg:email>changed@changed.cz</wg:email>
+</wg:user>

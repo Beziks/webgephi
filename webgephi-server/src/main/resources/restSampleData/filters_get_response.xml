@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wg:filters xmlns:wg="http://www.webgephi.cz/v1/WebGephiSchema" xmlns:atom="http://www.w3.org/2005/Atom">
+    <atom:link rel="self" href="https://webgephi.cz/rest/v1/filters"/>
+    <wg:filter id="attribute-non-null-filter">
+        <wg:description>
+            Category: Non-null-Attributes; Keep nodes/edges with non-null values for a particular column
+        </wg:description>
+        <wg:name>Attribute Non Null Filter</wg:name>
+        <wg:properties>
+            <wg:property id="attribute">
+                <wg:name>Attribute column</wg:name>
+                <wg:description>Select attribute to filter</wg:description>
+                <wg:value>
+                    <wg:attribute attributeId="column"/>
+                </wg:value>
+            </wg:property>
+        </wg:properties>
+        <atom:link rel="self" href="https://webgephi.cz/rest/v1/filters/attribute-non-null-filter"/>
+    </wg:filter>
+    <wg:filter id="attribute-range-filter">
+        <wg:description>
+            Category: Range-Attributes; Keep nodes/edges with number values within a range (inclusive)
+        </wg:description>
+        <wg:name>Attribute Range Filter</wg:name>
+        <wg:properties>
+            <wg:property id="selected-partitions">
+                <wg:name>Attribute range</wg:name>
+                <wg:description>Select range of attribute values</wg:description>
+                <wg:value>
+                    <wg:attributeRange attributeId="modularity_class">
+                        <wg:range>
+                            <wg:from xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="wg:integerPropertyValue" value="0"/>
+                            <wg:to xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="wg:integerPropertyValue" value="1"/>
+                        </wg:range>
+                    </wg:attributeRange>
+                </wg:value>
+            </wg:property>
+        </wg:properties>
+        <atom:link rel="self" href="https://webgephi.cz/rest/v1/filters/attribute-range-filter"/>
+    </wg:filter>
+    <wg:filter id="degree-range">
+        <wg:description>
+            Category: Topology; Keep nodes with its degree value within a range
+        </wg:description>
+        <wg:name>Degree Range</wg:name>
+        <wg:properties>
+            <wg:property id="range">
+                <wg:name>range</wg:name>
+                <wg:description>Regular filter property</wg:description>
+                <wg:value>
+                    <wg:range>
+                        <wg:from xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="wg:integerPropertyValue" value="0"/>
+                        <wg:to xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="wg:integerPropertyValue" value="1"/>
+                    </wg:range>
+                </wg:value>
+            </wg:property>
+        </wg:properties>
+        <atom:link rel="self" href="https://webgephi.cz/rest/v1/filters/degree-range"/>
+    </wg:filter>
+    <wg:filter id="edge-weight">
+        <wg:description>
+            Category: Edges; Keep edges within a particular weight range
+        </wg:description>
+        <wg:name>Edge Weight</wg:name>
+        <wg:properties>
+            <wg:property id="range">
+                <wg:name>range</wg:name>
+                <wg:description>Regular filter property</wg:description>
+                <wg:value>
+                    <wg:range>
+                        <wg:from xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="wg:floatPropertyValue" value="0.0"/>
+                        <wg:to xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="wg:floatPropertyValue" value="1.0"/>
+                    </wg:range>
+                </wg:value>
+            </wg:property>
+        </wg:properties>
+        <atom:link rel="self" href="https://webgephi.cz/rest/v1/filters/edge-weight"/>
+    </wg:filter>
+    <wg:filter id="ego-network">
+        <wg:description>
+            Category: Topology; Keep neighbors at depth 1, 2, 3 or Max from a particular node. Node is found with regex on ID and LABEL.
+        </wg:description>
+        <wg:name>Ego Network</wg:name>
+        <wg:properties>
+            <wg:property id="pattern">
+                <wg:name>pattern</wg:name>
+                <wg:description>Regular filter property</wg:description>
+                <wg:value>
+                    <wg:string value=""/>
+                </wg:value>
+            </wg:property>
+            <wg:property id="depth">
+                <wg:name>depth</wg:name>
+                <wg:description>Regular filter property</wg:description>
+                <wg:value>
+                    <wg:integer value="1"/>
+                </wg:value>
+            </wg:property>
+            <wg:property id="self">
+                <wg:name>self</wg:name>
+                <wg:description>Regular filter property</wg:description>
+                <wg:value>
+                    <wg:boolean value="true"/>
+                </wg:value>
+            </wg:property>
+        </wg:properties>
+        <atom:link rel="self" href="https://webgephi.cz/rest/v1/filters/ego-network"/>
+    </wg:filter>
+    <wg:filter id="equal-boolean-filter">
+        <wg:description>
+            Category: Equal-Attributes; Keep nodes/edges with particular value (String, Number, Boolean) for a column
+        </wg:description>
+        <wg:name>Equal Boolean Filter</wg:name>
+        <wg:properties>
+            <wg:property id="attribute-value">
+                <wg:name>Attribute value</wg:name>
+                <wg:description>Select boolean attribute and value to filter</wg:description>
+                <wg:value>
+                    <wg:attributeBooleanValue attributeId="column">
+                        <wg:boolean value="false"/>
+                    </wg:attributeBooleanValue>
+                </wg:value>
+            </wg:property>
+        </wg:properties>
+        <atom:link rel="self" href="https://webgephi.cz/rest/v1/filters/equal-boolean-filter"/>
+    </wg:filter>
+    <wg:filter id="equal-number-filter">
+        <wg:description>
+            Category: Equal-Attributes; Keep nodes/edges with particular value (String, Number, Boolean) for a column
+        </wg:description>
+        <wg:name>Equal Number Filter</wg:name>
+        <wg:properties>
+            <wg:property id="attribute-value">
+                <wg:name>Attribute value</wg:name>
+                <wg:description>Select number attribute and value to filter</wg:description>
+                <wg:value>
+                    <wg:attributeNumberValue attributeId="column">
+                        <wg:integer value="0"/>
+                    </wg:attributeNumberValue>
+                </wg:value>
+            </wg:property>
+        </wg:properties>
+        <atom:link rel="self" href="https://webgephi.cz/rest/v1/filters/equal-number-filter"/>
+    </wg:filter>
+    <wg:filter id="equal-string-filter">
+        <wg:description>
+            Category: Equal-Attributes; Keep nodes/edges with particular value (String, Number, Boolean) for a column
+        </wg:description>
+        <wg:name>Equal String Filter</wg:name>
+        <wg:properties>
+            <wg:property id="attribute-value">
+                <wg:name>Attribute value</wg:name>
+                <wg:description>Select string attribute and value to filter</wg:description>
+                <wg:value>
+                    <wg:attributeStringValue attributeId="column">
+                        <wg:string value=""/>
+                    </wg:attributeStringValue>
+                </wg:value>
+            </wg:property>
+            <wg:property id="useregex">
+                <wg:name>useRegex</wg:name>
+                <wg:description>Regular filter property</wg:description>
+                <wg:value>
+                    <wg:boolean value="false"/>
+                </wg:value>
+            </wg:property>
+        </wg:properties>
+        <atom:link rel="self" href="https://webgephi.cz/rest/v1/filters/equal-string-filter"/>
+    </wg:filter>
+    <wg:filter id="flatten">
+        <wg:description>
+            Category: Hierarchy-Topology; Keep only the current view in the hierarchy and transform meta edges in normal edges. The graph is no more hierarchic.
+        </wg:description>
+        <wg:name>Flatten</wg:name>
+        <wg:properties/>
+        <atom:link rel="self" href="https://webgephi.cz/rest/v1/filters/flatten"/>
+    </wg:filter>
+    <wg:filter id="giant-component">
+        <wg:description>
+            Category: Topology; Keep only nodes in the giant component (the component with most nodes)
+        </wg:description>
+        <wg:name>Giant Component</wg:name>
+        <wg:properties/>
+        <atom:link rel="self" href="https://webgephi.cz/rest/v1/filters/giant-component"/>
+    </wg:filter>
+    <wg:filter id="in-degree-range">
+        <wg:description>
+            Category: Topology; Keep nodes with its in-degree value within a range
+        </wg:description>
+        <wg:name>In Degree Range</wg:name>
+        <wg:properties>
+            <wg:property id="range">
+                <wg:name>range</wg:name>
+                <wg:description>Regular filter property</wg:description>
+                <wg:value>
+                    <wg:range>
+                        <wg:from xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="wg:integerPropertyValue" value="0"/>
+                        <wg:to xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="wg:integerPropertyValue" value="1"/>
+                    </wg:range>
+                </wg:value>
+            </wg:property>
+        </wg:properties>
+        <atom:link rel="self" href="https://webgephi.cz/rest/v1/filters/in-degree-range"/>
+    </wg:filter>
+    <wg:filter id="inter-edges-filter">
+        <wg:description>
+            Category: Inter Edges-Attributes; Keep only edges between elements from the same part
+        </wg:description>
+        <wg:name>Inter Edges Filter</wg:name>
+        <wg:properties>
+            <wg:property id="selected-partitions">
+                <wg:name>Selected partitions</wg:name>
+                <wg:description>Select partitions which will be used in filter</wg:description>
+                <wg:value>
+                    <wg:partitionSelect attributeId="modularity_class">
+                        <wg:selected/>
+                    </wg:partitionSelect>
+                </wg:value>
+            </wg:property>
+        </wg:properties>
+        <atom:link rel="self" href="https://webgephi.cz/rest/v1/filters/inter-edges-filter"/>
+    </wg:filter>
+    <wg:filter id="intra-edges-filter">
+        <wg:description>
+            Category: Intra Edges-Attributes; Keep only edges between elements from different parts
+        </wg:description>
+        <wg:name>Intra Edges Filter</wg:name>
+        <wg:properties>
+            <wg:property id="selected-partitions">
+                <wg:name>Selected partitions</wg:name>
+                <wg:description>Select partitions which will be used in filter</wg:description>
+                <wg:value>
+                    <wg:partitionSelect attributeId="modularity_class">
+                        <wg:selected/>
+                    </wg:partitionSelect>
+                </wg:value>
+            </wg:property>
+        </wg:properties>
+        <atom:link rel="self" href="https://webgephi.cz/rest/v1/filters/intra-edges-filter"/>
+    </wg:filter>
+    <wg:filter id="k-core">
+        <wg:description>
+            Category: Topology; Keep graph in which all nodes have degree at least k.
+        </wg:description>
+        <wg:name>K-core</wg:name>
+        <wg:properties>
+            <wg:property id="k">
+                <wg:name>k</wg:name>
+                <wg:description>Regular filter property</wg:description>
+                <wg:value>
+                    <wg:integer value="1"/>
+                </wg:value>
+            </wg:property>
+        </wg:properties>
+        <atom:link rel="self" href="https://webgephi.cz/rest/v1/filters/k-core"/>
+    </wg:filter>
+    <wg:filter id="level">
+        <wg:description>Category: Hierarchy-Topology</wg:description>
+        <wg:name>Level</wg:name>
+        <wg:properties>
+            <wg:property id="level">
+                <wg:name>level</wg:name>
+                <wg:description>Regular filter property</wg:description>
+                <wg:value>
+                    <wg:integer value="0"/>
+                </wg:value>
+            </wg:property>
+        </wg:properties>
+        <atom:link rel="self" href="https://webgephi.cz/rest/v1/filters/level"/>
+    </wg:filter>
+    <wg:filter id="mutual-degree-range">
+        <wg:description>
+            Category: Topology; Keep nodes with its mutual degree value within a range
+        </wg:description>
+        <wg:name>Mutual Degree Range</wg:name>
+        <wg:properties>
+            <wg:property id="range">
+                <wg:name>range</wg:name>
+                <wg:description>Regular filter property</wg:description>
+                <wg:value>
+                    <wg:range>
+                        <wg:from xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="wg:integerPropertyValue" value="0"/>
+                        <wg:to xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="wg:integerPropertyValue" value="1"/>
+                    </wg:range>
+                </wg:value>
+            </wg:property>
+        </wg:properties>
+        <atom:link rel="self" href="https://webgephi.cz/rest/v1/filters/mutual-degree-range"/>
+    </wg:filter>
+    <wg:filter id="neighbors-network">
+        <wg:description>
+            Category: Topology; Keep neighbors at depth 1, 2, 3 or Max from the current graph.
+        </wg:description>
+        <wg:name>Neighbors Network</wg:name>
+        <wg:properties>
+            <wg:property id="depth">
+                <wg:name>depth</wg:name>
+                <wg:description>Regular filter property</wg:description>
+                <wg:value>
+                    <wg:integer value="1"/>
+                </wg:value>
+            </wg:property>
+            <wg:property id="self">
+                <wg:name>self</wg:name>
+                <wg:description>Regular filter property</wg:description>
+                <wg:value>
+                    <wg:boolean value="true"/>
+                </wg:value>
+            </wg:property>
+        </wg:properties>
+        <atom:link rel="self" href="https://webgephi.cz/rest/v1/filters/neighbors-network"/>
+    </wg:filter>
+    <wg:filter id="out-degree-range">
+        <wg:description>
+            Category: Topology; Keep nodes with its out-degree value within a range
+        </wg:description>
+        <wg:name>Out Degree Range</wg:name>
+        <wg:properties>
+            <wg:property id="range">
+                <wg:name>range</wg:name>
+                <wg:description>Regular filter property</wg:description>
+                <wg:value>
+                    <wg:range>
+                        <wg:from xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="wg:integerPropertyValue" value="0"/>
+                        <wg:to xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="wg:integerPropertyValue" value="1"/>
+                    </wg:range>
+                </wg:value>
+            </wg:property>
+        </wg:properties>
+        <atom:link rel="self" href="https://webgephi.cz/rest/v1/filters/out-degree-range"/>
+    </wg:filter>
+    <wg:filter id="partition-count-filter">
+        <wg:description>
+            Category: Partition Count-Attributes; Keep nodes/edges that belongs to parts with a particular number of elements
+        </wg:description>
+        <wg:name>Partition Count Filter</wg:name>
+        <wg:properties>
+            <wg:property id="partition">
+                <wg:name>Partition</wg:name>
+                <wg:description>Select partition</wg:description>
+                <wg:value>
+                    <wg:attribute xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="wg:partitionPropertyValue" attributeId="modularity_class"/>
+                </wg:value>
+            </wg:property>
+            <wg:property id="range">
+                <wg:name>range</wg:name>
+                <wg:description>Select elements number range</wg:description>
+                <wg:value>
+                    <wg:range>
+                        <wg:from xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="wg:integerPropertyValue" value="0"/>
+                        <wg:to xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="wg:integerPropertyValue" value="1"/>
+                    </wg:range>
+                </wg:value>
+            </wg:property>
+        </wg:properties>
+        <atom:link rel="self" href="https://webgephi.cz/rest/v1/filters/partition-count-filter"/>
+    </wg:filter>
+    <wg:filter id="partition-filter">
+        <wg:description>
+            Category: Partition-Attributes; Keep nodes/edges that belongs to a set of values from a partition
+        </wg:description>
+        <wg:name>Partition Filter</wg:name>
+        <wg:properties>
+            <wg:property id="selected-partitions">
+                <wg:name>Selected partitions</wg:name>
+                <wg:description>Select partitions which will be used in filter</wg:description>
+                <wg:value>
+                    <wg:partitionSelect attributeId="modularity_class">
+                        <wg:selected/>
+                    </wg:partitionSelect>
+                </wg:value>
+            </wg:property>
+        </wg:properties>
+        <atom:link rel="self" href="https://webgephi.cz/rest/v1/filters/partition-filter"/>
+    </wg:filter>
+    <wg:filter id="self-loop">
+        <wg:description>Category: Edges; Removes self-loops</wg:description>
+        <wg:name>Self-Loop</wg:name>
+        <wg:properties/>
+        <atom:link rel="self" href="https://webgephi.cz/rest/v1/filters/self-loop"/>
+    </wg:filter>
+</wg:filters>
