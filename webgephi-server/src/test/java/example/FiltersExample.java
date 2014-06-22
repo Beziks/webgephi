@@ -29,15 +29,15 @@ public class FiltersExample {
 
 // 31 - 40 ================================================================================
 // Create builder and filter
-        GiantComponentBuilder builder = new GiantComponentBuilder();
-        Filter filter = builder.getFilter();
+GiantComponentBuilder builder = new GiantComponentBuilder();
+Filter filter = builder.getFilter();
 // Create query from filter
-        Query query = filterController.createQuery(filter);
+Query query = filterController.createQuery(filter);
 // Apply filter
-        FilterProcessor processor = new FilterProcessor();
-        Graph result = processor.process((AbstractQueryImpl) query, graphModel);
+FilterProcessor processor = new FilterProcessor();
+Graph result = processor.process((AbstractQueryImpl) query, graphModel);
 // Set result view as visible
-        graphModel.setVisibleView(result.getView());
+graphModel.setVisibleView(result.getView());
 // ================================================================================
     }
 }

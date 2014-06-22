@@ -26,29 +26,30 @@ public class ConcurrencyBugExample {
         Container container = null;
 
 
+
 // 31-37 ================================================================================
 // Set current workspace to 'currentWorkspace'
-        projectController.openWorkspace(currentWorkspace);
-        DefaultProcessor defaultProcessor = new DefaultProcessor();
+projectController.openWorkspace(currentWorkspace);
+DefaultProcessor defaultProcessor = new DefaultProcessor();
 // Set processor to use different workspace than current
-        defaultProcessor.setWorkspace(notCurrentWorkspace);
+defaultProcessor.setWorkspace(notCurrentWorkspace);
 // Import graph to Workspace 'currentWorkspace'
-        importController.process(container, new DefaultProcessor(), currentWorkspace);
+importController.process(container, new DefaultProcessor(), currentWorkspace);
 // 39 - 52 ================================================================================ 		}
-        @ServiceProvider(service = Processor.class, position = 10)
-        class DefaultProcessor extends AbstractProcessor implements Processor {
-            // ...
-            // Method called during import
-            public void process() {
-                // ...
-                // Get GraphModel from current workspace!!!
-                GraphModel graphModel = Lookup.getDefault().lookup(GraphController.class).getModel();
-                // It should be:
-                // Lookup.getDefault().lookup(GraphController.class).getModel(workspace)
-                // ...
-            }
+@ServiceProvider(service = Processor.class, position = 10)
+class DefaultProcessor extends AbstractProcessor implements Processor {
+    // ...
+    // Method called during import
+    public void process() {
+        // ...
+        // Get GraphModel from current workspace!!!
+        GraphModel graphModel = Lookup.getDefault().lookup(GraphController.class).getModel();
+        // It should be:
+        // Lookup.getDefault().lookup(GraphController.class).getModel(workspace)
+        // ...
+    }
 // ...
-        }
+}
 
 
     }

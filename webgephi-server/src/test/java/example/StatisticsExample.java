@@ -24,20 +24,21 @@ public class StatisticsExample {
         AttributeModel attributeModel = Lookup.getDefault().lookup(AttributeController.class).getModel();
 
 
+
 // 29 - 41 ================================================================================
 // Create statistics builder
-        StatisticsBuilder builder = new GraphDistanceBuilder();
+StatisticsBuilder builder = new GraphDistanceBuilder();
 // Get statistics function implementation
-        GraphDistance gd = (GraphDistance) builder.getStatistics();
-        gd.setDirected(true); // Set parameter directly using setter
-        gd.execute(graphModel, attributeModel); // apply function
-        String report = gd.getReport(); // Get html report
+GraphDistance gd = (GraphDistance) builder.getStatistics();
+gd.setDirected(true); // Set parameter directly using setter
+gd.execute(graphModel, attributeModel); // apply function
+String report = gd.getReport(); // Get html report
 
 // We can iterate over metric values of nodes too
-        AttributeColumn col = attributeModel.getNodeTable().getColumn(GraphDistance.BETWEENNESS);
-        for (Node n : graphModel.getGraph().getNodes()) {
-            Double centrality = (Double) n.getNodeData().getAttributes().getValue(col.getIndex());
-        }
+AttributeColumn col = attributeModel.getNodeTable().getColumn(GraphDistance.BETWEENNESS);
+for (Node n : graphModel.getGraph().getNodes()) {
+    Double centrality = (Double) n.getNodeData().getAttributes().getValue(col.getIndex());
+}
 // ================================================================================
     }
 }

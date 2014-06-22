@@ -17,16 +17,16 @@ public class LayoutExample {
 
 
 // 20 - 29 ================================================================================
-        YifanHu yifanHu = new YifanHu(); // Factory
-        YifanHuLayout layout = yifanHu.buildLayout(); // Layout function
-        layout.setGraphModel(graphModel); // Set the graph to work with
-        layout.initAlgo();
-        layout.resetPropertiesValues(); // Set default values
-        layout.getProperties()[0].getProperty().setValue(200f); // Change first param (OptimalDistance)
-        for (int i = 0; i < 100 && layout.canAlgo(); i++) {
-            layout.goAlgo(); // Apply layout function
-        }
-        layout.endAlgo();
+YifanHu yifanHu = new YifanHu(); // Factory
+YifanHuLayout layout = yifanHu.buildLayout(); // Layout function
+layout.setGraphModel(graphModel); // Set the graph to work with
+layout.initAlgo();
+layout.resetPropertiesValues(); // Set default values
+layout.getProperties()[0].getProperty().setValue(200f); // Change first param (OptimalDistance)
+for (int i = 0; i < 100 && layout.canAlgo(); i++) {
+    layout.goAlgo(); // Apply layout function
+}
+layout.endAlgo();
 // ================================================================================
     }
 }

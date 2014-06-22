@@ -29,16 +29,16 @@ public class RankingExample {
 
 // 31 - 41 ================================================================================
 // Column with centrality attribute, which we wat to use for ranking
-        AttributeColumn centralityColumn = attributeModel.getNodeTable().getColumn(GraphDistance.BETWEENNESS);
+AttributeColumn centralityColumn = attributeModel.getNodeTable().getColumn(GraphDistance.BETWEENNESS);
 // Create ranking based on centrality attribute
-        Ranking centralityRanking = rankingController.getModel().getRanking(Ranking.NODE_ELEMENT, centralityColumn.getId());
+Ranking centralityRanking = rankingController.getModel().getRanking(Ranking.NODE_ELEMENT, centralityColumn.getId());
 // Create transformer - defines what we want to change (node size)
-        AbstractSizeTransformer sizeTransformer = (AbstractSizeTransformer) rankingModel.getTransformer(Ranking.NODE_ELEMENT, Transformer.RENDERABLE_SIZE);
+AbstractSizeTransformer sizeTransformer = (AbstractSizeTransformer) rankingModel.getTransformer(Ranking.NODE_ELEMENT, Transformer.RENDERABLE_SIZE);
 // Set transformer parameters
-        sizeTransformer.setMinSize(3);
-        sizeTransformer.setMaxSize(20);
+sizeTransformer.setMinSize(3);
+sizeTransformer.setMaxSize(20);
 // Apply ranking, node size is updated
-        rankingController.transform(centralityRanking, sizeTransformer);
+rankingController.transform(centralityRanking, sizeTransformer);
 // ================================================================================
     }
 }
