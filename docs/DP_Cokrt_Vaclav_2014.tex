@@ -488,7 +488,7 @@ nebude možné přidávat pluginy za běhu aplikace, proces nalezení všech dos
 
 V případě \uv{Hodnocení} se nepočítá s dalším rozšiřováním, tudíž není třeba zjišťovat dostupné možnosti dynamicky. Bude stačit implementovat několik základních možností.
  
-\subsection{Víceuživatelský přístup}
+\subsection{Víceuživatelský přístup}\label{concurrency}
 Architektura \textit{Gephi} je od počátku navrhována pro potřeby desktopové aplikace. Je z velké části založena na návrhovém vzoru Singleton\footnote{\textit{\uv{Singleton 
 (česky jedináček nebo také unikát) je název pro návrhový vzor, používaný při programování. Využijeme ho při řešení problému, kdy je potřeba, aby v celém programu
  běžela pouze jedna instance třídy. Tento návrhový vzor zabezpečí, že třída bude mít jedinou instanci a poskytne k ní globální přístupový bod.}}\cite{wiki:singleton}}. 
@@ -1461,18 +1461,79 @@ Aplikace také umožňuje nahrání vlastního grafu v libovolném formátu.
 \end{figure}
 
 \chapter{Testování}
-Něco málo o testování
+Během vývoje aplikace byly psány testy pro ověření správné funkcionality
+programu. Použit byl framework TestNG\cite{testng}, což je alternativa k jUnit
+frameworku. Používá se především k jednotkovému testování.
 
 \section{Jednotkové testy}
+Nejjednoduším typem testů jsou tzv. jednotkové testy, které slouží k testování
+základních komponent programu nezávisle na okolí. Testy se píší na úrovni
+metod, případně tříd.
+
+Pomocí jednotkových testů byly otestovány základní funkcionality
+\textit{WebGephi Serveru}, např. správná funkčnost importu grafu nebo skenování
+dostupných grafových funkcí.
+
+Tyto testy se nachází odděleně od zdrojového kódu aplikace, ve standardním Maven
+umístění \texttt{src/test/java}.
 
 \section{Integrační testy}
-Testy REST rozhraní s použitím \textit{WebGephi Client}.
+Pro ověření správné funkčnosti aplikace jako celku a komunikace mezi moduly se
+používají tzv. integrační testy. V případě \textit{WebGephi} je testováno REST
+rozhraní a správná funkce OAuth autorizace.
+
+Jedná se o testy v modulu \textit{WebGephi Client}. Ty ke svému běhu protřebují
+běžící instanci \textit{Serveru}. Jejich princip je založen na volání RESTful
+služeb serveru (za využití schopností modulu \textit{Client}) a vyhodnocení
+odpovědí. Pro autorizaci je použit účet \texttt{testuser}.
+
+Tímto způsobem je ověřována funkčnost \textit{Serveru}, RESTového rozhraní,
+autorizace i modulu \textit{WebGephi Client}.
 
 \section{Zátěžové testy}
-JMeter
+Během vývoje bylo RESTové rozhraní testováno zátěžovými testy. Pro tyto účely
+byla použita aplikace Apache JMeter\cite{jmeter}. Zasíláním
+hromadných paralelních HTTP dotazů byla zjišťována stabilita aplikace. 
+
+Díky tomuto typu testů také byly odhaleny nedostatky \textit{Gephi} -
+nepřipravenost na vícevláknové prostředí (viz kapitola \ref{concurrency}).
+Ukázka konfigurace a výstupu zátěžového testu je vidět na obr. \ref{fig:jmeter}.
+
+\begin{figure}\centering
+ 	\includegraphics[width=1\textwidth]{images/prtsc/jmeter}
+ 	\caption[Apache JMeter - Ukázka jednoduchého zátěžového testu]{Apache JMeter - Ukázka jednoduchého zátěžového testu.\label{fig:jmeter}}
+\end{figure}
 
 \begin{conclusion}
-	Aplikace \textit{WebGephi} byla implementována v celém rozsahu zadání.
+	Aplikace \textit{WebGephi} byla implementována v celém rozsahu zadání. 
+	
+	V první části práce jsme analyzovali aplikaci \textit{Gephi} a knihovnu \textit{Gephi Toolkit}, ze které aplikace \textit{WebGephi} vychází.
+	Na základě této analýzy byla navrhnuta struktura nové aplikace a především její REST rozhraní. Bylo také nutné zvolit vhodný způsob autorizace a
+	autentizace.
+	
+	Pro implementaci byla zvolena platforma JavaEE a související frameworky - např. JAX-RS pro tvorbu RESTového rozhraní a JPA pro práci s relační databází.
+	Pro tvorbu uživatelského rozhraní byly zvoleny frameworky Errai a Vaadin, založené na frameworku Google Web Toolkit.
+	
+	Pro jednodušší implementaci klientský aplikací byla vytvořena Java knihovna pro komunikaci s RESTovým rozhraním \textit{WebGephi}, včetně OAuth autentizace.
+	
+	Součástí práce bylo také vytvoření ukázkové klientské aplikace, demonstrující funkčnost \textit{WebGephi}. Ta používá framework Vaadin pro tvorbu uživatelského rozhraní a 
+	knihovnu \textit{WebGephi Client} pro komunikaci se \textit{Serverem}. Pomocí této aplikace lze \textit{WebGephi} používat podobným způsobem jako původní aplikaci \textit{Gephi}.
+	
+	Během návrhu a implementace aplikace bylo nutné vyřešit několik problémů. Aplikace \textit{Gephi} je vyvíjena jako desktopová aplikace a jako taková není 
+	připravena na vícevláknové serverové prostředí. Navíc platformu Netbeans, na které je \textit{Gephi} založeno, nelze využít v serverovém prostředí a bylo nutné zajistit 
+	alternativní způsob načítání pluginů. Všechny tuto a další problémy se však povedlo úspěšně vyřešit.
+	
+	Výsledkem je aplikace poskytující většinu funkcionality \textit{Gephi} pomocí jasně definovaného rozhraní. Toho bylo dosaženo použitím RESTful webových služeb a OAuth autorizace 
+	pro transparentní řízení přístupu.
+	
+	\section{Další vývoj}
+	Aplikace nechává mnoho prostoru pro další vývoj. Bylo by vhodné doplnit podporu pro chybějící funkcionalitu (např. generátory a rozdělení na oddíly). Na to je ostatně aplikace 
+	dobře připravena.
+	
+	Dále jsou možná výkonostní vylepšení. Nabízí se použití NoSQL databáze jako úložiště grafů, implementace kešování nebo podpora pro použití v clusteru.
+	
+	Celá aplikace včetně zdrojových kódů je dostupná na GitHubu\footnote{Umístění projektu: https://github.com/Beziks/webgephi}, kdokoli tedy může ve vývoji aplikace pokračovat, 
+	nebo využít části aplikace pro svou vlastní potřebu.	
 \end{conclusion}
 
 \bibliographystyle{csn690}
@@ -1482,8 +1543,30 @@ JMeter
 \chapter{Seznam použitých zkratek}
 % \printglossaries
 \begin{description}
-	\item[GUI] Graphical user interface
-	\item[XML] Extensible markup language
+	\item[AJAX] Asynchronous JavaScript and XML
+	\item[API] Application Programming Interface
+	\item[CQL] Corpus Query Language
+	\item[CSV] Comma-Separated Values
+	\item[EJB] Enterprise Java Bean
+	\item[GUI] Graphical User Interface
+	\item[GWT] Google Web Toolkit
+	\item[HTML] HyperText Markup Language
+	\item[HTTP] Hypertext Transfer Protocol
+	\item[HTTPS] Hypertext Transfer Protocol Secure
+	\item[JDK] Java Development Kit
+	\item[JPA] Java Persistence API
+	\item[OS] Operating System
+	\item[PDF] Portable Document Format 
+	\item[PNG] Portable Network Graphics
+	\item[REST] Representational State Transfer
+	\item[RPC] Remote Procedure Call
+	\item[SOAP] Simple Object Access Protocol
+	\item[SSL] Secure Sockets Layer
+	\item[SVG] Scalable Vector Graphics
+	\item[URI] Uniform Resource Identifier
+	\item[URL] Uniform Resource Locator
+	\item[XML] Extensible Markup Language
+	\item[XSD] XML Schema Definition
 \end{description}
 
 \chapter{Gephi}
