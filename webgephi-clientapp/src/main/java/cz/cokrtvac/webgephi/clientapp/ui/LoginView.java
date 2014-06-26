@@ -30,7 +30,7 @@ public class LoginView extends VerticalLayout implements View, Page.BrowserWindo
     private void init() {
         userSession.setAuthenticator(
                 new WebgephiAuthenticator(
-                        UserSession.APP_ID, UserSession.APP_SECRET,
+                        userSession.getOAuthConsumerKey(), userSession.getOAuthConsumerSecret(),
                         userSession.getServerUrl(),
                         userSession.getBaseUrl()
                 )

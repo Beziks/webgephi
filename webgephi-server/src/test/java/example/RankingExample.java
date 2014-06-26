@@ -28,7 +28,7 @@ public class RankingExample {
         RankingModel rankingModel = rankingController.getModel();
 
 // 31 - 41 ================================================================================
-// Column with centrality attribute, which we wat to use for ranking
+// Attribute we want to use for ranking
 AttributeColumn centralityColumn = attributeModel.getNodeTable().getColumn(GraphDistance.BETWEENNESS);
 // Create ranking based on centrality attribute
 Ranking centralityRanking = rankingController.getModel().getRanking(Ranking.NODE_ELEMENT, centralityColumn.getId());

@@ -27,8 +27,9 @@ import java.util.Map;
  */
 @SessionScoped
 public class UserSession implements Serializable {
-    public static final String APP_ID = "client.webgephi.cz";
-    public static final String APP_SECRET = "68c17d0d-5090-4b0e-bb2f-f4fe50d83704";
+    public static final String PROP_OAUTH_CONSUMER_KEY = "OAUTH_CONSUMER_KEY";
+    public static final String PROP_OAUTH_CONSUMER_SECRET = "OAUTH_CONSUMER_SECRET";
+    public static final String PROP_WEBGEPHI_SERVER_URL = "WEBGEPHI_SERVER_URL";
 
     private static final String SERVER_URL_LOCAL = "https://webgephi.local:8443";
     private static final String SERVER_URL_PRODUCTION = "https://webgephi.cz";
@@ -131,7 +132,31 @@ public class UserSession implements Serializable {
         return false;
     }
 
+    public String getOAuthConsumerKey() {
+        String prop = System.getProperty(PROP_OAUTH_CONSUMER_KEY);
+        if(prop != null) {
+            return prop;
+        }
+        return "client.webgephi.cz";
+    }
+
+    public String getOAuthConsumerSecret() {
+        String prop = System.getProperty(PROP_OAUTH_CONSUMER_SECRET);
+        if(prop != null) {
+            return prop;
+        }
+        return "68c17d0d-5090-4b0e-bb2f-f4fe50d83704";
+    }
+
     public String getServerUrl() {
+        String prop = System.getProperty(PROP_WEBGEPHI_SERVER_URL);
+        if(prop != null) {
+            if(prop.endsWith("/")){
+                prop = prop.substring(0, prop.length() - 1);
+            }
+            return prop;
+        }
+
         if (getBaseUrl().contains("local")) {
             return UserSession.SERVER_URL_LOCAL;
         } else {

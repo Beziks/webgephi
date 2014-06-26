@@ -44,7 +44,7 @@ public class GraphsQuery extends AbstractBeanQuery<GraphDetailXml> {
             String href = graphsXml.getLast().getHref();
             int start = href.indexOf("page=") + 5;
             int end = href.indexOf("&", start);
-            if(end < 0){
+            if (end < 0) {
                 end = href.length();
             }
 
@@ -69,18 +69,26 @@ public class GraphsQuery extends AbstractBeanQuery<GraphDetailXml> {
         int offset = (page - 1) * pageSize;
 
         List<GraphDetailXml> graphs = new ArrayList<GraphDetailXml>();
-        int firstGraph =  startIndex - offset;
+        int firstGraph = startIndex - offset;
 
-        while(graphs.size() < count + firstGraph){
+        while (graphs.size() < count + firstGraph) {
             loadPage(page, graphs);
             page++;
+            if (graphs.isEmpty()) {
+                // No graph in storage
+                break;
+            }
         }
 
         Notification.show("Loaded graph data", "Graph rows " + startIndex + " -> " + (startIndex + count), Notification.Type.TRAY_NOTIFICATION);
-        return graphs.subList(firstGraph, firstGraph + count);
+        int end = firstGraph + count;
+        if (end > graphs.size()) {
+            end = graphs.size();
+        }
+        return graphs.subList(firstGraph, end);
     }
 
-    private void loadPage(int pageNumber, List<GraphDetailXml> graphs){
+    private void loadPage(int pageNumber, List<GraphDetailXml> graphs) {
         try {
             GraphsXml graphsXml = userSession.getWebgephiClient().getGraphs(pageNumber, pageSize, true);
             graphs.addAll(graphsXml.getGraphs());

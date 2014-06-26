@@ -7,7 +7,7 @@
     <parent>
         <artifactId>webgephi</artifactId>
         <groupId>cz.cokrtvac.webgephi</groupId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>1.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -519,7 +519,6 @@
                         <version>2.2</version>
                         <configuration>
                             <packagingExcludes>**/javax/**/*.*,**/client/local/**/*.class</packagingExcludes>
-                            <outputFileNameMapping>@{artifactId}@-@{baseVersion}@@{dashClassifier?}@.@{extension}@</outputFileNameMapping>
                         </configuration>
                     </plugin>
                 </plugins>
